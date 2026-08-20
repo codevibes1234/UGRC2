@@ -273,25 +273,22 @@ void ZCubeTopology::init_network()
 
     // -------------------------------------------------------------------------
     // Link 3: L0 <-> L1 (inter-switch backbone)
-    // Switch ports are independent and each runs at full SPEED.
-    // The paper (Fig 24, Table 6) shows ALL links at the same 200G rate —
-    // there is no halving at the switch level. The SPEED/2 only applies to
-    // GPU NIC ports because each GPU splits one logical NIC into two ports.
-    // Switches have no such constraint: every port runs at full line rate.
+    // All links run at the same speed: SPEED/2
+    // This ensures uniform link bandwidth across the topology.
     // -------------------------------------------------------------------------
     for (int l0 = 0; l0 < NL0; l0++)
     {
         for(int l1 = 0; l1 < NL1; l1++)
         {
-            // L0 -> L1  (full SPEED — switch port, not a NIC)
-            queues_l0_l1[l0][l1] = alloc_queue(queueLogger, SPEED, _queuesize);
+            // L0 -> L1  (SPEED/2 — uniform with GPU-switch links)
+            queues_l0_l1[l0][l1] = alloc_queue(queueLogger, SPEED/2, _queuesize);
             queues_l0_l1[l0][l1]->setName("L0_"+ntoa(l0)+"->L1_"+ntoa(l1));
 
             pipes_l0_l1[l0][l1] = new Pipe(timeFromNs(RTT_net), *eventlist);
             pipes_l0_l1[l0][l1]->setName("Pipe-L0_"+ntoa(l0)+"->L1_"+ntoa(l1));
 
-            // L1 -> L0  (full SPEED — switch port, not a NIC)
-            queues_l1_l0[l1][l0] = alloc_queue(queueLogger, SPEED, _queuesize);
+            // L1 -> L0  (SPEED/2 — uniform with GPU-switch links)
+            queues_l1_l0[l1][l0] = alloc_queue(queueLogger, SPEED/2, _queuesize);
             queues_l1_l0[l1][l0]->setName("L1_"+ntoa(l1)+"->L0_"+ntoa(l0));
 
             pipes_l1_l0[l1][l0] = new Pipe(timeFromNs(RTT_net), *eventlist);
