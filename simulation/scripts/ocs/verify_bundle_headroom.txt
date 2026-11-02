@@ -1,0 +1,17 @@
+workload     arm        model   overshoot  link_gbps    ovf_fixed   ovf_scaled makespan_ms
+dlrm16       dragonfly  base         3.01        100            0            0     110.62
+dlrm16       dragonfly  delay        4.24        100            0            0     111.32
+dlrm16       dheu       base         5.75        300            9            0     177.17
+dlrm16       dheu       delay        9.56        300          607            0     177.26
+vgg16        dragonfly  base         2.99        100            0            0     379.38
+vgg16        dragonfly  delay        4.15        100            0            0     379.58
+vgg16        dheu       base         5.38        300           53            0     448.77
+vgg16        dheu       delay        9.87        300         1805            0     456.87
+candle16     dragonfly  base         3.22        100            0            0     845.99
+candle16     dragonfly  delay        4.35        100            0            0     838.28
+candle16     dheu       base         5.38        300           64            0    1051.08
+candle16     dheu       delay        9.57        300         5933            0    1055.48
+vgg32        dragonfly  base         3.08        100            0            0     574.03
+vgg32        dragonfly  delay        4.38        100            0            0     574.04
+vgg32        dheu       base         5.38        300          105            0     565.72
+vgg32        dheu       delay        9.43        300         3649            0     568.97

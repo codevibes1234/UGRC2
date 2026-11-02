@@ -49,6 +49,8 @@ public:
   // Queue* alloc_queue(QueueLogger* q, mem_b queuesize);
   Queue* alloc_queue(QueueLogger* q, uint64_t speed, mem_b queuesize);
 
+  static bool ecn_queue_exact;
+
   void count_queue(Queue*);
   void print_path(std::ofstream& paths,int src,const Route* route);
   vector<int>* get_neighbours(int src) { return NULL;};

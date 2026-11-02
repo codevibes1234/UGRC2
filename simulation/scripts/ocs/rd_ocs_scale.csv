@@ -1,0 +1,11 @@
+series,nodes,deg,arm,transport,placement,jobs,jobnodes,decomp,allreduce,pfc_variant,exit,wall_s,rss_kb,construction,links,diameter,mean_hops,reconfs,pfc_stop,job0_ms,job0_tp_ms,job0_dp_ms,job0_ep_ms,job0_pp_ms,makespan_ms,incomplete,pfc_peak_pkts,pfc_overshoot_pkts,pfc_overflow,egress_peak_transit_pkts,egress_transit_only_overflow,verdict
+fullmdp,128,9,dheu,roce,compact,1,128,tp4.dp4.pp4.ep2,rhd,base,0,34.98,302400,demand-driven,NA,NA,NA,9,2961,4.85913,3.89202,4.85913,2.05151,1.1694,4.85913,0,21.5846,6.5846,465,80.9311,0,OK
+fullmdp,128,9,dheu,roce,compact,1,128,tp4.dp4.pp4.ep2,ring,base,0,34.56,302624,demand-driven,NA,NA,NA,11,3576,6.04613,5.40878,6.04613,2.50237,2.24016,6.04613,0,21.2444,6.2444,24,97.1173,0,OK
+fullmdp,128,12,dheu,roce,compact,1,128,tp4.dp4.pp4.ep2,rhd,base,0,33.37,301712,demand-driven,NA,NA,NA,8,3047,4.69899,3.30025,4.69899,2.02646,1.01743,4.69899,0,23.59,8.58997,1288,75.949,0,OK
+tenancy,128,9,dheu,roce,compact,1,32,tp2.dp4.pp2.ep2,rhd,base,0,4.68,88656,demand-driven,NA,NA,NA,9,267,4.01349,1.08025,4.01349,0.973652,0.633177,4.01349,0,19.2211,4.22113,0,94.3107,0,OK
+tenancy,128,9,dheu,roce,compact,2,32,tp2.dp4.pp2.ep2,rhd,base,0,8.49,156696,demand-driven,NA,NA,NA,8,915,3.59309,0.999459,3.59309,0.980683,0.852613,3.59309,0,21.4056,6.40555,243,64.7449,0,OK
+tenancy,128,9,dheu,roce,compact,4,32,tp2.dp4.pp2.ep2,rhd,base,0,19.32,291008,demand-driven,NA,NA,NA,8,1881,3.81089,1.50308,3.81089,0.707199,0.672825,3.82798,0,21.6249,6.62489,772,97.1173,0,OK
+tenancy,128,9,dheu,roce,scatter,1,32,tp2.dp4.pp2.ep2,rhd,base,0,4.08,89232,demand-driven,NA,NA,NA,7,370,2.8712,0.852449,2.8712,0.57787,0.606122,2.8712,0,21.2534,6.25336,131,44.5837,0,OK
+tenancy,128,9,dheu,roce,scatter,2,32,tp2.dp4.pp2.ep2,rhd,base,0,9.95,156072,demand-driven,NA,NA,NA,7,919,2.98126,0.920864,2.98126,0.9031,0.580758,2.98126,0,21.5577,6.55774,533,48.5586,0,OK
+tenancy,128,9,dheu,roce,scatter,4,32,tp2.dp4.pp2.ep2,rhd,base,0,25.49,289828,demand-driven,NA,NA,NA,9,2024,3.85135,1.9163,3.85135,1.90228,0.957858,4.73473,0,21.4414,6.44136,220,87.0815,0,OK
+fullmdp,256,12,dheu,roce,compact,1,256,tp4.dp4.pp4.ep4,rhd,base,0,820.11,635820,demand-driven,NA,NA,NA,9,7706,6.62085,5.27745,6.62085,1.71209,2.11082,6.62085,0,23.7019,8.70188,3907,143.653,0,OK

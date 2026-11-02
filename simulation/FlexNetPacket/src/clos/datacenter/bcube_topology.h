@@ -25,7 +25,7 @@
 
 #ifndef QT
 #define QT
-typedef enum {RANDOM, COMPOSITE, COMPOSITE_PRIO} queue_type;
+typedef enum {RANDOM, ECN, COMPOSITE, CTRL_PRIO, LOSSLESS, LOSSLESS_INPUT, LOSSLESS_INPUT_ECN} queue_type;
 #endif
 
 class BCubeTopology: public Topology{
@@ -42,6 +42,8 @@ class BCubeTopology: public Topology{
   EventList* eventlist;
   
   BCubeTopology(int no_of_nodes, int ports_per_switch, int no_of_levels, 
+		Logfile* log,EventList* ev,FirstFit* f, queue_type q);
+  BCubeTopology(int no_of_nodes, int ports_per_switch, int no_of_levels, mem_b queuesize,
 		Logfile* log,EventList* ev,FirstFit* f, queue_type q);
 
   void init_network();
@@ -60,6 +62,8 @@ class BCubeTopology: public Topology{
   queue_type qt;
   map<Queue*,int> _link_usage;
   int _K, _NUM_PORTS, _NUM_SRV, _NUM_SW;
+  mem_b _queuesize;
+  uint64_t _linkspeed;
   void set_params(int no_of_nodes, int ports_per_switch, int no_of_levels);
 
   int srv_from_address(unsigned int* address);
@@ -74,6 +78,7 @@ class BCubeTopology: public Topology{
   Queue* alloc_src_queue(QueueLogger* queueLogger);
   Queue* alloc_queue(QueueLogger* queueLogger);
   Queue* alloc_queue(QueueLogger* queueLogger, uint64_t speed);
+  void add_lossless_hop(Route* rt, Queue* q);
 };
 
 #endif

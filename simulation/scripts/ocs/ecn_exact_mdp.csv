@@ -1,0 +1,36 @@
+series,nodes,deg,arm,transport,placement,jobs,jobnodes,decomp,allreduce,pfc_variant,exit,wall_s,rss_kb,construction,links,diameter,mean_hops,reconfs,pfc_stop,job0_ms,job0_tp_ms,job0_dp_ms,job0_ep_ms,job0_pp_ms,makespan_ms,incomplete,pfc_peak_pkts,pfc_overshoot_pkts,pfc_overflow,egress_peak_transit_pkts,egress_transit_only_overflow,verdict
+tenancy,16,4,jellyfish,dctcp,compact,1,4,tp2.dp2.pp1.ep1,rhd,ecnexact,0,0.02,4832,random regular graph; degree budget 4,31,3,1.96667,0,0,16.382,11.6828,16.382,NA,NA,16.382,0,0,0,0,0,0,OK
+tenancy,16,4,jellyfish,dctcp,compact,2,4,tp2.dp2.pp1.ep1,rhd,ecnexact,0,0.02,4984,random regular graph; degree budget 4,31,3,1.96667,0,0,22.3399,11.6828,22.3399,NA,NA,22.3399,0,0,0,0,0,0,OK
+tenancy,16,4,jellyfish,dctcp,compact,4,4,tp2.dp2.pp1.ep1,rhd,ecnexact,0,0.05,5080,random regular graph; degree budget 4,31,3,1.96667,0,0,22.3399,12.1481,22.3399,NA,NA,22.3399,0,0,0,0,0,0,OK
+tenancy,16,4,jellyfish,dctcp,scatter,1,4,tp2.dp2.pp1.ep1,rhd,ecnexact,0,0.01,4828,random regular graph; degree budget 4,31,3,1.96667,0,0,11.6849,11.6849,5.37489,NA,NA,11.6849,0,0,0,0,0,0,OK
+tenancy,16,4,jellyfish,dctcp,scatter,2,4,tp2.dp2.pp1.ep1,rhd,ecnexact,0,0.02,4896,random regular graph; degree budget 4,31,3,1.96667,0,0,11.6849,11.6849,5.37489,NA,NA,16.6346,0,0,0,0,0,0,OK
+tenancy,16,4,jellyfish,dctcp,scatter,4,4,tp2.dp2.pp1.ep1,rhd,ecnexact,0,0.05,5028,random regular graph; degree budget 4,31,3,1.96667,0,0,11.6849,11.6849,5.37489,NA,NA,29.6937,0,0,0,0,0,0,OK
+fullmdp,16,4,jellyfish,dctcp,compact,1,16,tp2.dp2.pp2.ep2,rhd,ecnexact,0,0.10,5236,random regular graph; degree budget 4,31,3,1.96667,0,0,34.1759,23.0901,34.1759,15.6297,13.1339,34.1759,0,0,0,0,0,0,OK
+tenancy,16,4,flatbutterfly,dctcp,compact,1,4,tp2.dp2.pp1.ep1,rhd,ecnexact,0,0.01,4724,2-ary 4-flat; degree 4,32,4,2.13333,0,0,5.37075,0.673987,5.37075,NA,NA,5.37075,0,0,0,0,0,0,OK
+tenancy,16,4,flatbutterfly,dctcp,compact,2,4,tp2.dp2.pp1.ep1,rhd,ecnexact,0,0.01,4924,2-ary 4-flat; degree 4,32,4,2.13333,0,0,5.37075,0.673987,5.37075,NA,NA,5.37075,0,0,0,0,0,0,OK
+tenancy,16,4,flatbutterfly,dctcp,compact,4,4,tp2.dp2.pp1.ep1,rhd,ecnexact,0,0.03,5188,2-ary 4-flat; degree 4,32,4,2.13333,0,0,5.37075,0.673987,5.37075,NA,NA,5.37075,0,0,0,0,0,0,OK
+tenancy,16,4,flatbutterfly,dctcp,scatter,1,4,tp2.dp2.pp1.ep1,rhd,ecnexact,0,0.01,4808,2-ary 4-flat; degree 4,32,4,2.13333,0,0,11.6849,11.6849,5.37418,NA,NA,11.6849,0,0,0,0,0,0,OK
+tenancy,16,4,flatbutterfly,dctcp,scatter,2,4,tp2.dp2.pp1.ep1,rhd,ecnexact,0,0.03,4792,2-ary 4-flat; degree 4,32,4,2.13333,0,0,11.6849,11.6849,5.37418,NA,NA,17.1438,0,0,0,0,0,0,OK
+tenancy,16,4,flatbutterfly,dctcp,scatter,4,4,tp2.dp2.pp1.ep1,rhd,ecnexact,0,0.06,4792,2-ary 4-flat; degree 4,32,4,2.13333,0,0,23.7039,23.7039,5.37489,NA,NA,33.6478,0,0,0,0,0,0,OK
+fullmdp,16,4,flatbutterfly,dctcp,compact,1,16,tp2.dp2.pp2.ep2,rhd,ecnexact,0,0.04,5384,2-ary 4-flat; degree 4,32,4,2.13333,0,0,5.37075,0.673987,5.37075,0.672272,0.336994,5.37075,0,0,0,0,0,0,OK
+tenancy,16,4,dragonfly,dctcp,compact,1,4,tp2.dp2.pp1.ep1,rhd,ecnexact,0,0.01,4892,4 groups x 4 nodes; 1 global port(s) per node,32,3,2.1,0,0,5.37075,0.673987,5.37075,NA,NA,5.37075,0,0,0,0,0,0,OK
+tenancy,16,4,dragonfly,dctcp,compact,2,4,tp2.dp2.pp1.ep1,rhd,ecnexact,0,0.01,4896,4 groups x 4 nodes; 1 global port(s) per node,32,3,2.1,0,0,5.37075,0.673987,5.37075,NA,NA,5.37075,0,0,0,0,0,0,OK
+tenancy,16,4,dragonfly,dctcp,compact,4,4,tp2.dp2.pp1.ep1,rhd,ecnexact,0,0.03,5204,4 groups x 4 nodes; 1 global port(s) per node,32,3,2.1,0,0,5.37075,0.673987,5.37075,NA,NA,5.37075,0,0,0,0,0,0,OK
+tenancy,16,4,dragonfly,dctcp,scatter,1,4,tp2.dp2.pp1.ep1,rhd,ecnexact,0,0.02,4640,4 groups x 4 nodes; 1 global port(s) per node,32,3,2.1,0,0,22.4104,12.5512,22.4104,NA,NA,22.4104,0,0,0,0,0,0,OK
+tenancy,16,4,dragonfly,dctcp,scatter,2,4,tp2.dp2.pp1.ep1,rhd,ecnexact,0,0.04,4768,4 groups x 4 nodes; 1 global port(s) per node,32,3,2.1,0,0,22.9934,12.5512,22.9934,NA,NA,22.9934,0,0,0,0,0,0,OK
+tenancy,16,4,dragonfly,dctcp,scatter,4,4,tp2.dp2.pp1.ep1,rhd,ecnexact,0,0.08,5152,4 groups x 4 nodes; 1 global port(s) per node,32,3,2.1,0,0,22.753,13.4079,22.753,NA,NA,23.1497,0,0,0,0,0,0,OK
+fullmdp,16,4,dragonfly,dctcp,compact,1,16,tp2.dp2.pp2.ep2,rhd,ecnexact,0,0.08,5160,4 groups x 4 nodes; 1 global port(s) per node,32,3,2.1,0,0,31.0453,0.674702,31.0453,11.6657,12.0906,31.0453,0,0,0,0,0,0,OK
+tenancy,16,4,megafly,dctcp,compact,1,4,tp2.dp2.pp1.ep1,rhd,ecnexact,0,0.01,4896,4 groups x [2 leaf + 2 spine],22,5,2.55,0,0,16.6356,13.5127,16.6356,NA,NA,16.6356,0,0,0,0,0,0,OK
+tenancy,16,4,megafly,dctcp,compact,2,4,tp2.dp2.pp1.ep1,rhd,ecnexact,0,0.02,4784,4 groups x [2 leaf + 2 spine],22,5,2.55,0,0,16.6356,13.5127,16.6356,NA,NA,27.0895,0,0,0,0,0,0,OK
+tenancy,16,4,megafly,dctcp,compact,4,4,tp2.dp2.pp1.ep1,rhd,ecnexact,0,0.03,5052,4 groups x [2 leaf + 2 spine],22,5,2.55,0,0,16.6356,13.5127,16.6356,NA,NA,27.0895,0,0,0,0,0,0,OK
+tenancy,16,4,megafly,dctcp,scatter,1,4,tp2.dp2.pp1.ep1,rhd,ecnexact,0,0.01,4636,4 groups x [2 leaf + 2 spine],22,5,2.55,0,0,17.0519,12.2332,17.0519,NA,NA,17.0519,0,0,0,0,0,0,OK
+tenancy,16,4,megafly,dctcp,scatter,2,4,tp2.dp2.pp1.ep1,rhd,ecnexact,0,0.05,4856,4 groups x [2 leaf + 2 spine],22,5,2.55,0,0,22.2573,14.0611,22.2573,NA,NA,22.6806,0,0,0,0,0,0,OK
+tenancy,16,4,megafly,dctcp,scatter,4,4,tp2.dp2.pp1.ep1,rhd,ecnexact,0,0.10,5028,4 groups x [2 leaf + 2 spine],22,5,2.55,0,0,28.7525,19.0679,28.7525,NA,NA,33.0689,0,0,0,0,0,0,OK
+fullmdp,16,4,megafly,dctcp,compact,1,16,tp2.dp2.pp2.ep2,rhd,ecnexact,0,0.09,5152,4 groups x [2 leaf + 2 spine],22,5,2.55,0,0,52.2938,22.1968,52.2938,13.3172,23.9998,52.2938,0,0,0,0,0,0,OK
+tenancy,16,4,dheu,dctcp,compact,1,4,tp2.dp2.pp1.ep1,rhd,ecnexact,0,0.01,4716,demand-driven,NA,NA,NA,24,0,11.4387,11.4387,2.39268,NA,NA,11.4387,0,0,0,0,0,0,OK
+tenancy,16,4,dheu,dctcp,compact,2,4,tp2.dp2.pp1.ep1,rhd,ecnexact,0,0.02,4940,demand-driven,NA,NA,NA,27,0,13.232,11.8215,13.232,NA,NA,13.232,0,0,0,0,0,0,OK
+tenancy,16,4,dheu,dctcp,compact,4,4,tp2.dp2.pp1.ep1,rhd,ecnexact,0,0.05,5108,demand-driven,NA,NA,NA,27,0,13.2882,11.877,13.2882,NA,NA,13.3109,0,0,0,0,0,0,OK
+tenancy,16,4,dheu,dctcp,scatter,1,4,tp2.dp2.pp1.ep1,rhd,ecnexact,0,0.01,4792,demand-driven,NA,NA,NA,27,0,13.1491,1.16089,13.1491,NA,NA,13.1491,0,0,0,0,0,0,OK
+tenancy,16,4,dheu,dctcp,scatter,2,4,tp2.dp2.pp1.ep1,rhd,ecnexact,0,0.03,4940,demand-driven,NA,NA,NA,27,0,13.2937,12.019,13.2937,NA,NA,13.2937,0,0,0,0,0,0,OK
+tenancy,16,4,dheu,dctcp,scatter,4,4,tp2.dp2.pp1.ep1,rhd,ecnexact,0,0.06,5224,demand-driven,NA,NA,NA,27,0,13.6252,12.3228,13.6252,NA,NA,13.6252,0,0,0,0,0,0,OK
+fullmdp,16,4,dheu,dctcp,compact,1,16,tp2.dp2.pp2.ep2,rhd,ecnexact,0,0.08,5660,demand-driven,NA,NA,NA,48,0,24.1106,23.2629,24.1106,13.1261,13.174,24.1106,0,0,0,0,0,0,OK

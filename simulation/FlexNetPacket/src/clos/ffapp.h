@@ -328,6 +328,8 @@ public:
     TcpRtxTimerScanner & tcpRtxScanner;
     std::unordered_map<uint64_t, std::vector<std::vector<int>>> selected_jumps;
     bool fancy_ring;
+    static uint32_t roce_initial_credits;
+    static uint32_t placement_seed;
     bool finished_once;
 
     static int total_apps;

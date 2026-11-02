@@ -18,7 +18,7 @@
  */
 
 #include "ffapp.h"
-#include "dctcp.h"
+#include "rocev2.h"
 #include <numeric>
 #include "datacenter/ffapp_bfb_l2k44_tg.h"
 #include "datacenter/l2k44_topology.h"
@@ -316,16 +316,13 @@ bool FFLK44_128BFBAllreduceTask::start_bfb_flow(int snd, int rcv,
 {
     auto* f = new FFLK44_128BFBTaskFlow{this, current_step, current_phase};
 
-    DCTCPSrc* fs = new DCTCPSrc(
-        nullptr, nullptr, ffapp->fstream_out,
-        eventlist(), snd, rcv,
+    RoCEv2Src* fs = new RoCEv2Src(
+        nullptr, eventlist(), snd, rcv,
         ar_finish_l2k44_bfb_task, static_cast<void*>(f));
-    TcpSink* snk = new TcpSink();
+    RoCEv2Sink* snk = new RoCEv2Sink(nullptr, eventlist());
 
     fs->set_flowsize(bytes);
-    fs->set_ssthresh(ffapp->ssthresh * Packet::data_packet_size());
-    fs->_rto = timeFromMs(ffapp->bfb_rto_ms);
-    ffapp->tcpRtxScanner.registerTcp(*fs);
+    fs->set_initial_credits(RoCEv2Src::default_initial_credits);
 
     auto* sp = _topology->get_paths(snd, rcv);
     if (!sp || sp->empty()) {

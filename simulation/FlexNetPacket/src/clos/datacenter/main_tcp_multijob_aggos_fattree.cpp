@@ -77,6 +77,12 @@ void print_path(std::ofstream &paths, const Route *rt)
   paths << endl;
 }
 
+#ifdef USE_DCTCP
+#define FABRIC_QUEUE ECN
+#else
+#define FABRIC_QUEUE LOSSLESS_INPUT
+#endif
+
 int main(int argc, char **argv)
 {
 
@@ -263,7 +269,7 @@ int main(int argc, char **argv)
   TcpRtxTimerScanner tcpRtxScanner(timeFromMs(1), eventlist);
 
   AggOverSubscribedFatTree* top = 
-    new AggOverSubscribedFatTree(k, nup, queuesize, nullptr /* &logfile */, &eventlist, ff, ECN);
+    new AggOverSubscribedFatTree(k, nup, queuesize, nullptr /* &logfile */, &eventlist, ff, FABRIC_QUEUE);
   // note that 'queuesize' does not pass throuf_nodesgh currently for RANDOM...
 
   std::unordered_set<int> candidates;

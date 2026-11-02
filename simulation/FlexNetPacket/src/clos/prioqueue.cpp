@@ -89,6 +89,7 @@ CtrlPrioQueue::getPriority(Packet& pkt) {
     queue_priority_t prio = Q_LO;
     switch (pkt.type()) {
     case TCPACK:
+    case ROCECREDIT:
     case NDPACK:
     case NDPNACK:
     case NDPPULL:

@@ -27,7 +27,13 @@
  */
 
 #include "ffapp_rhd.h"
+#include "ecmp_hash.h"
+#ifdef USE_DCTCP
+#include "tcp.h"
 #include "dctcp.h"
+#else
+#include "rocev2.h"
+#endif
 #include "topology.h"
 #include <numeric>
 #include <iostream>
@@ -308,11 +314,12 @@ void FFZCubeRHDAllreduceTask::start_one_flow(int src, int dst,
 {
     auto* paths_out = _topology->get_paths(src, dst);
     auto* paths_in  = _topology->get_paths(dst, src);
-    Route* routeout = new Route(*paths_out->at(0));
-    Route* routein  = new Route(*paths_in->at(0));
+    Route* routeout = new Route(*paths_out->at(ecmp_path_index(src, dst, paths_out->size())));
+    Route* routein  = new Route(*paths_in->at(ecmp_path_index(dst, src, paths_in->size())));
     delete paths_out;
     delete paths_in;
 
+#ifdef USE_DCTCP
     DCTCPSrc* fs = new DCTCPSrc(
         nullptr, nullptr, ffapp->fstream_out,
         eventlist(), src, dst,
@@ -322,6 +329,14 @@ void FFZCubeRHDAllreduceTask::start_one_flow(int src, int dst,
     fs->set_ssthresh(ffapp->ssthresh * Packet::data_packet_size());
     fs->_rto = timeFromMs(10);
     ffapp->tcpRtxScanner.registerTcp(*fs);
+#else
+    RoCEv2Src* fs = new RoCEv2Src(
+        nullptr, eventlist(), src, dst,
+        ar_finish_rhd_zcube, static_cast<void*>(this));
+    RoCEv2Sink* snk = new RoCEv2Sink(nullptr, eventlist());
+    fs->set_flowsize(bytes);
+    fs->set_initial_credits(RoCEv2Src::default_initial_credits);
+#endif
 
     routeout->push_back(snk);
     routein->push_back(fs);
@@ -339,5 +354,92 @@ void FFZCubeRHDAllreduceTask::advance()
         cleanup();
     } else {
         start_all_flows(curr_step);
+    }
+}
+
+// ============================================================================
+// ============================================================================
+
+void ar_finish_group_ring(void* ar_ptr)
+{
+    FFGroupRingAllreduceTask* ar = static_cast<FFGroupRingAllreduceTask*>(ar_ptr);
+    ar->finished_curr_step++;
+    if (ar->finished_curr_step == ar->flows_this_step)
+        ar->advance();
+}
+
+FFGroupRingAllreduceTask::FFGroupRingAllreduceTask(
+        FFApplication* ffapp, Topology* top, std::vector<uint64_t> ng, uint64_t sz)
+    : FFTask(ffapp, FFTask::TASK_ALLREDUCE),
+      _topology(top),
+      node_group(ng),
+      operator_size(sz > 0 ? sz : 1ULL),
+      curr_step(0), finished_curr_step(0), flows_this_step(0)
+{
+    run_time  = 0;
+    xfersize  = sz;
+    assert(ng.size() >= 2);
+    num_steps = 2 * ((int)ng.size() - 1);
+}
+
+void FFGroupRingAllreduceTask::doNextEvent()
+{
+    start_time = ready_time;
+    state      = FFTask::TASK_RUNNING;
+    std::cerr << "[GroupRing] Starting AllReduce N=" << node_group.size()
+              << " steps=" << num_steps << " size=" << operator_size << " bytes\n";
+    curr_step = finished_curr_step = flows_this_step = 0;
+    start_all_flows();
+}
+
+void FFGroupRingAllreduceTask::start_all_flows()
+{
+    const int N = (int)node_group.size();
+    uint64_t chunk = operator_size / (uint64_t)N;
+    if (chunk == 0) chunk = 1;
+
+    finished_curr_step = 0;
+    flows_this_step    = N;
+    simtime_picosec t0 = eventlist().now();
+
+    for (int i = 0; i < N; i++) {
+        int src = (int)node_group[i];
+        int dst = (int)node_group[(i + 1) % N];
+        auto* paths_out = _topology->get_paths(src, dst);
+        auto* paths_in  = _topology->get_paths(dst, src);
+        Route* routeout = new Route(*paths_out->at(ecmp_path_index(src, dst, paths_out->size())));
+        Route* routein  = new Route(*paths_in->at(ecmp_path_index(dst, src, paths_in->size())));
+        delete paths_out;
+        delete paths_in;
+#ifdef USE_DCTCP
+        DCTCPSrc* fs = new DCTCPSrc(nullptr, nullptr, ffapp->fstream_out,
+                                    eventlist(), src, dst,
+                                    ar_finish_group_ring, static_cast<void*>(this));
+        TcpSink* snk = new TcpSink();
+        fs->set_flowsize(chunk);
+        fs->set_ssthresh(ffapp->ssthresh * Packet::data_packet_size());
+        fs->_rto = timeFromMs(10);
+        ffapp->tcpRtxScanner.registerTcp(*fs);
+#else
+        RoCEv2Src* fs = new RoCEv2Src(nullptr, eventlist(), src, dst,
+                                      ar_finish_group_ring, static_cast<void*>(this));
+        RoCEv2Sink* snk = new RoCEv2Sink(nullptr, eventlist());
+        fs->set_flowsize(chunk);
+        fs->set_initial_credits(RoCEv2Src::default_initial_credits);
+#endif
+        routeout->push_back(snk);
+        routein->push_back(fs);
+        fs->connect(*routeout, *routein, *snk, t0);
+    }
+}
+
+void FFGroupRingAllreduceTask::advance()
+{
+    curr_step++;
+    if (curr_step == num_steps) {
+        finish_time = eventlist().now();
+        cleanup();
+    } else {
+        start_all_flows();
     }
 }

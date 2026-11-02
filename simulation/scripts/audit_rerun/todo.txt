@@ -1,0 +1,256 @@
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_a2a.sh roce fattree128 updown 65536
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_a2a.sh roce zcubepartial updown 65536
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_a2a.sh roce jellyfish updown 65536
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_a2a.sh roce flatbutterfly updown 65536
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_a2a.sh roce dragonfly updown 65536
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_a2a.sh roce megafly updown 65536
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_a2a.sh roce fattree128 updown 262144
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_a2a.sh roce zcubepartial updown 262144
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_a2a.sh roce jellyfish updown 262144
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_a2a.sh roce flatbutterfly updown 262144
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_a2a.sh roce dragonfly updown 262144
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_a2a.sh roce megafly updown 262144
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_a2a.sh roce fattree128 updown 1048576
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_a2a.sh roce zcubepartial updown 1048576
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_a2a.sh roce jellyfish updown 1048576
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_a2a.sh roce flatbutterfly updown 1048576
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_a2a.sh roce dragonfly updown 1048576
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_a2a.sh roce megafly updown 1048576
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_a2a.sh roce fattree128 updown 4194304
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_a2a.sh roce zcubepartial updown 4194304
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_a2a.sh roce jellyfish updown 4194304
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_a2a.sh roce flatbutterfly updown 4194304
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_a2a.sh roce dragonfly updown 4194304
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_a2a.sh roce megafly updown 4194304
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_a2a.sh roce fattree128 updown 16777216
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_a2a.sh roce zcubepartial updown 16777216
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_a2a.sh roce jellyfish updown 16777216
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_a2a.sh roce flatbutterfly updown 16777216
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_a2a.sh roce dragonfly updown 16777216
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_a2a.sh roce megafly updown 16777216
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_a2a.sh roce fattree128 updown 33554432
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_a2a.sh roce zcubepartial updown 33554432
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_a2a.sh roce jellyfish updown 33554432
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_a2a.sh roce flatbutterfly updown 33554432
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_a2a.sh roce dragonfly updown 33554432
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_a2a.sh roce megafly updown 33554432
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_ar.sh roce fattree128 ecmp 65536
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_ar.sh roce fattree128 updown 65536
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_ar.sh dctcp fattree128 ecmp 65536
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_ar.sh dctcp fattree128 updown 65536
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_ar.sh roce zcubepartial ecmp 65536
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_ar.sh roce zcubepartial updown 65536
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_ar.sh dctcp zcubepartial ecmp 65536
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_ar.sh dctcp zcubepartial updown 65536
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_ar.sh roce jellyfish ecmp 65536
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_ar.sh roce jellyfish updown 65536
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_ar.sh dctcp jellyfish ecmp 65536
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_ar.sh dctcp jellyfish updown 65536
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_ar.sh roce flatbutterfly ecmp 65536
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_ar.sh roce flatbutterfly updown 65536
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_ar.sh dctcp flatbutterfly ecmp 65536
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_ar.sh dctcp flatbutterfly updown 65536
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_ar.sh roce dragonfly ecmp 65536
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_ar.sh roce dragonfly updown 65536
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_ar.sh dctcp dragonfly ecmp 65536
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_ar.sh dctcp dragonfly updown 65536
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_ar.sh roce megafly ecmp 65536
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_ar.sh roce megafly updown 65536
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_ar.sh dctcp megafly ecmp 65536
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_ar.sh dctcp megafly updown 65536
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_ar.sh roce fattree128 ecmp 262144
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_ar.sh roce fattree128 updown 262144
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_ar.sh dctcp fattree128 ecmp 262144
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_ar.sh dctcp fattree128 updown 262144
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_ar.sh roce zcubepartial ecmp 262144
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_ar.sh roce zcubepartial updown 262144
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_ar.sh dctcp zcubepartial ecmp 262144
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_ar.sh dctcp zcubepartial updown 262144
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_ar.sh roce jellyfish ecmp 262144
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_ar.sh roce jellyfish updown 262144
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_ar.sh dctcp jellyfish ecmp 262144
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_ar.sh dctcp jellyfish updown 262144
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_ar.sh roce flatbutterfly ecmp 262144
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_ar.sh roce flatbutterfly updown 262144
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_ar.sh dctcp flatbutterfly ecmp 262144
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_ar.sh dctcp flatbutterfly updown 262144
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_ar.sh roce dragonfly ecmp 262144
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_ar.sh roce dragonfly updown 262144
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_ar.sh dctcp dragonfly ecmp 262144
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_ar.sh dctcp dragonfly updown 262144
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_ar.sh roce megafly ecmp 262144
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_ar.sh roce megafly updown 262144
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_ar.sh dctcp megafly ecmp 262144
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_ar.sh dctcp megafly updown 262144
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_ar.sh roce fattree128 ecmp 1048576
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_ar.sh roce fattree128 updown 1048576
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_ar.sh dctcp fattree128 ecmp 1048576
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_ar.sh dctcp fattree128 updown 1048576
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_ar.sh roce zcubepartial ecmp 1048576
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_ar.sh roce zcubepartial updown 1048576
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_ar.sh dctcp zcubepartial ecmp 1048576
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_ar.sh dctcp zcubepartial updown 1048576
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_ar.sh roce jellyfish ecmp 1048576
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_ar.sh roce jellyfish updown 1048576
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_ar.sh dctcp jellyfish ecmp 1048576
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_ar.sh dctcp jellyfish updown 1048576
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_ar.sh roce flatbutterfly ecmp 1048576
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_ar.sh roce flatbutterfly updown 1048576
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_ar.sh dctcp flatbutterfly ecmp 1048576
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_ar.sh dctcp flatbutterfly updown 1048576
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_ar.sh roce dragonfly ecmp 1048576
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_ar.sh roce dragonfly updown 1048576
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_ar.sh dctcp dragonfly ecmp 1048576
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_ar.sh dctcp dragonfly updown 1048576
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_ar.sh roce megafly ecmp 1048576
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_ar.sh roce megafly updown 1048576
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_ar.sh dctcp megafly ecmp 1048576
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_ar.sh dctcp megafly updown 1048576
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_ar.sh roce fattree128 ecmp 4194304
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_ar.sh roce fattree128 updown 4194304
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_ar.sh dctcp fattree128 ecmp 4194304
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_ar.sh dctcp fattree128 updown 4194304
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_ar.sh roce zcubepartial ecmp 4194304
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_ar.sh roce zcubepartial updown 4194304
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_ar.sh dctcp zcubepartial ecmp 4194304
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_ar.sh dctcp zcubepartial updown 4194304
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_ar.sh roce jellyfish ecmp 4194304
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_ar.sh roce jellyfish updown 4194304
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_ar.sh dctcp jellyfish ecmp 4194304
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_ar.sh dctcp jellyfish updown 4194304
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_ar.sh roce flatbutterfly ecmp 4194304
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_ar.sh roce flatbutterfly updown 4194304
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_ar.sh dctcp flatbutterfly ecmp 4194304
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_ar.sh dctcp flatbutterfly updown 4194304
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_ar.sh roce dragonfly ecmp 4194304
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_ar.sh roce dragonfly updown 4194304
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_ar.sh dctcp dragonfly ecmp 4194304
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_ar.sh dctcp dragonfly updown 4194304
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_ar.sh roce megafly ecmp 4194304
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_ar.sh roce megafly updown 4194304
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_ar.sh dctcp megafly ecmp 4194304
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_ar.sh dctcp megafly updown 4194304
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_ar.sh roce fattree128 ecmp 16777216
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_ar.sh roce fattree128 updown 16777216
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_ar.sh dctcp fattree128 ecmp 16777216
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_ar.sh dctcp fattree128 updown 16777216
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_ar.sh roce zcubepartial ecmp 16777216
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_ar.sh roce zcubepartial updown 16777216
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_ar.sh dctcp zcubepartial ecmp 16777216
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_ar.sh dctcp zcubepartial updown 16777216
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_ar.sh roce jellyfish ecmp 16777216
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_ar.sh roce jellyfish updown 16777216
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_ar.sh dctcp jellyfish ecmp 16777216
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_ar.sh dctcp jellyfish updown 16777216
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_ar.sh roce flatbutterfly ecmp 16777216
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_ar.sh roce flatbutterfly updown 16777216
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_ar.sh dctcp flatbutterfly ecmp 16777216
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_ar.sh dctcp flatbutterfly updown 16777216
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_ar.sh roce dragonfly ecmp 16777216
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_ar.sh roce dragonfly updown 16777216
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_ar.sh dctcp dragonfly ecmp 16777216
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_ar.sh dctcp dragonfly updown 16777216
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_ar.sh roce megafly ecmp 16777216
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_ar.sh roce megafly updown 16777216
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_ar.sh dctcp megafly ecmp 16777216
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_ar.sh dctcp megafly updown 16777216
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_ar.sh roce fattree128 ecmp 67108864
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_ar.sh roce fattree128 updown 67108864
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_ar.sh dctcp fattree128 ecmp 67108864
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_ar.sh dctcp fattree128 updown 67108864
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_ar.sh roce zcubepartial ecmp 67108864
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_ar.sh roce zcubepartial updown 67108864
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_ar.sh dctcp zcubepartial ecmp 67108864
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_ar.sh dctcp zcubepartial updown 67108864
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_ar.sh roce jellyfish ecmp 67108864
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_ar.sh roce jellyfish updown 67108864
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_ar.sh dctcp jellyfish ecmp 67108864
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_ar.sh dctcp jellyfish updown 67108864
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_ar.sh roce flatbutterfly ecmp 67108864
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_ar.sh roce flatbutterfly updown 67108864
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_ar.sh dctcp flatbutterfly ecmp 67108864
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_ar.sh dctcp flatbutterfly updown 67108864
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_ar.sh roce dragonfly ecmp 67108864
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_ar.sh roce dragonfly updown 67108864
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_ar.sh dctcp dragonfly ecmp 67108864
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_ar.sh dctcp dragonfly updown 67108864
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_ar.sh roce megafly ecmp 67108864
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_ar.sh roce megafly updown 67108864
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_ar.sh dctcp megafly ecmp 67108864
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_ar.sh dctcp megafly updown 67108864
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_mdp.sh roce fattree128 ecmp tp tp
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_mdp.sh roce fattree128 ecmp dp dp
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_mdp.sh roce fattree128 ecmp ep ep
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_mdp.sh roce fattree128 ecmp pp pp
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_mdp.sh roce fattree128 ecmp tp,dp,ep,pp all
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_mdp.sh dctcp fattree128 ecmp tp tp
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_mdp.sh dctcp fattree128 ecmp dp dp
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_mdp.sh dctcp fattree128 ecmp ep ep
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_mdp.sh dctcp fattree128 ecmp pp pp
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_mdp.sh dctcp fattree128 ecmp tp,dp,ep,pp all
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_mdp.sh roce zcubepartial ecmp tp tp
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_mdp.sh roce zcubepartial ecmp dp dp
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_mdp.sh roce zcubepartial ecmp ep ep
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_mdp.sh roce zcubepartial ecmp pp pp
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_mdp.sh roce zcubepartial ecmp tp,dp,ep,pp all
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_mdp.sh dctcp zcubepartial ecmp tp tp
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_mdp.sh dctcp zcubepartial ecmp dp dp
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_mdp.sh dctcp zcubepartial ecmp ep ep
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_mdp.sh dctcp zcubepartial ecmp pp pp
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_mdp.sh dctcp zcubepartial ecmp tp,dp,ep,pp all
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_mdp.sh roce jellyfish ecmp tp tp
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_mdp.sh roce jellyfish ecmp dp dp
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_mdp.sh roce jellyfish ecmp ep ep
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_mdp.sh roce jellyfish ecmp pp pp
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_mdp.sh roce jellyfish ecmp tp,dp,ep,pp all
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_mdp.sh dctcp jellyfish ecmp tp tp
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_mdp.sh dctcp jellyfish ecmp dp dp
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_mdp.sh dctcp jellyfish ecmp ep ep
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_mdp.sh dctcp jellyfish ecmp pp pp
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_mdp.sh dctcp jellyfish ecmp tp,dp,ep,pp all
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_mdp.sh roce flatbutterfly ecmp tp tp
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_mdp.sh roce flatbutterfly ecmp dp dp
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_mdp.sh roce flatbutterfly ecmp ep ep
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_mdp.sh roce flatbutterfly ecmp pp pp
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_mdp.sh roce flatbutterfly ecmp tp,dp,ep,pp all
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_mdp.sh dctcp flatbutterfly ecmp tp tp
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_mdp.sh dctcp flatbutterfly ecmp dp dp
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_mdp.sh dctcp flatbutterfly ecmp ep ep
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_mdp.sh dctcp flatbutterfly ecmp pp pp
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_mdp.sh dctcp flatbutterfly ecmp tp,dp,ep,pp all
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_mdp.sh roce dragonfly ecmp tp tp
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_mdp.sh roce dragonfly ecmp dp dp
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_mdp.sh roce dragonfly ecmp ep ep
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_mdp.sh roce dragonfly ecmp pp pp
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_mdp.sh roce dragonfly ecmp tp,dp,ep,pp all
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_mdp.sh dctcp dragonfly ecmp tp tp
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_mdp.sh dctcp dragonfly ecmp dp dp
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_mdp.sh dctcp dragonfly ecmp ep ep
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_mdp.sh dctcp dragonfly ecmp pp pp
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_mdp.sh dctcp dragonfly ecmp tp,dp,ep,pp all
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_mdp.sh roce megafly ecmp tp tp
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_mdp.sh roce megafly ecmp dp dp
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_mdp.sh roce megafly ecmp ep ep
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_mdp.sh roce megafly ecmp pp pp
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_mdp.sh roce megafly ecmp tp,dp,ep,pp all
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_mdp.sh dctcp megafly ecmp tp tp
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_mdp.sh dctcp megafly ecmp dp dp
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_mdp.sh dctcp megafly ecmp ep ep
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_mdp.sh dctcp megafly ecmp pp pp
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_mdp.sh dctcp megafly ecmp tp,dp,ep,pp all
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_tg.sh roce jellyfish updown 40
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_tg.sh roce jellyfish updown 100
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_tg.sh roce jellyfish updown 200
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_tg.sh roce jellyfish updown 400
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_tg.sh roce flatbutterfly updown 40
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_tg.sh roce flatbutterfly updown 100
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_tg.sh roce flatbutterfly updown 200
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_tg.sh roce flatbutterfly updown 400
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_tg.sh roce dragonfly updown 40
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_tg.sh roce dragonfly updown 100
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_tg.sh roce dragonfly updown 200
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_tg.sh roce dragonfly updown 400
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_tg.sh roce megafly updown 40
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_tg.sh roce megafly updown 100
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_tg.sh roce megafly updown 200
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_tg.sh roce megafly updown 400

@@ -77,6 +77,12 @@ void print_path(std::ofstream &paths, const Route *rt)
     paths << endl;
 }
 
+#ifdef USE_DCTCP
+#define FABRIC_QUEUE ECN
+#else
+#define FABRIC_QUEUE LOSSLESS_INPUT
+#endif
+
 int main(int argc, char **argv)
 {
 
@@ -189,6 +195,14 @@ int main(int argc, char **argv)
     }
     srand(13);
 
+    {
+        uint64_t rtt_ps = 12ULL * RTT_net * 1000ULL;
+        uint64_t bdp_bytes = (uint64_t)SPEED * 1000000ULL / 8ULL * rtt_ps / 1000000000000ULL;
+        uint32_t credits = (uint32_t)(2 * bdp_bytes / 9000);
+        FFApplication::roce_initial_credits = credits < 8 ? 8 : credits;
+        cout << "roce_initial_credits " << FFApplication::roce_initial_credits << endl;
+    }
+
     eventlist.setEndtime(timeFromSec(simtime));
     Clock c(timeFromSec(5 / 100.), eventlist);
 
@@ -220,7 +234,7 @@ int main(int argc, char **argv)
 
     TcpRtxTimerScanner tcpRtxScanner(timeFromMs(1), eventlist);
 
-    FatTreeTopology *top = new FatTreeTopology(no_of_nodes, queuesize, nullptr /*&logfile*/, &eventlist, ff, ECN);
+    FatTreeTopology *top = new FatTreeTopology(no_of_nodes, queuesize, nullptr /*&logfile*/, &eventlist, ff, FABRIC_QUEUE);
     // note that 'queuesize' does not pass throuf_nodesgh currently for RANDOM...
 
     // FFApplication app = FFApplication(top, ssthresh, sinkLogger, traffic_logger, tcpRtxScanner, eventlist);

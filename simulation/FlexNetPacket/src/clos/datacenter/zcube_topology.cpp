@@ -321,7 +321,7 @@ void ZCubeTopology::init_network()
     }
 }
 
-void check_non_null(Route *rt)
+static void check_non_null(Route *rt)
 {
     int fail = 0;
     for (unsigned int i = 1; i < rt->size() - 1; i += 2)
@@ -340,6 +340,35 @@ void check_non_null(Route *rt)
     }
 }
 
+
+Route* ZCubeTopology::route_for_switch_path(int src, int dst, const std::vector<int> &sw)
+{
+    if (src == dst || src < 0 || dst < 0 || src >= NSRV || dst >= NSRV || sw.empty())
+        return nullptr;
+    const bool in_q = (qt == LOSSLESS_INPUT || qt == LOSSLESS_INPUT_ECN);
+    auto is_l0 = [&](int s) { return s >= 0 && s < NL0; };
+    auto is_l1 = [&](int s) { return s >= NL0 && s < NL0 + NL1; };
+    Route* r = new Route();
+    auto hop = [&](Queue* q, Pipe* p, bool into_switch) {
+        r->push_back(q);
+        r->push_back(p);
+        if (in_q && into_switch) r->push_back(q->getRemoteEndpoint());
+    };
+    const int s0 = sw.front(), sl = sw.back();
+    if (is_l0(s0) && s0 == src / n)                hop(queues_ns_l0[src][s0], pipes_ns_l0[src][s0], true);
+    else if (is_l1(s0) && s0 - NL0 == src % n)     hop(queues_ns_l1[src][s0 - NL0], pipes_ns_l1[src][s0 - NL0], true);
+    else { delete r; return nullptr; }
+    for (size_t i = 0; i + 1 < sw.size(); i++) {
+        const int a = sw[i], b = sw[i + 1];
+        if (is_l0(a) && is_l1(b))      hop(queues_l0_l1[a][b - NL0], pipes_l0_l1[a][b - NL0], true);
+        else if (is_l1(a) && is_l0(b)) hop(queues_l1_l0[a - NL0][b], pipes_l1_l0[a - NL0][b], true);
+        else { delete r; return nullptr; }
+    }
+    if (is_l0(sl) && sl == dst / n)                hop(queues_l0_ns[sl][dst], pipes_l0_ns[sl][dst], false);
+    else if (is_l1(sl) && sl - NL0 == dst % n)     hop(queues_l1_ns[sl - NL0][dst], pipes_l1_ns[sl - NL0][dst], false);
+    else { delete r; return nullptr; }
+    return r;
+}
 
 vector<const Route*>* ZCubeTopology::get_paths(int src, int dest)
 {

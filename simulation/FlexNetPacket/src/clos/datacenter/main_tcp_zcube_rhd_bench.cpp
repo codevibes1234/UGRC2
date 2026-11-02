@@ -34,6 +34,7 @@
 
 #include "zcube_topology.h"
 #include "ffapp_rhd.h"
+#include "rocev2.h"
 #include "main.h"
 
 // ── Globals ──────────────────────────────────────────────────────────────────
@@ -62,6 +63,12 @@ void exit_error(char *prog) {
               << " [-speed <Mbps>] [-ssthresh <pkts>] [-q <pkts>]\n";
     exit(1);
 }
+
+#ifdef USE_DCTCP
+#define FABRIC_QUEUE ECN
+#else
+#define FABRIC_QUEUE LOSSLESS_INPUT
+#endif
 
 int main(int argc, char **argv)
 {
@@ -105,8 +112,16 @@ int main(int argc, char **argv)
     fct_util_out = std::ofstream(ofile);
 
     // Build ZCube(4,2): 16 nodes
+
+    {
+        uint64_t rtt_ps = 12ULL * RTT_net * 1000ULL;
+        uint64_t bdp_bytes = (uint64_t)SPEED * 1000000ULL / 8ULL * rtt_ps / 1000000000000ULL;
+        uint32_t credits = (uint32_t)(2 * bdp_bytes / 9000);
+        RoCEv2Src::default_initial_credits = credits < 8 ? 8 : credits;
+        std::cerr << "  RoCE credits : " << RoCEv2Src::default_initial_credits << "\n";
+    }
     ZCubeTopology *top = new ZCubeTopology(
-        16, queuesize, nullptr, &eventlist, ff, ECN);
+        16, queuesize, nullptr, &eventlist, ff, FABRIC_QUEUE);
 
     FFApplication app(top, ssthresh, &fct_util_out,
                       tcpRtxScanner, eventlist,

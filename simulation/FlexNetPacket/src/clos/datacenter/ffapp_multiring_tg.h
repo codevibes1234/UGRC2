@@ -24,7 +24,7 @@
 
 #include "ffapp.h"
 #include "circulant128_topology.h"
-#include "dctcp.h"
+#include "rocev2.h"
 #include "tcp.h"
 #include "route.h"
 #include <vector>

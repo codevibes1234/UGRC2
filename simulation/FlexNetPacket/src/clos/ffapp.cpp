@@ -7,8 +7,13 @@
 
 #include "ffapp.h"
 #include "ndp.h"
+#ifdef USE_DCTCP
 #include "dctcp.h"
+#else
+#include "rocev2.h"
+#endif
 #include "route.h"
+#include "ecmp_hash.h"
 
 #include "json.hpp"
 
@@ -17,6 +22,8 @@ using json = nlohmann::json;
 
 int FFApplication::total_apps = 0;
 int FFApplication::finished_apps = 0;
+uint32_t FFApplication::roce_initial_credits = 34;
+uint32_t FFApplication::placement_seed = 13;
 
 // FFApplication::FFApplication(Topology* top, int cwnd, double pull_rate,  
 // 			NdpRtxTimerScanner & nrts, NdpSinkLoggerSampling & sl, EventList & eventlist, std::string taskgraph)
@@ -30,6 +37,7 @@ FFApplication::FFApplication(Topology* top, int ss, ofstream * _fstream_out, //T
     FFApplication::total_apps++;
     fancy_ring = false;
     finished_once = false;
+    first_iter_time = 0;
 }
 
 FFApplication::FFApplication(Topology* top, int ss, ofstream * _fstream_out, std::vector<int> gpus,
@@ -41,6 +49,7 @@ FFApplication::FFApplication(Topology* top, int ss, ofstream * _fstream_out, std
     FFApplication::total_apps++;
     fancy_ring = false;
     finished_once = false;
+    first_iter_time = 0;
 }
 
 FFApplication::~FFApplication() {
@@ -58,8 +67,9 @@ std::vector<int> FFApplication::choose_gpus(std::unordered_set<int> & candidates
 {
     std::vector<int> result;
     assert(n <= candidates.size());
+    static std::mt19937 gen(FFApplication::placement_seed);
     std::sample(candidates.begin(), candidates.end(), std::back_inserter(result),
-        n, std::mt19937{std::random_device{}()});
+        n, gen);
     for (int i : result) {
         candidates.erase(candidates.find(i));
     }
@@ -184,7 +194,7 @@ void FFApplication::load_taskgraph_flatbuf(std::string & taskgraph) {
             std::cerr << "ar size: " << this_task.xfersize() << std::endl;
 
             // if (artask.algo() == TaskGraphProtoBuf::AllReduceTask_AllReduceAlg_ALLREDUCE_RING) {
-            if (fancy_ring) {
+            if (fancy_ring && selected_jumps.count(node_group.size())) {
                 // cout << "fancy" << endl;
                 tasks[this_task.taskid()] = new FFNewRingAllreduce(
                     this, 
@@ -638,25 +648,31 @@ void FFTask::start_flow() {
     //     return;
     // }
 
+#ifdef USE_DCTCP
     DCTCPSrc* flowSrc = new DCTCPSrc(NULL, NULL, ffapp->fstream_out, eventlist(), src_node, dst_node, taskfinish, this);
     TcpSink* flowSnk = new TcpSink();
     flowSrc->set_flowsize(xfersize); // bytes
     flowSrc->set_ssthresh(ffapp->ssthresh*Packet::data_packet_size());
     flowSrc->_rto = timeFromMs(10);
-    
     ffapp->tcpRtxScanner.registerTcp(*flowSrc);
+#else
+    RoCEv2Src* flowSrc = new RoCEv2Src(NULL, eventlist(), src_node, dst_node, taskfinish, this);
+    RoCEv2Sink* flowSnk = new RoCEv2Sink(NULL, eventlist());
+    flowSrc->set_flowsize(xfersize); // bytes
+    flowSrc->set_initial_credits(FFApplication::roce_initial_credits);
+#endif
 
     Route* routeout, *routein;
 
     int choice = 0;
     vector<const Route*>* srcpaths = ffapp->topology->get_paths(src_node, dst_node);
-    choice = rand()%srcpaths->size(); // comment this out if we want to use the first path
+    choice = (int)ecmp_path_index(src_node, dst_node, srcpaths->size());
     routeout = new Route(*(srcpaths->at(choice)));
     routeout->push_back(flowSnk);
 
     choice = 0;
     vector<const Route*>* dstpaths = ffapp->topology->get_paths(dst_node, src_node);
-    choice = rand()%dstpaths->size(); // comment this out if we want to use the first path
+    choice = (int)ecmp_path_index(dst_node, src_node, dstpaths->size());
     routein = new Route(*(dstpaths->at(choice)));
     routein->push_back(flowSrc);
 
@@ -886,13 +902,11 @@ void FFRingAllreduce::doNextEvent() {
 
 //     int choice = 0;
 //     vector<const Route*>* srcpaths = ffapp->topology->get_paths(src_node, dst_node);
-//     choice = rand()%srcpaths->size(); // comment this out if we want to use the first path
 //     routeout = new Route(*(srcpaths->at(choice)));
 //     routeout->push_back(flowSnk);
 
 //     choice = 0;
 //     vector<const Route*>* dstpaths = ffapp->topology->get_paths(dst_node, src_node);
-//     // choice = rand()%dstpaths->size(); // comment this out if we want to use the first path
 //     routein = new Route(*(dstpaths->at(choice)));
 //     routein->push_back(flowSrc);
 
@@ -930,26 +944,33 @@ void FFRingAllreduce::start_flow(int src_idx, int id) {
     //     return;
     // }
 
-    DCTCPSrc* flowSrc = new DCTCPSrc(NULL, NULL, ffapp->fstream_out, 
+#ifdef USE_DCTCP
+    DCTCPSrc* flowSrc = new DCTCPSrc(NULL, NULL, ffapp->fstream_out,
         eventlist(), src_node, dst_node, ar_finish_ring, f);
     TcpSink* flowSnk = new TcpSink();
     flowSrc->set_flowsize(operator_size/node_group.size()); // bytes
     flowSrc->set_ssthresh(ffapp->ssthresh*Packet::data_packet_size());
     flowSrc->_rto = timeFromMs(1);
-    
     ffapp->tcpRtxScanner.registerTcp(*flowSrc);
+#else
+    RoCEv2Src* flowSrc = new RoCEv2Src(NULL, eventlist(),
+        src_node, dst_node, ar_finish_ring, f);
+    RoCEv2Sink* flowSnk = new RoCEv2Sink(NULL, eventlist());
+    flowSrc->set_flowsize(operator_size/node_group.size()); // bytes
+    flowSrc->set_initial_credits(FFApplication::roce_initial_credits);
+#endif
 
     Route* routeout, *routein;
 
     int choice = 0;
     vector<const Route*>* srcpaths = ffapp->topology->get_paths(src_node, dst_node);
-    choice = rand()%srcpaths->size(); // comment this out if we want to use the first path
+    choice = (int)ecmp_path_index(src_node, dst_node, srcpaths->size());
     routeout = new Route(*(srcpaths->at(choice)));
     routeout->push_back(flowSnk);
 
     choice = 0;
     vector<const Route*>* dstpaths = ffapp->topology->get_paths(dst_node, src_node);
-    choice = rand()%dstpaths->size(); // comment this out if we want to use the first path
+    choice = (int)ecmp_path_index(dst_node, src_node, dstpaths->size());
     routein = new Route(*(dstpaths->at(choice)));
     routein->push_back(flowSrc);
 
@@ -1063,19 +1084,29 @@ void FFNewRingAllreduce::start_flow(int src_idx, const std::vector<int>& jump, i
     f->ring_idx = ring_id;
     f->src_idx = src_idx;
 
-    DCTCPSrc* flowSrc = new DCTCPSrc(NULL, NULL, ffapp->fstream_out, 
+#ifdef USE_DCTCP
+    DCTCPSrc* flowSrc = new DCTCPSrc(NULL, NULL, ffapp->fstream_out,
         eventlist(), src_node, dst_node, ar_finish_newring, f);
     TcpSink* flowSnk = new TcpSink();
     flowSrc->set_flowsize(operator_size/node_group.size()/jumps.size()); // bytes
+#else
+    RoCEv2Src* flowSrc = new RoCEv2Src(NULL, eventlist(),
+        src_node, dst_node, ar_finish_newring, f);
+    RoCEv2Sink* flowSnk = new RoCEv2Sink(NULL, eventlist());
+    flowSrc->set_flowsize(operator_size/node_group.size()/jumps.size()); // bytes
+#endif
 std::cerr << "[FLOW] " << src_node << " -> " << dst_node
 << " size=" << (operator_size/node_group.size()/jumps.size())
 << " bytes ring=" << ring_id
 << " round=" << curr_round[ring_id]
 << std::endl;
+#ifdef USE_DCTCP
     flowSrc->set_ssthresh(ffapp->ssthresh*Packet::data_packet_size());
     flowSrc->_rto = timeFromMs(10);
-    
     ffapp->tcpRtxScanner.registerTcp(*flowSrc);
+#else
+    flowSrc->set_initial_credits(FFApplication::roce_initial_credits);
+#endif
 
     Route* routeout = new Route();
     int curr = src_idx;
@@ -1088,6 +1119,29 @@ std::cerr << "[FLOW] " << src_node << " -> " << dst_node
     // assert(curr == (src_idx + total_jump[ring_id]) % ffapp->nnodes /*% node_group.size()*/);
     assert(ffapp->gpus[curr] == ffapp->gpus[(src_idx + total_jump[ring_id]) % ffapp->nnodes] /*% node_group.size()*/);
     routeout->push_back(flowSnk);
+
+    FlatTopology* ft = static_cast<FlatTopology*>(ffapp->topology);
+    if (ft->qt == LOSSLESS_INPUT || ft->qt == LOSSLESS_INPUT_ECN) {
+        Route* r2 = new Route();
+        int c2 = src_idx;
+        for (size_t k = 0; k < jump.size(); k++) {
+            int a = ffapp->gpus[c2], b = ffapp->gpus[(c2 + jump[k]) % ffapp->nnodes];
+            r2->push_back(ft->queues[a][b]);
+            r2->push_back(ft->pipes[a][b]);
+            if (k + 1 < jump.size()) r2->push_back(ft->queues[a][b]->getRemoteEndpoint());
+            c2 = (c2 + jump[k]) % ffapp->nnodes;
+        }
+        r2->push_back(flowSnk);
+        delete routeout;
+        routeout = r2;
+        vector<const Route*>* back = ffapp->topology->get_paths(dst_node, src_node);
+        Route* rb = new Route(*back->at(ecmp_path_index(dst_node, src_node, back->size())));
+        delete back;
+        rb->push_back(flowSrc);
+        flowSrc->connect(*routeout, *rb, *flowSnk,
+            curr_round[ring_id] > 0 ? eventlist().now() : start_time + run_time);
+        return;
+    }
 
     Route* routein = new Route();
     curr = src_idx;
@@ -1210,26 +1264,33 @@ void FFPSAllreduce::start_flow(int node_idx, int direction) {
     f->node_idx = node_idx;
     f->direction = direction;
 
-    DCTCPSrc* flowSrc = new DCTCPSrc(NULL, NULL, ffapp->fstream_out, 
+#ifdef USE_DCTCP
+    DCTCPSrc* flowSrc = new DCTCPSrc(NULL, NULL, ffapp->fstream_out,
         eventlist(), src_node, dst_node, ar_finish_ps, f);
     TcpSink* flowSnk = new TcpSink();
     flowSrc->set_flowsize(operator_size); // bytes
     flowSrc->set_ssthresh(ffapp->ssthresh*Packet::data_packet_size());
     flowSrc->_rto = timeFromMs(1);
-    
     ffapp->tcpRtxScanner.registerTcp(*flowSrc);
+#else
+    RoCEv2Src* flowSrc = new RoCEv2Src(NULL, eventlist(),
+        src_node, dst_node, ar_finish_ps, f);
+    RoCEv2Sink* flowSnk = new RoCEv2Sink(NULL, eventlist());
+    flowSrc->set_flowsize(operator_size); // bytes
+    flowSrc->set_initial_credits(FFApplication::roce_initial_credits);
+#endif
 
     Route* routeout, *routein;
 
     int choice = 0;
     vector<const Route*>* srcpaths = ffapp->topology->get_paths(src_node, dst_node);
-    choice = rand()%srcpaths->size(); // comment this out if we want to use the first path
+    choice = (int)ecmp_path_index(src_node, dst_node, srcpaths->size());
     routeout = new Route(*(srcpaths->at(choice)));
     routeout->push_back(flowSnk);
 
     choice = 0;
     vector<const Route*>* dstpaths = ffapp->topology->get_paths(dst_node, src_node);
-    choice = rand()%dstpaths->size(); // comment this out if we want to use the first path
+    choice = (int)ecmp_path_index(dst_node, src_node, dstpaths->size());
     routein = new Route(*(dstpaths->at(choice)));
     routein->push_back(flowSrc);
 
@@ -1324,26 +1385,33 @@ void FFDPSAllreduce::start_flow(int src_node, int dst_node) {
     src_node = ffapp->gpus[node_group[src_node]];
     dst_node = ffapp->gpus[node_group[dst_node]];
 
-    DCTCPSrc* flowSrc = new DCTCPSrc(NULL, NULL, ffapp->fstream_out, 
+#ifdef USE_DCTCP
+    DCTCPSrc* flowSrc = new DCTCPSrc(NULL, NULL, ffapp->fstream_out,
         eventlist(), src_node, dst_node, ar_finish_dps, this);
     TcpSink* flowSnk = new TcpSink();
     flowSrc->set_flowsize(operator_size/node_group.size()); // bytes
     flowSrc->set_ssthresh(ffapp->ssthresh*Packet::data_packet_size());
     flowSrc->_rto = timeFromMs(1);
-    
     ffapp->tcpRtxScanner.registerTcp(*flowSrc);
+#else
+    RoCEv2Src* flowSrc = new RoCEv2Src(NULL, eventlist(),
+        src_node, dst_node, ar_finish_dps, this);
+    RoCEv2Sink* flowSnk = new RoCEv2Sink(NULL, eventlist());
+    flowSrc->set_flowsize(operator_size/node_group.size()); // bytes
+    flowSrc->set_initial_credits(FFApplication::roce_initial_credits);
+#endif
 
     Route* routeout, *routein;
 
     int choice = 0;
     vector<const Route*>* srcpaths = ffapp->topology->get_paths(src_node, dst_node);
-    choice = rand()%srcpaths->size(); // comment this out if we want to use the first path
+    choice = (int)ecmp_path_index(src_node, dst_node, srcpaths->size());
     routeout = new Route(*(srcpaths->at(choice)));
     routeout->push_back(flowSnk);
 
     choice = 0;
     vector<const Route*>* dstpaths = ffapp->topology->get_paths(dst_node, src_node);
-    choice = rand()%dstpaths->size(); // comment this out if we want to use the first path
+    choice = (int)ecmp_path_index(dst_node, src_node, dstpaths->size());
     routein = new Route(*(dstpaths->at(choice)));
     routein->push_back(flowSrc);
 

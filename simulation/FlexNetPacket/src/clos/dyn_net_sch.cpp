@@ -1,14 +1,32 @@
 #include "dyn_net_sch.h"
 #include "ecnqueue.h"
+#include "rocev2.h"
+#include "ocs_logical_topology.h"
 #include "queue_lossless.h"
 #include "tcp.h"
 #include <random>
 #include <algorithm>
 #include <queue>
+#include <deque>
+#include <array>
 
-#ifdef USE_GUROBI
+#if defined(USE_GUROBI) || defined(HAVE_GUROBI)
 #include "gurobi_c++.h"
 #endif
+
+static const bool dyn_sch_debug = (getenv("DYN_SCH_DEBUG") != nullptr);
+#define DYN_SCH_TRACE(x)                                        \
+  do {                                                          \
+    if (dyn_sch_debug)                                          \
+      std::cerr << "[dynsch] " << x << std::endl;                \
+  } while (0)
+
+static inline simtime_picosec ps_per_byte_for(uint64_t bitrate)
+{
+  if (bitrate == 0)
+    return std::numeric_limits<simtime_picosec>::max() / 65536;
+  return (simtime_picosec)((pow(10.0, 12.0) * 8) / (double)bitrate);
+}
 
 #define INSERT_OR_ADD(_map, _key, _val)    \
   do                                       \
@@ -27,7 +45,26 @@ static std::random_device rd;
 static std::mt19937 gen = std::mt19937(rd());
 static std::uniform_real_distribution<double> unif(0, 1);
 
+static unsigned dyn_logical_seed = 13;
+void dyn_sch_set_logical_seed(unsigned seed) { dyn_logical_seed = seed; }
+
+void dyn_sch_set_seed(unsigned seed)
+{
+  if (seed == 0)
+  {
+    unsigned entropy = rd();
+    gen.seed(entropy);
+    srand(entropy);
+    std::cout << "dyn_sch_seed random " << entropy << std::endl;
+    return;
+  }
+  gen.seed(seed);
+  srand(seed);
+}
+
 extern uint32_t SPEED;
+
+bool DemandRecorder::include_roce = false;
 
 DemandRecorder::DemandRecorder(int degree, TcpRtxTimerScanner *rtx_scanner)
     : degree(degree), rtx_scanner(rtx_scanner)
@@ -56,6 +93,15 @@ void DemandRecorder::get_unsatisfied_demand(Matrix2D<double> &tm)
       i++;
     }
   }
+  if (include_roce)
+    for (RoCEv2Src *r : RoCEv2Src::live_flows())
+    {
+      if (r->is_finished())
+        continue;
+      uint64_t sz = r->get_flowsize(), acked = r->get_bytes_acked();
+      if (sz > acked)
+        tm.add_elem_by(r->get_flow_src(), r->get_flow_dst(), (double)(sz - acked));
+    }
 }
 
 // void DemandRecorder::add_demand(int src, int dst, uint64_t bytes)
@@ -71,10 +117,20 @@ void DemandRecorder::get_unsatisfied_demand(Matrix2D<double> &tm)
 // }
 
 DynFlatScheduler::DynFlatScheduler(int nnodes, int degree, FlatTopology *topo,
-                                   OptStrategy method, DemandRecorder *demandrecorder, simtime_picosec reconf_delay, EventList &eventlist)
+                                   OptStrategy method, DemandRecorder *demandrecorder, simtime_picosec reconf_delay, EventList &eventlist,
+                                   RoutingMode routing, const std::string &logical_family,
+                                   simtime_picosec live_period_ps)
     : EventSource(eventlist, "DynFlatScheduler"), nnodes(nnodes), degree(degree), demandrecorder(demandrecorder),
-      topo(topo), reconf_delay(reconf_delay), optstrategy(method), eventlist(eventlist)
+      topo(topo), reconf_delay(reconf_delay), optstrategy(method), eventlist(eventlist),
+      routing_mode(routing), logical_family(logical_family)
 {
+  live_period = live_period_ps;
+  if (effective_live_period() == 0 && logical_family.empty())
+  {
+    std::cerr << "ERROR: reconfiguration delay and live period are both zero; "
+                 "give a period (-rperiodns) to model instant reconfiguration.\n";
+    exit(1);
+  }
   // demandrecorder.init(nnodes);
 
   for (int i = 0; i < nnodes; i++)
@@ -84,18 +140,59 @@ DynFlatScheduler::DynFlatScheduler(int nnodes, int degree, FlatTopology *topo,
       if (i == j)
         continue;
       Queue *q = topo->queues[i][j];
-      ECNQueue *eq = dynamic_cast<ECNQueue *>(q);
-      eq->set_dyn_sch(this);
+      if (!q->honours_circuit_gate()) {
+        std::cerr << "ERROR: queue (" << i << "," << j << ") is a '"
+                  << q->nodename()
+                  << "', which does not honour the OCS circuit gate.\n"
+                     "       Override pfc_ready() and honours_circuit_gate() on that\n"
+                     "       queue type and check _circuit_up at every point that\n"
+                     "       starts service - see ecnqueue.cpp and\n"
+                     "       queue_lossless_output.cpp for the two that do.\n";
+        exit(1);
+      }
+      q->set_dyn_sch(this);
       // std::cerr << "setting queue " << eq << std::endl;
       Pipe * p = topo->pipes[i][j];
       p->set_dyn_sch(this);
     }
   }
 
-  FlatDegConstraintNetworkTopologyGenerator gen{nnodes, degree};
-  non_empty_queues = 0;
-  set_all_queues_pause_recved();
-  auto init_conn = gen.generate_topology();
+  status = DynNetworkStatus::DYN_NET_INIT;
+  count_fabric_occupancy();
+
+  std::vector<size_t> init_conn;
+  if (!logical_family.empty())
+  {
+    std::string how;
+    init_conn = make_logical_conn(logical_family, nnodes, degree, dyn_logical_seed, how);
+    if (init_conn.empty())
+    {
+      std::cerr << "ERROR: unknown -logical family '" << logical_family
+                << "'. Use jellyfish, flatbutterfly, dragonfly or megafly.\n";
+      exit(1);
+    }
+    OcsStats st = ocs_describe(init_conn, nnodes);
+    if (!st.connected)
+    {
+      std::cerr << "ERROR: the " << logical_family << " configuration is not "
+                   "connected; no routing can fix that.\n";
+      exit(1);
+    }
+    std::cout << "OCS_logical " << logical_family << std::endl;
+    std::cout << "OCS_construction " << how << std::endl;
+    std::cout << "OCS_links " << st.links << std::endl;
+    std::cout << "OCS_degree_min " << st.deg_min << std::endl;
+    std::cout << "OCS_degree_max " << st.deg_max << std::endl;
+    std::cout << "OCS_degree_mean " << st.deg_mean << std::endl;
+    std::cout << "OCS_diameter " << st.diameter << std::endl;
+    std::cout << "OCS_mean_hops " << st.mean_hops << std::endl;
+  }
+  else
+  {
+    FlatDegConstraintNetworkTopologyGenerator gen{nnodes, degree};
+    init_conn = gen.generate_topology();
+    std::cout << "OCS_logical random" << std::endl;
+  }
   for (int src_port = 0; src_port < nnodes; src_port++)
   {
     for (int dst_port = 0; dst_port < nnodes; dst_port++)
@@ -103,18 +200,26 @@ DynFlatScheduler::DynFlatScheduler(int nnodes, int degree, FlatTopology *topo,
       if (src_port == dst_port)
         continue;
       topo->queues[src_port][dst_port]->_bitrate = init_conn[src_port * nnodes + dst_port] * speedFromMbps((uint64_t)SPEED);
-      topo->queues[src_port][dst_port]->_ps_per_byte = (simtime_picosec)((pow(10.0, 12.0) * 8) / topo->queues[src_port][dst_port]->_bitrate);
+      topo->queues[src_port][dst_port]->_ps_per_byte =
+          ps_per_byte_for(topo->queues[src_port][dst_port]->_bitrate);
     }
   }
+
+  install_routes_for_topology(init_conn);
+
   finish_reconf();
 
   std::cout << "initconn" << std::endl;
 
   status = DynNetworkStatus::DYN_NET_LIVE;
-  eventlist.sourceIsPending(*this, std::min(reconf_delay, timeFromMs(1)));
+  if (logical_family.empty())
+    eventlist.sourceIsPending(*this, live_period ? live_period
+                                                 : std::min(reconf_delay, timeFromMs(1)));
+  else
+    std::cout << "OCS_reconfiguration disabled (fixed logical topology)" << std::endl;
   if (optstrategy == OptStrategy::SIPML_OCS)
   {
-#ifdef USE_GUROBI
+#if defined(USE_GUROBI) || defined(HAVE_GUROBI)
     try
     {
       GRBEnv env = GRBEnv(true);
@@ -271,77 +376,116 @@ DynFlatScheduler::DynFlatScheduler(int nnodes, int degree, FlatTopology *topo,
 
 void DynFlatScheduler::doNextEvent()
 {
-  // std::cerr << "At time " << eventlist.now() << " scheduler run, from " << status << std::endl;
-  if (status == DynNetworkStatus::DYN_NET_LIVE)
+  switch (status)
   {
+  case DynNetworkStatus::DYN_NET_LIVE:
     start_reconf();
-    status = DynNetworkStatus::DYN_NET_RECONF;
-    // eventlist.sourceIsPendingRel(*this, reconf_delay);
-  }
-  else
-  {
+    break;
+
+  case DynNetworkStatus::DYN_NET_RECONF:
     finish_reconf();
     status = DynNetworkStatus::DYN_NET_LIVE;
-    eventlist.sourceIsPendingRel(*this, n_nondelay * reconf_delay);
+    eventlist.sourceIsPendingRel(*this, effective_live_period());
+    break;
+
+  case DynNetworkStatus::DYN_NET_DRAIN:
+    std::cerr << "WARNING: DynFlatScheduler woke during a drain at t="
+              << eventlist.now() << "; ignoring a stale timer." << std::endl;
+    break;
+
+  case DynNetworkStatus::DYN_NET_INIT:
+    std::cerr << "ERROR: DynFlatScheduler ran before its first topology was "
+                 "installed." << std::endl;
+    abort();
   }
 }
 
 void DynFlatScheduler::start_reconf()
 {
-  non_empty_queues = 0;
+  assert(status == DynNetworkStatus::DYN_NET_LIVE);
+  reconfs_started++;
+  drain_started_at = eventlist.now();
+
   set_all_tcp_pause();
-  set_all_queues_pause_recved();
+  status = DynNetworkStatus::DYN_NET_DRAIN;
+  count_fabric_occupancy();
+
+  DYN_SCH_TRACE("START_RECONF #" << reconfs_started << " t=" << eventlist.now()
+                << " outstanding=" << non_empty_queues);
+
   if (non_empty_queues == 0)
+  {
+    drains_immediate++;
     _do_reconf();
-  // update_all_queue_bandwid
+  }
 }
 
 void DynFlatScheduler::do_reconf()
 {
-  // non_empty_queues--;
-  non_empty_queues = 0;
-  for (int i = 0; i < nnodes; i++)
+  if (status != DynNetworkStatus::DYN_NET_DRAIN)
+    return;
+
+  occupancy_scans++;
+  if (fabric_occupancy_live(true) == 0)
   {
-    for (int j = 0; j < nnodes; j++)
-    {
-      if (i == j)
-        continue;
-      Queue *q = topo->queues[i][j];
-      ECNQueue *eq = dynamic_cast<ECNQueue *>(q);
-      if (eq->queuesize() > 0)
-      {
-        // eq->_state_send = LosslessQueue::PAUSE_RECEIVED;
-        non_empty_queues += eq->_enqueued.size();
-        // std::cerr << i << ", " << j << " qsz " << eq->_enqueued.size() << " bw " << eq->_bitrate << std::endl;
-      } 
-      else
-      {
-        // eq->_state_send = LosslessQueue::PAUSED;
-      }
-      Pipe *p = topo->pipes[i][j];
-      if (!p->_inflight.empty())
-        non_empty_queues += p->_inflight.size();
-    }
-  }
-  // std::cerr << "non_empty_queues: " << non_empty_queues << std::endl;
-  if (non_empty_queues == 0)
-  {
+    count_fabric_occupancy();
     _do_reconf();
   }
 }
 
+uint64_t DynFlatScheduler::fabric_occupancy_live(bool stop_at_first)
+{
+  static const bool check = (getenv("DYN_SCH_CHECK_SCAN") != nullptr);
+  uint64_t n = 0;
+  for (const auto &l : live_links)
+  {
+    n += topo->queues[l.first][l.second]->_enqueued.size();
+    n += topo->pipes[l.first][l.second]->_inflight.size();
+    if (stop_at_first && n > 0 && !check)
+      return n;
+  }
+  if (check)
+  {
+    uint64_t full = count_fabric_occupancy();
+    if (full != n)
+    {
+      std::cerr << "DYN_SCH_CHECK_SCAN: live-link census " << n << " != full scan "
+                << full << std::endl;
+      abort();
+    }
+  }
+  return n;
+}
+
 void DynFlatScheduler::_do_reconf()
 {
+  assert(status == DynNetworkStatus::DYN_NET_DRAIN);
+  assert(non_empty_queues == 0);
+
+  simtime_picosec drained_for = eventlist.now() - drain_started_at;
+  drain_time_total += drained_for;
+  if (drained_for > drain_time_max)
+    drain_time_max = drained_for;
+  reconfs_torn_down++;
+
+  DYN_SCH_TRACE("  TEARDOWN #" << reconfs_torn_down << " t=" << eventlist.now()
+                << " drained_in=" << drained_for
+                << " down_for=" << reconf_delay);
+
   update_all_queue_bandwidth();
   update_all_route();
+
+  pause_all_queues();
+
   status = DynNetworkStatus::DYN_NET_RECONF;
   eventlist.sourceIsPendingRel(*this, reconf_delay);
 }
 
 void DynFlatScheduler::finish_reconf()
 {
-  // resume_lively_queues();
-  // pause_no_bw_queues();
+  reconfs_completed++;
+  uint64_t released = 0;
+
   for (int i = 0; i < nnodes; i++)
   {
     for (int j = 0; j < nnodes; j++)
@@ -349,29 +493,304 @@ void DynFlatScheduler::finish_reconf()
       if (i == j)
         continue;
       Queue *q = topo->queues[i][j];
-      ECNQueue *eq = dynamic_cast<ECNQueue *>(q);
-      // std::cerr << "queue " << i << ", " << j << " br " << eq->_bitrate << " ps per byte " << eq->_ps_per_byte << " size " << eq->_enqueued.size() << std::endl;
-      assert(eq->_enqueued.empty());
-      // if (eq->_bitrate > 0)
+
+      if (q->_bitrate > 0)
       {
-        eq->_state_send = LosslessQueue::READY;
-        if (!eq->_enqueued.empty())
+        if (!q->_enqueued.empty())
+          released += q->_enqueued.size();
+        q->set_circuit_up(true);
+      }
+      else
+      {
+        if (!q->_enqueued.empty())
         {
-          eq->beginService();
-          // std::cerr << "queue " << i << ", " << j << " br " << eq->_bitrate << " ps per byte " << eq->_ps_per_byte << " size " << eq->_enqueued.size() << std::endl;
-          // std::cerr << "\t starting... " << std::endl;
+          stranded_on_dead_link += q->_enqueued.size();
+          std::cerr << "WARNING: " << q->_enqueued.size()
+                    << " packet(s) stranded on link (" << i << "," << j
+                    << "), which has no circuit in the new topology, at t="
+                    << eventlist.now() << std::endl;
         }
       }
-      // else
-      // {
-      //   eq->_state_send = LosslessQueue::PAUSED;
-      // }
     }
   }
+
+  pkts_buffered_during_reconf += released;
+  DYN_SCH_TRACE("  RESTORE  #" << reconfs_completed << " t=" << eventlist.now()
+                << " released=" << released);
+
   resume_tcp_flows();
 }
 
-void DynFlatScheduler::set_all_queues_pause_recved()
+void DynFlatScheduler::install_routes_for_topology(const std::vector<size_t> &conn)
+{
+  live_links.clear();
+  for (int i = 0; i < nnodes; i++)
+    for (int j = 0; j < nnodes; j++)
+      if (i != j && conn[(size_t)i * nnodes + j] > 0)
+        live_links.emplace_back(i, j);
+  if (routing_mode == ROUTING_UPDOWN)
+    install_updown_routes(conn);
+  else
+    install_shortest_path_routes(conn);
+}
+
+int DynFlatScheduler::repair_connectivity(std::vector<size_t> &conn)
+{
+  const int n = nnodes;
+  int added = 0;
+
+  auto ports_used = [&](int v) {
+    size_t t = 0;
+    for (int j = 0; j < n; j++)
+      if (j != v)
+        t += conn[(size_t)v * n + j];
+    return (int)t;
+  };
+  auto link = [&](int a, int b) {
+    conn[(size_t)a * n + b]++;
+    conn[(size_t)b * n + a]++;
+  };
+  auto unlink = [&](int a, int b) {
+    if (conn[(size_t)a * n + b] > 0) conn[(size_t)a * n + b]--;
+    if (conn[(size_t)b * n + a] > 0) conn[(size_t)b * n + a]--;
+  };
+
+  auto components = [&]() {
+    std::vector<int> comp(n, -1);
+    int nc = 0;
+    for (int s = 0; s < n; s++)
+    {
+      if (comp[s] != -1)
+        continue;
+      std::deque<int> q{s};
+      comp[s] = nc;
+      while (!q.empty())
+      {
+        int u = q.front();
+        q.pop_front();
+        for (int v = 0; v < n; v++)
+          if (v != u && comp[v] == -1 &&
+              (conn[(size_t)u * n + v] > 0 || conn[(size_t)v * n + u] > 0))
+          {
+            comp[v] = nc;
+            q.push_back(v);
+          }
+      }
+      nc++;
+    }
+    return std::make_pair(comp, nc);
+  };
+
+  for (int guard = 0; guard <= n; guard++)
+  {
+    auto [comp, nc] = components();
+    if (nc <= 1)
+      return added;
+
+    int a = -1, b = -1;
+    for (int u = 0; u < n && a < 0; u++)
+    {
+      if (comp[u] != 0 || ports_used(u) >= degree)
+        continue;
+      for (int v = 0; v < n; v++)
+        if (comp[v] == 1 && ports_used(v) < degree)
+        {
+          a = u;
+          b = v;
+          break;
+        }
+    }
+
+    if (a >= 0)
+    {
+      link(a, b);
+      added++;
+      continue;
+    }
+
+    int x = -1, y = -1, t = -1;
+    for (int u = 0; u < n && x < 0; u++)
+    {
+      if (comp[u] != 0)
+        continue;
+      for (int v = 0; v < n; v++)
+        if (v != u && comp[v] == 0 && conn[(size_t)u * n + v] > 0)
+        {
+          x = u;
+          y = v;
+          break;
+        }
+    }
+    for (int v = 0; v < n && t < 0; v++)
+      if (comp[v] == 1)
+        t = v;
+
+    if (x < 0 || t < 0)
+    {
+      std::cerr << "ERROR: cannot connect the circuit topology: component 0 has "
+                   "no internal link to break (nodes "
+                << x << "," << y << ", target " << t << ")." << std::endl;
+      exit(1);
+    }
+
+    unlink(x, y);
+    link(x, t);
+    added++;
+  }
+
+  std::cerr << "ERROR: failed to connect the circuit topology after " << n
+            << " repair rounds." << std::endl;
+  exit(1);
+}
+
+void DynFlatScheduler::store_route(int src, int dst, const std::vector<int> &hops)
+{
+  uint64_t route_id = (uint64_t)src * nnodes + dst;
+  vector<size_t> *path_vector = new vector<size_t>{};
+  path_vector->push_back(src);
+  for (int h : hops)
+    path_vector->push_back((size_t)h);
+
+  auto it = topo->_routes.find(route_id);
+  if (it == topo->_routes.end())
+  {
+    topo->_routes[route_id] = vector<vector<size_t> *>();
+  }
+  else
+  {
+    for (vector<size_t> *r : it->second)
+      delete r;
+    it->second.clear();
+  }
+  topo->_routes[route_id].push_back(path_vector);
+}
+
+void DynFlatScheduler::install_updown_routes(const std::vector<size_t> &conn)
+{
+  const int n = nnodes;
+
+  std::vector<std::vector<int>> adj(n);
+  for (int u = 0; u < n; u++)
+    for (int v = 0; v < n; v++)
+      if (u != v && conn[(size_t)u * n + v] > 0)
+        adj[u].push_back(v);
+
+  int root = 0;
+  for (int u = 1; u < n; u++)
+    if (adj[u].size() > adj[root].size())
+      root = u;
+
+  std::vector<int> depth(n, -1);
+  {
+    std::deque<int> q;
+    depth[root] = 0;
+    q.push_back(root);
+    while (!q.empty())
+    {
+      int u = q.front();
+      q.pop_front();
+      for (int v : adj[u])
+        if (depth[v] < 0)
+        {
+          depth[v] = depth[u] + 1;
+          q.push_back(v);
+        }
+    }
+  }
+
+  for (int u = 0; u < n; u++)
+    if (depth[u] < 0)
+    {
+      std::cerr << "ERROR: the circuit topology is disconnected - node " << u
+                << " is unreachable from node " << root
+                << ". Up-down routing needs a connected graph." << std::endl;
+      exit(1);
+    }
+
+  auto is_up = [&](int u, int v) {
+    if (depth[v] != depth[u])
+      return depth[v] < depth[u];
+    return v < u;
+  };
+
+  for (int s = 0; s < n; s++)
+  {
+    std::vector<std::array<int, 2>> dist(n, {-1, -1});
+    std::vector<std::array<int, 2>> prev(n, {-1, -1});
+    std::deque<std::pair<int, int>> q;
+    dist[s][0] = 0;
+    q.push_back({s, 0});
+    while (!q.empty())
+    {
+      int u = q.front().first, ph = q.front().second;
+      q.pop_front();
+      for (int v : adj[u])
+      {
+        bool up = is_up(u, v);
+        if (ph == 1 && up)
+          continue;
+        int nph = up ? ph : 1;
+        if (dist[v][nph] < 0)
+        {
+          dist[v][nph] = dist[u][ph] + 1;
+          prev[v][nph] = u * 2 + ph;
+          q.push_back({v, nph});
+        }
+      }
+    }
+
+    for (int d = 0; d < n; d++)
+    {
+      std::vector<int> hops;
+      if (d != s)
+      {
+        int ph = -1;
+        if (dist[d][0] >= 0 && (dist[d][1] < 0 || dist[d][0] <= dist[d][1]))
+          ph = 0;
+        else if (dist[d][1] >= 0)
+          ph = 1;
+
+        if (ph < 0)
+        {
+          std::cerr << "ERROR: no legal up-down route from " << s << " to "
+                    << d << " in the current circuit topology." << std::endl;
+          exit(1);
+        }
+
+        int cu = d, cph = ph;
+        while (!(cu == s && cph == 0))
+        {
+          hops.push_back(cu);
+          int p = prev[cu][cph];
+          cu = p / 2;
+          cph = p % 2;
+        }
+        std::reverse(hops.begin(), hops.end());
+      }
+      store_route(s, d, hops);
+    }
+  }
+}
+
+void DynFlatScheduler::install_shortest_path_routes(const std::vector<size_t> &conn)
+{
+  DemandHeuristicNetworkOptimizer router(nnodes, this);
+  for (int i = 0; i < nnodes; i++)
+  {
+    std::vector<std::vector<size_t>> paths = router.get_routes_from_src(conn, i);
+    for (int j = 0; j < nnodes; j++)
+    {
+      assert(i == j || paths[j].size() > 0);
+
+      std::vector<int> hops;
+      for (size_t k = 0; k < paths[j].size(); k++)
+        hops.push_back((int)paths[j][k]);
+      store_route(i, j, hops);
+    }
+  }
+}
+
+void DynFlatScheduler::pause_all_queues()
 {
   for (int i = 0; i < nnodes; i++)
   {
@@ -379,24 +798,45 @@ void DynFlatScheduler::set_all_queues_pause_recved()
     {
       if (i == j)
         continue;
-      Queue *q = topo->queues[i][j];
-      ECNQueue *eq = dynamic_cast<ECNQueue *>(q);
-      if (eq->queuesize() > 0)
-      {
-        // eq->_state_send = LosslessQueue::PAUSE_RECEIVED;
-        non_empty_queues += eq->_enqueued.size();
-        // std::cerr << i << ", " << j << " qsz " << eq->_enqueued.size() << " bw " << eq->_bitrate << std::endl;
-      } 
-      else
-      {
-        // eq->_state_send = LosslessQueue::PAUSED;
-      }
-      Pipe *p = topo->pipes[i][j];
-      if (!p->_inflight.empty())
-        non_empty_queues += p->_inflight.size();
+      topo->queues[i][j]->set_circuit_up(false);
     }
   }
-  // std::cerr << "all_queue_size: " << non_empty_queues << std::endl;
+}
+
+uint64_t DynFlatScheduler::count_fabric_occupancy()
+{
+  non_empty_queues = 0;
+  for (int i = 0; i < nnodes; i++)
+  {
+    for (int j = 0; j < nnodes; j++)
+    {
+      if (i == j)
+        continue;
+      non_empty_queues += topo->queues[i][j]->_enqueued.size();
+
+      Pipe *p = topo->pipes[i][j];
+      non_empty_queues += p->_inflight.size();
+    }
+  }
+  return non_empty_queues;
+}
+
+void DynFlatScheduler::print_stats(std::ostream &os) const
+{
+  os << "DynSch_reconfs_started " << reconfs_started << std::endl;
+  os << "DynSch_occupancy_scans " << occupancy_scans << std::endl;
+  os << "DynSch_reconfs_torn_down " << reconfs_torn_down << std::endl;
+  os << "DynSch_reconfs_completed " << reconfs_completed << std::endl;
+  os << "DynSch_drains_immediate " << drains_immediate << std::endl;
+  os << "DynSch_drain_ps_max " << drain_time_max << std::endl;
+  os << "DynSch_drain_ps_mean "
+     << (reconfs_torn_down ? drain_time_total / reconfs_torn_down : 0) << std::endl;
+  os << "DynSch_pkts_buffered_during_reconf " << pkts_buffered_during_reconf << std::endl;
+  os << "DynSch_stranded_on_dead_link " << stranded_on_dead_link << std::endl;
+  os << "DynSch_circuits_added_for_connectivity "
+     << circuits_added_for_connectivity << std::endl;
+  if (reconfs_started != reconfs_torn_down)
+    os << "DynSch_WARNING a drain never completed" << std::endl;
 }
 
 inline static bool has_tx_endpoint(uint64_t e, size_t v, size_t n)
@@ -412,6 +852,7 @@ inline static bool has_rx_endpoint(uint64_t e, size_t v, size_t n)
 void DynFlatScheduler::set_all_tcp_pause()
 {
   TcpSrc::pause_flow();
+  RoCEv2Src::pause_all_flows();
   list<TcpSrc *>::iterator i = demandrecorder->rtx_scanner->_tcps.begin();
   // std::cerr << "all flows size: " << demandrecorder->rtx_scanner->_tcps.size() << std::endl;
 #if 0
@@ -470,10 +911,35 @@ void DynFlatScheduler::update_all_route()
       i++;
     }
   }
+
+  for (RoCEv2Src *rsrc : RoCEv2Src::live_flows())
+  {
+    if (rsrc->is_finished())
+      continue;
+
+    int src = rsrc->get_flow_src();
+    int dst = rsrc->get_flow_dst();
+
+    vector<const Route *> *srcpaths = topo->get_paths(src, dst);
+    Route *routeout = new Route(*(srcpaths->at(rand() % srcpaths->size())));
+    routeout->push_back(rsrc->get_sink());
+
+    vector<const Route *> *dstpaths = topo->get_paths(dst, src);
+    Route *routein = new Route(*(dstpaths->at(rand() % dstpaths->size())));
+    routein->push_back(rsrc);
+
+    rsrc->update_route(routeout, routein);
+    delete srcpaths;
+    delete dstpaths;
+  }
 }
 
 void DynFlatScheduler::resume_tcp_flows()
 {
+  RoCEv2Src::resume_all_flows();
+  for (RoCEv2Src *src : RoCEv2Src::live_flows())
+    src->resume_flow();
+
   TcpSrc::resume_all_flow();
   list<TcpSrc *>::iterator i = demandrecorder->rtx_scanner->_tcps.begin();
   while (i != demandrecorder->rtx_scanner->_tcps.end())
@@ -499,7 +965,7 @@ void DynFlatScheduler::update_all_queue_bandwidth()
   // #if SIPML_OCS
   if (optstrategy == OptStrategy::SIPML_OCS)
   {
-#ifdef USE_GUROBI
+#if defined(USE_GUROBI) || defined(HAVE_GUROBI)
     try
     {
       Matrix2D<double> normal_tm(nnodes, nnodes);
@@ -560,7 +1026,7 @@ void DynFlatScheduler::update_all_queue_bandwidth()
           if (src_port == dst_port)
             continue;
           topo->queues[src_port][dst_port]->_bitrate = 0;
-          topo->queues[src_port][dst_port]->_ps_per_byte = std::numeric_limits<simtime_picosec>::max();
+          topo->queues[src_port][dst_port]->_ps_per_byte = ps_per_byte_for(0);
           for (int ocs_no = 0; ocs_no < degree; ocs_no++)
           {
             // uint16_t src_dev = src_port; // port_map.at( ocs_no ).at( src_port )->dev_id;
@@ -573,7 +1039,7 @@ void DynFlatScheduler::update_all_queue_bandwidth()
             {
               topo->queues[src_port][dst_port]->_bitrate += speedFromMbps((uint64_t)SPEED);
               topo->queues[src_port][dst_port]->_ps_per_byte =
-                  (simtime_picosec)((pow(10.0, 12.0) * 8) / topo->queues[src_port][dst_port]->_bitrate);
+          ps_per_byte_for(topo->queues[src_port][dst_port]->_bitrate);
             }
           }
         }
@@ -592,7 +1058,7 @@ void DynFlatScheduler::update_all_queue_bandwidth()
 
   else if (optstrategy == OptStrategy::SIPML_RING)
   {
-#ifdef USE_GUROBI
+#if defined(USE_GUROBI) || defined(HAVE_GUROBI)
     Matrix2D<double> normal_tm(nnodes, nnodes);
     normalize_tm(normal_tm);
     try
@@ -732,7 +1198,8 @@ void DynFlatScheduler::update_all_queue_bandwidth()
           if (src_port == dst_port)
             continue;
           topo->queues[src_port][dst_port]->_bitrate = allocation.get_elem(src_port, dst_port) * speedFromMbps((uint64_t)SPEED);
-          topo->queues[src_port][dst_port]->_ps_per_byte = (simtime_picosec)((pow(10.0, 12.0) * 8) / topo->queues[src_port][dst_port]->_bitrate);
+          topo->queues[src_port][dst_port]->_ps_per_byte =
+          ps_per_byte_for(topo->queues[src_port][dst_port]->_bitrate);
         }
       }
       delete[] flows;
@@ -754,6 +1221,13 @@ void DynFlatScheduler::update_all_queue_bandwidth()
     Matrix2D<double> normal_tm(nnodes, nnodes);
     DemandHeuristicNetworkOptimizer dhopt(nnodes, this);
     demandrecorder->get_unsatisfied_demand(normal_tm);
+    {
+      double tot = 0; long nnz = 0;
+      for (int i = 0; i < nnodes; i++)
+        for (int j = 0; j < nnodes; j++)
+          if (normal_tm.get_elem(i, j) > 0) { tot += normal_tm.get_elem(i, j); nnz++; }
+      DYN_SCH_TRACE("  DEMAND seen by optimiser: " << nnz << " pairs, " << tot << " bytes");
+    }
 
     for (int i = 0; i < nnodes; i++)
     {
@@ -766,6 +1240,7 @@ void DynFlatScheduler::update_all_queue_bandwidth()
     }
 
     std::vector<size_t> conn = dhopt.optimize();
+    circuits_added_for_connectivity += repair_connectivity(conn);
     for (int src_port = 0; src_port < nnodes; src_port++)
     {
       for (int dst_port = 0; dst_port < nnodes; dst_port++)
@@ -773,41 +1248,12 @@ void DynFlatScheduler::update_all_queue_bandwidth()
         if (src_port == dst_port)
           continue;
         topo->queues[src_port][dst_port]->_bitrate = conn[src_port * nnodes + dst_port] * speedFromMbps((uint64_t)SPEED);
-        topo->queues[src_port][dst_port]->_ps_per_byte = (simtime_picosec)((pow(10.0, 12.0) * 8) / topo->queues[src_port][dst_port]->_bitrate);
+        topo->queues[src_port][dst_port]->_ps_per_byte =
+          ps_per_byte_for(topo->queues[src_port][dst_port]->_bitrate);
       }
     }
 
-    for (int i = 0; i < nnodes; i++)
-    {
-      std::vector<std::vector<size_t>> paths = dhopt.get_routes_from_src(conn, i);
-      for (int j = 0; j < nnodes; j++)
-      {
-        uint64_t route_id = dhopt.edge_id(i, j);
-        vector<size_t> *path_vector = new vector<size_t>{};
-        path_vector->push_back(i);
-        // cerr << i << ", " << j << " pathsize: " << paths[j].size() << std::endl;
-        for (int k = 0; k < paths[j].size(); k++)
-        {
-          path_vector->push_back(paths[j][k]);
-          // std::cerr << paths[j][k] << ", ";
-        }
-        // std::cerr << std::endl;
-        if (topo->_routes.find(route_id) == topo->_routes.end())
-        {
-          topo->_routes[route_id] = vector<vector<size_t> *>();
-        }
-        else
-        {
-          for (vector<size_t> *r : topo->_routes[route_id])
-          {
-            delete r;
-          }
-          topo->_routes[route_id].clear();
-        }
-        assert(i == j || path_vector->size() > 0);
-        topo->_routes[route_id].push_back(path_vector);
-      }
-    }
+    install_routes_for_topology(conn);
   }
 
 #if 0    
@@ -865,7 +1311,8 @@ for ( int src_port = 0; src_port < nnodes; src_port ++ ) {
 for ( int dst_port = 0; dst_port < nnodes; dst_port ++ ) {
   if (src_port == dst_port) continue;
   topo->queues[src_port][dst_port]->_bitrate = conn[src_port * nnodes + dst_port] * speedFromMbps((uint64_t)SPEED);
-  topo->queues[src_port][dst_port]->_ps_per_byte = (simtime_picosec)((pow(10.0, 12.0) * 8) / topo->queues[src_port][dst_port]->_bitrate);
+  topo->queues[src_port][dst_port]->_ps_per_byte =
+          ps_per_byte_for(topo->queues[src_port][dst_port]->_bitrate);
 }
 }
 }

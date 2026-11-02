@@ -1,0 +1,303 @@
+series,nodes,deg,arm,transport,placement,jobs,jobnodes,decomp,allreduce,variant,exit,wall_s,rss_kb,construction,links,diameter,mean_hops,reconfs,pfc_stop,job0_ms,job0_tp_ms,job0_dp_ms,job0_ep_ms,job0_pp_ms,makespan_ms,incomplete,pfc_peak_pkts,pfc_overshoot_pkts,pfc_overflow,egress_peak_transit_pkts,egress_transit_only_overflow,verdict
+F16d4,16,4,jellyfish,dctcp,compact,1,16,tp2.dp2.pp2.ep2,rhd,ecnexact,0,0.10,5172,random regular graph; degree budget 4,31,3,1.96667,0,0,34.1759,23.0901,34.1759,15.6297,13.1339,34.1759,0,0,0,0,0,0,OK
+F16d4,16,4,flatbutterfly,dctcp,compact,1,16,tp2.dp2.pp2.ep2,rhd,ecnexact,0,0.04,5620,2-ary 4-flat; degree 4,32,4,2.13333,0,0,5.37075,0.673987,5.37075,0.672272,0.336994,5.37075,0,0,0,0,0,0,OK
+F16d4,16,4,dragonfly,dctcp,compact,1,16,tp2.dp2.pp2.ep2,rhd,ecnexact,0,0.08,5288,4 groups x 4 nodes; 1 global port(s) per node,32,3,2.1,0,0,31.0453,0.674702,31.0453,11.6657,12.0906,31.0453,0,0,0,0,0,0,OK
+F16d4,16,4,megafly,dctcp,compact,1,16,tp2.dp2.pp2.ep2,rhd,ecnexact,0,0.08,5152,4 groups x [2 leaf + 2 spine],22,5,2.55,0,0,52.2938,22.1968,52.2938,13.3172,23.9998,52.2938,0,0,0,0,0,0,OK
+F16d4,16,4,dheu,dctcp,compact,1,16,tp2.dp2.pp2.ep2,rhd,ecnexact,0,0.09,5556,demand-driven,NA,NA,NA,48,0,24.1106,23.2629,24.1106,13.1261,13.174,24.1106,0,0,0,0,0,0,OK
+F16d4,16,4,jellyfish,dctcp,compact,1,16,tp2.dp2.pp2.ep2,ring,ecnexact,0,0.12,5124,random regular graph; degree budget 4,31,3,1.96667,0,0,34.1759,23.0901,34.1759,15.6297,13.1339,34.1759,0,0,0,0,0,0,OK
+F16d4,16,4,flatbutterfly,dctcp,compact,1,16,tp2.dp2.pp2.ep2,ring,ecnexact,0,0.04,5576,2-ary 4-flat; degree 4,32,4,2.13333,0,0,5.37075,0.673987,5.37075,0.672272,0.336994,5.37075,0,0,0,0,0,0,OK
+F16d4,16,4,dragonfly,dctcp,compact,1,16,tp2.dp2.pp2.ep2,ring,ecnexact,0,0.09,5312,4 groups x 4 nodes; 1 global port(s) per node,32,3,2.1,0,0,31.0453,0.674702,31.0453,11.6657,12.0906,31.0453,0,0,0,0,0,0,OK
+F16d4,16,4,megafly,dctcp,compact,1,16,tp2.dp2.pp2.ep2,ring,ecnexact,0,0.09,5236,4 groups x [2 leaf + 2 spine],22,5,2.55,0,0,52.2938,22.1968,52.2938,13.3172,23.9998,52.2938,0,0,0,0,0,0,OK
+F16d4,16,4,dheu,dctcp,compact,1,16,tp2.dp2.pp2.ep2,ring,ecnexact,0,0.09,5620,demand-driven,NA,NA,NA,48,0,24.1106,23.2629,24.1106,13.1261,13.174,24.1106,0,0,0,0,0,0,OK
+F16d4,16,4,jellyfish,dctcp,compact,1,16,tp4.dp2.pp2.ep1,rhd,ecnexact,0,0.09,5144,random regular graph; degree budget 4,31,3,1.96667,0,0,32.9255,23.394,32.9255,NA,12.5919,32.9255,0,0,0,0,0,0,OK
+F16d4,16,4,flatbutterfly,dctcp,compact,1,16,tp4.dp2.pp2.ep1,rhd,ecnexact,0,0.04,5264,2-ary 4-flat; degree 4,32,4,2.13333,0,0,5.37075,1.01198,5.37075,NA,0.336994,5.37075,0,0,0,0,0,0,OK
+F16d4,16,4,dragonfly,dctcp,compact,1,16,tp4.dp2.pp2.ep1,rhd,ecnexact,0,0.07,5180,4 groups x 4 nodes; 1 global port(s) per node,32,3,2.1,0,0,32.6627,2.10789,32.6627,NA,12.0915,32.6627,0,0,0,0,0,0,OK
+F16d4,16,4,megafly,dctcp,compact,1,16,tp4.dp2.pp2.ep1,rhd,ecnexact,0,0.09,5012,4 groups x [2 leaf + 2 spine],22,5,2.55,0,0,42.3369,23.4793,42.3369,NA,25.2471,42.3369,0,0,0,0,0,0,OK
+F16d4,16,4,dheu,dctcp,compact,1,16,tp4.dp2.pp2.ep1,rhd,ecnexact,0,0.07,5312,demand-driven,NA,NA,NA,66,0,33.1864,33.1864,14.5301,NA,22.0059,33.1864,0,0,0,0,0,0,OK
+F16d4,16,4,jellyfish,dctcp,compact,1,16,tp4.dp2.pp2.ep1,ring,ecnexact,0,0.10,5220,random regular graph; degree budget 4,31,3,1.96667,0,0,57.1004,57.1004,28.3441,NA,22.3695,57.1004,0,0,0,0,0,0,OK
+F16d4,16,4,flatbutterfly,dctcp,compact,1,16,tp4.dp2.pp2.ep1,ring,ecnexact,0,0.04,5312,2-ary 4-flat; degree 4,32,4,2.13333,0,0,66.1708,66.1708,5.37075,NA,0.336994,66.1708,0,0,0,0,0,0,OK
+F16d4,16,4,dragonfly,dctcp,compact,1,16,tp4.dp2.pp2.ep1,ring,ecnexact,0,0.07,5128,4 groups x 4 nodes; 1 global port(s) per node,32,3,2.1,0,0,37.2082,1.01398,37.2082,NA,12.0798,37.2082,0,0,0,0,0,0,OK
+F16d4,16,4,megafly,dctcp,compact,1,16,tp4.dp2.pp2.ep1,ring,ecnexact,0,0.09,5296,4 groups x [2 leaf + 2 spine],22,5,2.55,0,0,66.1708,66.1708,60.6099,NA,24.4255,66.1708,0,0,0,0,0,0,OK
+F16d4,16,4,dheu,dctcp,compact,1,16,tp4.dp2.pp2.ep1,ring,ecnexact,0,0.09,5396,demand-driven,NA,NA,NA,48,0,24.3035,24.3035,13.9524,NA,11.5433,24.3035,0,0,0,0,0,0,OK
+F16d4,16,4,jellyfish,dctcp,compact,1,16,tp4.dp4.pp1.ep1,rhd,ecnexact,0,0.09,5152,random regular graph; degree budget 4,31,3,1.96667,0,0,50.0377,34.5614,50.0377,NA,NA,50.0377,0,0,0,0,0,0,OK
+F16d4,16,4,flatbutterfly,dctcp,compact,1,16,tp4.dp4.pp1.ep1,rhd,ecnexact,0,0.05,5196,2-ary 4-flat; degree 4,32,4,2.13333,0,0,8.05784,1.01198,8.05784,NA,NA,8.05784,0,0,0,0,0,0,OK
+F16d4,16,4,dragonfly,dctcp,compact,1,16,tp4.dp4.pp1.ep1,rhd,ecnexact,0,0.10,5000,4 groups x 4 nodes; 1 global port(s) per node,32,3,2.1,0,0,46.6942,2.05835,46.6942,NA,NA,46.6942,0,0,0,0,0,0,OK
+F16d4,16,4,megafly,dctcp,compact,1,16,tp4.dp4.pp1.ep1,rhd,ecnexact,0,0.12,5136,4 groups x [2 leaf + 2 spine],22,5,2.55,0,0,55.0802,13.8004,55.0802,NA,NA,55.0802,0,0,0,0,0,0,OK
+F16d4,16,4,dheu,dctcp,compact,1,16,tp4.dp4.pp1.ep1,rhd,ecnexact,0,0.11,5460,demand-driven,NA,NA,NA,50,0,25.5258,25.5258,25.1682,NA,NA,25.5258,0,0,0,0,0,0,OK
+F16d4,16,4,jellyfish,dctcp,compact,1,16,tp4.dp4.pp1.ep1,ring,ecnexact,0,0.08,5264,random regular graph; degree budget 4,31,3,1.96667,0,0,66.1004,66.1004,30.0308,NA,NA,66.1004,0,0,0,0,0,0,OK
+F16d4,16,4,flatbutterfly,dctcp,compact,1,16,tp4.dp4.pp1.ep1,ring,ecnexact,0,0.11,5312,2-ary 4-flat; degree 4,32,4,2.13333,0,0,72.3462,66.1708,72.3462,NA,NA,72.3462,0,0,0,0,0,0,OK
+F16d4,16,4,dragonfly,dctcp,compact,1,16,tp4.dp4.pp1.ep1,ring,ecnexact,0,0.10,5148,4 groups x 4 nodes; 1 global port(s) per node,32,3,2.1,0,0,43.5079,1.0147,43.5079,NA,NA,43.5079,0,0,0,0,0,0,OK
+F16d4,16,4,megafly,dctcp,compact,1,16,tp4.dp4.pp1.ep1,ring,ecnexact,0,0.11,5300,4 groups x [2 leaf + 2 spine],22,5,2.55,0,0,62.9901,55.1342,62.9901,NA,NA,62.9901,0,0,0,0,0,0,OK
+F16d4,16,4,dheu,dctcp,compact,1,16,tp4.dp4.pp1.ep1,ring,ecnexact,0,0.11,5492,demand-driven,NA,NA,NA,53,0,27.7323,25.6466,27.7323,NA,NA,27.7323,0,0,0,0,0,0,OK
+F16d4,16,4,jellyfish,dctcp,compact,1,16,tp8.dp2.pp1.ep1,rhd,ecnexact,0,0.09,5080,random regular graph; degree budget 4,31,3,1.96667,0,0,71.8104,67.2685,71.8104,NA,NA,71.8104,0,0,0,0,0,0,OK
+F16d4,16,4,flatbutterfly,dctcp,compact,1,16,tp8.dp2.pp1.ep1,rhd,ecnexact,0,0.03,5272,2-ary 4-flat; degree 4,32,4,2.13333,0,0,5.37075,1.18269,5.37075,NA,NA,5.37075,0,0,0,0,0,0,OK
+F16d4,16,4,dragonfly,dctcp,compact,1,16,tp8.dp2.pp1.ep1,rhd,ecnexact,0,0.07,5136,4 groups x 4 nodes; 1 global port(s) per node,32,3,2.1,0,0,33.7093,22.6215,33.7093,NA,NA,33.7093,0,0,0,0,0,0,OK
+F16d4,16,4,megafly,dctcp,compact,1,16,tp8.dp2.pp1.ep1,rhd,ecnexact,0,0.08,5240,4 groups x [2 leaf + 2 spine],22,5,2.55,0,0,72.8587,44.3818,72.8587,NA,NA,72.8587,0,0,0,0,0,0,OK
+F16d4,16,4,dheu,dctcp,compact,1,16,tp8.dp2.pp1.ep1,rhd,ecnexact,0,0.07,5308,demand-driven,NA,NA,NA,110,0,55.1841,55.1841,13.5607,NA,NA,55.1841,0,0,0,0,0,0,OK
+F16d4,16,4,jellyfish,dctcp,compact,1,16,tp8.dp2.pp1.ep1,ring,ecnexact,0,0.08,5304,random regular graph; degree budget 4,31,3,1.96667,0,0,41.1118,38.1682,41.1118,NA,NA,41.1118,0,0,0,0,0,0,OK
+F16d4,16,4,flatbutterfly,dctcp,compact,1,16,tp8.dp2.pp1.ep1,ring,ecnexact,0,0.04,5432,2-ary 4-flat; degree 4,32,4,2.13333,0,0,154.092,154.092,5.37075,NA,NA,154.092,0,0,0,0,0,0,OK
+F16d4,16,4,dragonfly,dctcp,compact,1,16,tp8.dp2.pp1.ep1,ring,ecnexact,0,0.08,5264,4 groups x 4 nodes; 1 global port(s) per node,32,3,2.1,0,0,37.6382,14.2755,37.6382,NA,NA,37.6382,0,0,0,0,0,0,OK
+F16d4,16,4,megafly,dctcp,compact,1,16,tp8.dp2.pp1.ep1,ring,ecnexact,0,0.08,5296,4 groups x [2 leaf + 2 spine],22,5,2.55,0,0,154.016,154.016,89.7614,NA,NA,154.016,0,0,0,0,0,0,OK
+F16d4,16,4,dheu,dctcp,compact,1,16,tp8.dp2.pp1.ep1,ring,ecnexact,0,0.07,5392,demand-driven,NA,NA,NA,89,0,44.717,44.717,13.7575,NA,NA,44.717,0,0,0,0,0,0,OK
+F16d4,16,4,jellyfish,dctcp,compact,1,16,tp16.dp1.pp1.ep1,rhd,ecnexact,0,0.01,5000,random regular graph; degree budget 4,31,3,1.96667,0,0,88.2688,88.2688,NA,NA,NA,88.2688,0,0,0,0,0,0,OK
+F16d4,16,4,flatbutterfly,dctcp,compact,1,16,tp16.dp1.pp1.ep1,rhd,ecnexact,0,0.01,5168,2-ary 4-flat; degree 4,32,4,2.13333,0,0,1.26905,1.26905,NA,NA,NA,1.26905,0,0,0,0,0,0,OK
+F16d4,16,4,dragonfly,dctcp,compact,1,16,tp16.dp1.pp1.ep1,rhd,ecnexact,0,0.01,5140,4 groups x 4 nodes; 1 global port(s) per node,32,3,2.1,0,0,44.6519,44.6519,NA,NA,NA,44.6519,0,0,0,0,0,0,OK
+F16d4,16,4,megafly,dctcp,compact,1,16,tp16.dp1.pp1.ep1,rhd,ecnexact,0,0.01,5116,4 groups x [2 leaf + 2 spine],22,5,2.55,0,0,66.3393,66.3393,NA,NA,NA,66.3393,0,0,0,0,0,0,OK
+F16d4,16,4,dheu,dctcp,compact,1,16,tp16.dp1.pp1.ep1,rhd,ecnexact,0,0.03,5184,demand-driven,NA,NA,NA,133,0,66.1848,66.1848,NA,NA,NA,66.1848,0,0,0,0,0,0,OK
+F16d4,16,4,jellyfish,dctcp,compact,1,16,tp16.dp1.pp1.ep1,ring,ecnexact,0,0.01,5392,random regular graph; degree budget 4,31,3,1.96667,0,0,2.64857,2.64857,NA,NA,NA,2.64857,0,0,0,0,0,0,OK
+F16d4,16,4,flatbutterfly,dctcp,compact,1,16,tp16.dp1.pp1.ep1,ring,ecnexact,0,0.01,5356,2-ary 4-flat; degree 4,32,4,2.13333,0,0,5.10636,5.10636,NA,NA,NA,5.10636,0,0,0,0,0,0,OK
+F16d4,16,4,dragonfly,dctcp,compact,1,16,tp16.dp1.pp1.ep1,ring,ecnexact,0,0.01,5376,4 groups x 4 nodes; 1 global port(s) per node,32,3,2.1,0,0,2.70002,2.70002,NA,NA,NA,2.70002,0,0,0,0,0,0,OK
+F16d4,16,4,megafly,dctcp,compact,1,16,tp16.dp1.pp1.ep1,ring,ecnexact,0,0.02,5440,4 groups x [2 leaf + 2 spine],22,5,2.55,0,0,2.64857,2.64857,NA,NA,NA,2.64857,0,0,0,0,0,0,OK
+F16d4,16,4,dheu,dctcp,compact,1,16,tp16.dp1.pp1.ep1,ring,ecnexact,0,0.01,5292,demand-driven,NA,NA,NA,3,0,0.97033,0.97033,NA,NA,NA,0.97033,0,0,0,0,0,0,OK
+F16d6,16,6,jellyfish,dctcp,compact,1,16,tp2.dp2.pp2.ep2,rhd,ecnexact,0,0.07,5428,random regular graph; degree budget 6,48,3,1.61667,0,0,34.669,12.7532,34.669,15.3801,12.4706,34.669,0,0,0,0,0,0,OK
+F16d6,16,6,flatbutterfly,dctcp,compact,1,16,tp2.dp2.pp2.ep2,rhd,ecnexact,0,0.04,5592,4-ary 2-flat; degree 6,48,2,1.6,0,0,5.37075,0.673987,5.37075,0.672272,0.336994,5.37075,0,0,0,0,0,0,OK
+F16d6,16,6,dragonfly,dctcp,compact,1,16,tp2.dp2.pp2.ep2,rhd,ecnexact,0,0.05,5400,4 groups x 4 nodes; 3 global port(s) per node,48,3,1.60833,0,0,29.6882,0.673987,29.6882,11.6011,11.3652,29.6882,0,0,0,0,0,0,OK
+F16d6,16,6,megafly,dctcp,compact,1,16,tp2.dp2.pp2.ep2,rhd,ecnexact,0,0.08,5280,4 groups x [2 leaf + 2 spine],22,5,2.55,0,0,52.2938,22.1968,52.2938,13.3172,23.9998,52.2938,0,0,0,0,0,0,OK
+F16d6,16,6,dheu,dctcp,compact,1,16,tp2.dp2.pp2.ep2,rhd,ecnexact,0,0.07,5440,demand-driven,NA,NA,NA,26,0,12.7777,12.2507,12.7777,11.3368,11.5705,12.7777,0,0,0,0,0,0,OK
+F16d6,16,6,jellyfish,dctcp,compact,1,16,tp2.dp2.pp2.ep2,ring,ecnexact,0,0.06,5296,random regular graph; degree budget 6,48,3,1.61667,0,0,34.669,12.7532,34.669,15.3801,12.4706,34.669,0,0,0,0,0,0,OK
+F16d6,16,6,flatbutterfly,dctcp,compact,1,16,tp2.dp2.pp2.ep2,ring,ecnexact,0,0.04,5688,4-ary 2-flat; degree 6,48,2,1.6,0,0,5.37075,0.673987,5.37075,0.672272,0.336994,5.37075,0,0,0,0,0,0,OK
+F16d6,16,6,dragonfly,dctcp,compact,1,16,tp2.dp2.pp2.ep2,ring,ecnexact,0,0.05,5432,4 groups x 4 nodes; 3 global port(s) per node,48,3,1.60833,0,0,29.6882,0.673987,29.6882,11.6011,11.3652,29.6882,0,0,0,0,0,0,OK
+F16d6,16,6,megafly,dctcp,compact,1,16,tp2.dp2.pp2.ep2,ring,ecnexact,0,0.10,5112,4 groups x [2 leaf + 2 spine],22,5,2.55,0,0,52.2938,22.1968,52.2938,13.3172,23.9998,52.2938,0,0,0,0,0,0,OK
+F16d6,16,6,dheu,dctcp,compact,1,16,tp2.dp2.pp2.ep2,ring,ecnexact,0,0.06,5384,demand-driven,NA,NA,NA,26,0,12.7777,12.2507,12.7777,11.3368,11.5705,12.7777,0,0,0,0,0,0,OK
+F16d6,16,6,jellyfish,dctcp,compact,1,16,tp4.dp2.pp2.ep1,rhd,ecnexact,0,0.05,5236,random regular graph; degree budget 6,48,3,1.61667,0,0,31.4843,15.3408,31.4843,NA,11.7067,31.4843,0,0,0,0,0,0,OK
+F16d6,16,6,flatbutterfly,dctcp,compact,1,16,tp4.dp2.pp2.ep1,rhd,ecnexact,0,0.04,5364,4-ary 2-flat; degree 6,48,2,1.6,0,0,5.37075,1.01198,5.37075,NA,0.336994,5.37075,0,0,0,0,0,0,OK
+F16d6,16,6,dragonfly,dctcp,compact,1,16,tp4.dp2.pp2.ep1,rhd,ecnexact,0,0.05,5308,4 groups x 4 nodes; 3 global port(s) per node,48,3,1.60833,0,0,29.6882,2.17574,29.6882,NA,11.3652,29.6882,0,0,0,0,0,0,OK
+F16d6,16,6,megafly,dctcp,compact,1,16,tp4.dp2.pp2.ep1,rhd,ecnexact,0,0.08,5020,4 groups x [2 leaf + 2 spine],22,5,2.55,0,0,42.3369,23.4793,42.3369,NA,25.2471,42.3369,0,0,0,0,0,0,OK
+F16d6,16,6,dheu,dctcp,compact,1,16,tp4.dp2.pp2.ep1,rhd,ecnexact,0,0.06,5376,demand-driven,NA,NA,NA,44,0,22.0422,22.0422,12.8662,NA,11.337,22.0422,0,0,0,0,0,0,OK
+F16d6,16,6,jellyfish,dctcp,compact,1,16,tp4.dp2.pp2.ep1,ring,ecnexact,0,0.07,5256,random regular graph; degree budget 6,48,3,1.61667,0,0,35.8804,12.3225,35.8804,NA,11.3379,35.8804,0,0,0,0,0,0,OK
+F16d6,16,6,flatbutterfly,dctcp,compact,1,16,tp4.dp2.pp2.ep1,ring,ecnexact,0,0.03,5332,4-ary 2-flat; degree 6,48,2,1.6,0,0,5.37075,1.01398,5.37075,NA,0.336994,5.37075,0,0,0,0,0,0,OK
+F16d6,16,6,dragonfly,dctcp,compact,1,16,tp4.dp2.pp2.ep1,ring,ecnexact,0,0.05,5300,4 groups x 4 nodes; 3 global port(s) per node,48,3,1.60833,0,0,21.7405,1.01541,21.7405,NA,11.6024,21.7405,0,0,0,0,0,0,OK
+F16d6,16,6,megafly,dctcp,compact,1,16,tp4.dp2.pp2.ep1,ring,ecnexact,0,0.09,5160,4 groups x [2 leaf + 2 spine],22,5,2.55,0,0,66.1708,66.1708,60.6099,NA,24.4255,66.1708,0,0,0,0,0,0,OK
+F16d6,16,6,dheu,dctcp,compact,1,16,tp4.dp2.pp2.ep1,ring,ecnexact,0,0.07,5336,demand-driven,NA,NA,NA,45,0,22.3308,22.3308,12.7176,NA,12.0546,22.3308,0,0,0,0,0,0,OK
+F16d6,16,6,jellyfish,dctcp,compact,1,16,tp4.dp4.pp1.ep1,rhd,ecnexact,0,0.07,5220,random regular graph; degree budget 6,48,3,1.61667,0,0,30.3791,12.2334,30.3791,NA,NA,30.3791,0,0,0,0,0,0,OK
+F16d6,16,6,flatbutterfly,dctcp,compact,1,16,tp4.dp4.pp1.ep1,rhd,ecnexact,0,0.05,5184,4-ary 2-flat; degree 6,48,2,1.6,0,0,8.05784,1.01198,8.05784,NA,NA,8.05784,0,0,0,0,0,0,OK
+F16d6,16,6,dragonfly,dctcp,compact,1,16,tp4.dp4.pp1.ep1,rhd,ecnexact,0,0.06,5240,4 groups x 4 nodes; 3 global port(s) per node,48,3,1.60833,0,0,19.0711,1.68869,19.0711,NA,NA,19.0711,0,0,0,0,0,0,OK
+F16d6,16,6,megafly,dctcp,compact,1,16,tp4.dp4.pp1.ep1,rhd,ecnexact,0,0.12,5084,4 groups x [2 leaf + 2 spine],22,5,2.55,0,0,55.0802,13.8004,55.0802,NA,NA,55.0802,0,0,0,0,0,0,OK
+F16d6,16,6,dheu,dctcp,compact,1,16,tp4.dp4.pp1.ep1,rhd,ecnexact,0,0.08,5308,demand-driven,NA,NA,NA,49,0,24.6988,23.7053,24.6988,NA,NA,24.6988,0,0,0,0,0,0,OK
+F16d6,16,6,jellyfish,dctcp,compact,1,16,tp4.dp4.pp1.ep1,ring,ecnexact,0,0.06,5288,random regular graph; degree budget 6,48,3,1.61667,0,0,34.7049,12.4929,34.7049,NA,NA,34.7049,0,0,0,0,0,0,OK
+F16d6,16,6,flatbutterfly,dctcp,compact,1,16,tp4.dp4.pp1.ep1,ring,ecnexact,0,0.05,5312,4-ary 2-flat; degree 6,48,2,1.6,0,0,8.06127,1.01398,8.06127,NA,NA,8.06127,0,0,0,0,0,0,OK
+F16d6,16,6,dragonfly,dctcp,compact,1,16,tp4.dp4.pp1.ep1,ring,ecnexact,0,0.06,5280,4 groups x 4 nodes; 3 global port(s) per node,48,3,1.60833,0,0,19.0848,1.01398,19.0848,NA,NA,19.0848,0,0,0,0,0,0,OK
+F16d6,16,6,megafly,dctcp,compact,1,16,tp4.dp4.pp1.ep1,ring,ecnexact,0,0.10,5216,4 groups x [2 leaf + 2 spine],22,5,2.55,0,0,62.9901,55.1342,62.9901,NA,NA,62.9901,0,0,0,0,0,0,OK
+F16d6,16,6,dheu,dctcp,compact,1,16,tp4.dp4.pp1.ep1,ring,ecnexact,0,0.08,5360,demand-driven,NA,NA,NA,51,0,25.8983,23.4715,25.8983,NA,NA,25.8983,0,0,0,0,0,0,OK
+F16d6,16,6,jellyfish,dctcp,compact,1,16,tp8.dp2.pp1.ep1,rhd,ecnexact,0,0.06,5096,random regular graph; degree budget 6,48,3,1.61667,0,0,43.2889,27.3507,43.2889,NA,NA,43.2889,0,0,0,0,0,0,OK
+F16d6,16,6,flatbutterfly,dctcp,compact,1,16,tp8.dp2.pp1.ep1,rhd,ecnexact,0,0.03,5300,4-ary 2-flat; degree 6,48,2,1.6,0,0,5.37075,1.18269,5.37075,NA,NA,5.37075,0,0,0,0,0,0,OK
+F16d6,16,6,dragonfly,dctcp,compact,1,16,tp8.dp2.pp1.ep1,rhd,ecnexact,0,0.05,5128,4 groups x 4 nodes; 3 global port(s) per node,48,3,1.60833,0,0,29.6882,23.5282,29.6882,NA,NA,29.6882,0,0,0,0,0,0,OK
+F16d6,16,6,megafly,dctcp,compact,1,16,tp8.dp2.pp1.ep1,rhd,ecnexact,0,0.09,5140,4 groups x [2 leaf + 2 spine],22,5,2.55,0,0,72.8587,44.3818,72.8587,NA,NA,72.8587,0,0,0,0,0,0,OK
+F16d6,16,6,dheu,dctcp,compact,1,16,tp8.dp2.pp1.ep1,rhd,ecnexact,0,0.06,5268,demand-driven,NA,NA,NA,91,0,45.1279,45.1279,12.4908,NA,NA,45.1279,0,0,0,0,0,0,OK
+F16d6,16,6,jellyfish,dctcp,compact,1,16,tp8.dp2.pp1.ep1,ring,ecnexact,0,0.05,5304,random regular graph; degree budget 6,48,3,1.61667,0,0,33.8662,29.8028,33.8662,NA,NA,33.8662,0,0,0,0,0,0,OK
+F16d6,16,6,flatbutterfly,dctcp,compact,1,16,tp8.dp2.pp1.ep1,ring,ecnexact,0,0.03,5328,4-ary 2-flat; degree 6,48,2,1.6,0,0,5.37075,2.7671,5.37075,NA,NA,5.37075,0,0,0,0,0,0,OK
+F16d6,16,6,dragonfly,dctcp,compact,1,16,tp8.dp2.pp1.ep1,ring,ecnexact,0,0.05,5264,4 groups x 4 nodes; 3 global port(s) per node,48,3,1.60833,0,0,27.0271,17.5,27.0271,NA,NA,27.0271,0,0,0,0,0,0,OK
+F16d6,16,6,megafly,dctcp,compact,1,16,tp8.dp2.pp1.ep1,ring,ecnexact,0,0.07,5368,4 groups x [2 leaf + 2 spine],22,5,2.55,0,0,154.016,154.016,89.7614,NA,NA,154.016,0,0,0,0,0,0,OK
+F16d6,16,6,dheu,dctcp,compact,1,16,tp8.dp2.pp1.ep1,ring,ecnexact,0,0.05,5388,demand-driven,NA,NA,NA,91,0,45.1891,45.1891,12.4362,NA,NA,45.1891,0,0,0,0,0,0,OK
+F16d6,16,6,jellyfish,dctcp,compact,1,16,tp16.dp1.pp1.ep1,rhd,ecnexact,0,0.01,4976,random regular graph; degree budget 6,48,3,1.61667,0,0,22.7277,22.7277,NA,NA,NA,22.7277,0,0,0,0,0,0,OK
+F16d6,16,6,flatbutterfly,dctcp,compact,1,16,tp16.dp1.pp1.ep1,rhd,ecnexact,0,0.01,5092,4-ary 2-flat; degree 6,48,2,1.6,0,0,1.26905,1.26905,NA,NA,NA,1.26905,0,0,0,0,0,0,OK
+F16d6,16,6,dragonfly,dctcp,compact,1,16,tp16.dp1.pp1.ep1,rhd,ecnexact,0,0.01,5072,4 groups x 4 nodes; 3 global port(s) per node,48,3,1.60833,0,0,22.5991,22.5991,NA,NA,NA,22.5991,0,0,0,0,0,0,OK
+F16d6,16,6,megafly,dctcp,compact,1,16,tp16.dp1.pp1.ep1,rhd,ecnexact,0,0.01,5076,4 groups x [2 leaf + 2 spine],22,5,2.55,0,0,66.3393,66.3393,NA,NA,NA,66.3393,0,0,0,0,0,0,OK
+F16d6,16,6,dheu,dctcp,compact,1,16,tp16.dp1.pp1.ep1,rhd,ecnexact,0,0.03,5088,demand-driven,NA,NA,NA,133,0,66.0905,66.0905,NA,NA,NA,66.0905,0,0,0,0,0,0,OK
+F16d6,16,6,jellyfish,dctcp,compact,1,16,tp16.dp1.pp1.ep1,ring,ecnexact,0,0.01,5264,random regular graph; degree budget 6,48,3,1.61667,0,0,1.39824,1.39824,NA,NA,NA,1.39824,0,0,0,0,0,0,OK
+F16d6,16,6,flatbutterfly,dctcp,compact,1,16,tp16.dp1.pp1.ep1,ring,ecnexact,0,0.01,5348,4-ary 2-flat; degree 6,48,2,1.6,0,0,2.57568,2.57568,NA,NA,NA,2.57568,0,0,0,0,0,0,OK
+F16d6,16,6,dragonfly,dctcp,compact,1,16,tp16.dp1.pp1.ep1,ring,ecnexact,0,0.01,5308,4 groups x 4 nodes; 3 global port(s) per node,48,3,1.60833,0,0,2.57568,2.57568,NA,NA,NA,2.57568,0,0,0,0,0,0,OK
+F16d6,16,6,megafly,dctcp,compact,1,16,tp16.dp1.pp1.ep1,ring,ecnexact,0,0.02,5464,4 groups x [2 leaf + 2 spine],22,5,2.55,0,0,2.64857,2.64857,NA,NA,NA,2.64857,0,0,0,0,0,0,OK
+F16d6,16,6,dheu,dctcp,compact,1,16,tp16.dp1.pp1.ep1,ring,ecnexact,0,0.01,5304,demand-driven,NA,NA,NA,2,0,0.689391,0.689391,NA,NA,NA,0.689391,0,0,0,0,0,0,OK
+F27d6,27,6,jellyfish,dctcp,compact,1,27,tp3.dp3.pp3.ep1,ring,ecnexact,0,0.17,5980,random regular graph; degree budget 6,80,3,1.96011,0,0,42.2801,24.1272,42.2801,NA,22.8522,42.2801,0,0,0,0,0,0,OK
+F27d6,27,6,flatbutterfly,dctcp,compact,1,27,tp3.dp3.pp3.ep1,ring,ecnexact,0,0.09,6264,3-ary 3-flat; degree 6,81,3,2.07692,0,0,7.16424,0.89903,7.16424,NA,0.336994,7.16424,0,0,0,0,0,0,OK
+F27d6,27,6,dragonfly,dctcp,compact,1,27,tp3.dp3.pp3.ep1,ring,ecnexact,0,0.12,6080,9 groups x 3 nodes; 4 global port(s) per node,81,3,1.94302,0,0,18.1703,0.89903,18.1703,NA,11.3434,18.1703,0,0,0,0,0,0,OK
+F27d6,27,6,megafly,dctcp,compact,1,27,tp3.dp3.pp3.ep1,ring,ecnexact,0,0.29,5768,3 groups x [5 leaf + 4 spine],63,5,2.82051,0,0,88.1012,23.7442,88.1012,NA,22.0658,88.1012,0,0,0,0,0,0,OK
+F27d6,27,6,dheu,dctcp,compact,1,27,tp3.dp3.pp3.ep1,ring,ecnexact,0,0.21,6304,demand-driven,NA,NA,NA,50,0,25.3805,22.8328,25.3805,NA,11.5035,25.3805,0,0,0,0,0,0,OK
+F27d6,27,6,jellyfish,dctcp,compact,1,27,tp9.dp3.pp1.ep1,ring,ecnexact,0,0.15,6280,random regular graph; degree budget 6,80,3,1.96011,0,0,29.0863,23.0773,29.0863,NA,NA,29.0863,0,0,0,0,0,0,OK
+F27d6,27,6,flatbutterfly,dctcp,compact,1,27,tp9.dp3.pp1.ep1,ring,ecnexact,0,0.10,6288,3-ary 3-flat; degree 6,81,3,2.07692,0,0,7.16424,2.51288,7.16424,NA,NA,7.16424,0,0,0,0,0,0,OK
+F27d6,27,6,dragonfly,dctcp,compact,1,27,tp9.dp3.pp1.ep1,ring,ecnexact,0,0.12,6356,9 groups x 3 nodes; 4 global port(s) per node,81,3,1.94302,0,0,48.796,17.8016,48.796,NA,NA,48.796,0,0,0,0,0,0,OK
+F27d6,27,6,megafly,dctcp,compact,1,27,tp9.dp3.pp1.ep1,ring,ecnexact,0,0.31,6076,3 groups x [5 leaf + 4 spine],63,5,2.82051,0,0,101.594,90.6411,101.594,NA,NA,101.594,0,0,0,0,0,0,OK
+F27d6,27,6,dheu,dctcp,compact,1,27,tp9.dp3.pp1.ep1,ring,ecnexact,0,0.20,6488,demand-driven,NA,NA,NA,91,0,46.0941,46.0941,24.6336,NA,NA,46.0941,0,0,0,0,0,0,OK
+F27d6,27,6,jellyfish,dctcp,compact,1,27,tp3.dp9.pp1.ep1,ring,ecnexact,0,0.20,6368,random regular graph; degree budget 6,80,3,1.96011,0,0,192.196,35.8288,192.196,NA,NA,192.196,0,0,0,0,0,0,OK
+F27d6,27,6,flatbutterfly,dctcp,compact,1,27,tp3.dp9.pp1.ep1,ring,ecnexact,0,0.15,6304,3-ary 3-flat; degree 6,81,3,2.07692,0,0,176.602,0.89903,176.602,NA,NA,176.602,0,0,0,0,0,0,OK
+F27d6,27,6,dragonfly,dctcp,compact,1,27,tp3.dp9.pp1.ep1,ring,ecnexact,0,0.17,6200,9 groups x 3 nodes; 4 global port(s) per node,81,3,1.94302,0,0,33.3127,0.89903,33.3127,NA,NA,33.3127,0,0,0,0,0,0,OK
+F27d6,27,6,megafly,dctcp,compact,1,27,tp3.dp9.pp1.ep1,ring,ecnexact,0,0.21,6288,3 groups x [5 leaf + 4 spine],63,5,2.82051,0,0,165.531,25.0637,165.531,NA,NA,165.531,0,0,0,0,0,0,OK
+F27d6,27,6,dheu,dctcp,compact,1,27,tp3.dp9.pp1.ep1,ring,ecnexact,0,0.30,6376,demand-driven,NA,NA,NA,115,0,58.9536,23.1268,58.9536,NA,NA,58.9536,0,0,0,0,0,0,OK
+F27d6,27,6,jellyfish,dctcp,compact,1,27,tp27.dp1.pp1.ep1,ring,ecnexact,0,0.04,6932,random regular graph; degree budget 6,80,3,1.96011,0,0,2.83252,2.83252,NA,NA,NA,2.83252,0,0,0,0,0,0,OK
+F27d6,27,6,flatbutterfly,dctcp,compact,1,27,tp27.dp1.pp1.ep1,ring,ecnexact,0,0.02,6804,3-ary 3-flat; degree 6,81,3,2.07692,0,0,3.98126,3.98126,NA,NA,NA,3.98126,0,0,0,0,0,0,OK
+F27d6,27,6,dragonfly,dctcp,compact,1,27,tp27.dp1.pp1.ep1,ring,ecnexact,0,0.03,6828,9 groups x 3 nodes; 4 global port(s) per node,81,3,1.94302,0,0,1.62062,1.62062,NA,NA,NA,1.62062,0,0,0,0,0,0,OK
+F27d6,27,6,megafly,dctcp,compact,1,27,tp27.dp1.pp1.ep1,ring,ecnexact,0,0.03,6928,3 groups x [5 leaf + 4 spine],63,5,2.82051,0,0,4.1076,4.1076,NA,NA,NA,4.1076,0,0,0,0,0,0,OK
+F27d6,27,6,dheu,dctcp,compact,1,27,tp27.dp1.pp1.ep1,ring,ecnexact,0,0.04,6904,demand-driven,NA,NA,NA,4,0,1.64918,1.64918,NA,NA,NA,1.64918,0,0,0,0,0,0,OK
+F27d6,27,6,jellyfish,dctcp,compact,1,27,tp3.dp3.pp1.ep3,ring,ecnexact,0,0.16,6336,random regular graph; degree budget 6,80,3,1.96011,0,0,44.6805,14.9797,44.6805,23.0105,NA,44.6805,0,0,0,0,0,0,OK
+F27d6,27,6,flatbutterfly,dctcp,compact,1,27,tp3.dp3.pp1.ep3,ring,ecnexact,0,0.09,6792,3-ary 3-flat; degree 6,81,3,2.07692,0,0,7.16424,0.89903,7.16424,0.336994,NA,7.16424,0,0,0,0,0,0,OK
+F27d6,27,6,dragonfly,dctcp,compact,1,27,tp3.dp3.pp1.ep3,ring,ecnexact,0,0.15,6452,9 groups x 3 nodes; 4 global port(s) per node,81,3,1.94302,0,0,18.1703,0.89903,18.1703,11.676,NA,18.1703,0,0,0,0,0,0,OK
+F27d6,27,6,megafly,dctcp,compact,1,27,tp3.dp3.pp1.ep3,ring,ecnexact,0,0.29,6164,3 groups x [5 leaf + 4 spine],63,5,2.82051,0,0,84.1861,34.2355,84.1861,23.4724,NA,84.1861,0,0,0,0,0,0,OK
+F27d6,27,6,dheu,dctcp,compact,1,27,tp3.dp3.pp1.ep3,ring,ecnexact,0,0.22,6792,demand-driven,NA,NA,NA,67,0,34.2553,34.2553,15.5011,22.0083,NA,34.2553,0,0,0,0,0,0,OK
+J12d4,16,4,jellyfish,dctcp,compact,1,12,tp3.dp2.pp2.ep1,ring,ecnexact,0,0.03,5056,random regular graph; degree budget 4,31,3,1.96667,0,0,27.1017,23.7227,27.1017,NA,22.0316,27.1017,0,0,0,0,0,0,OK
+J12d4,16,4,flatbutterfly,dctcp,compact,1,12,tp3.dp2.pp2.ep1,ring,ecnexact,0,0.05,4948,2-ary 4-flat; degree 4,32,4,2.13333,0,0,33.2713,23.7499,33.2713,NA,23.0324,33.2713,0,0,0,0,0,0,OK
+J12d4,16,4,dragonfly,dctcp,compact,1,12,tp3.dp2.pp2.ep1,ring,ecnexact,0,0.05,5000,4 groups x 4 nodes; 1 global port(s) per node,32,3,2.1,0,0,29.8881,12.4453,29.8881,NA,11.6362,29.8881,0,0,0,0,0,0,OK
+J12d4,16,4,megafly,dctcp,compact,1,12,tp3.dp2.pp2.ep1,ring,ecnexact,0,0.06,4824,4 groups x [2 leaf + 2 spine],22,5,2.55,0,0,39.8681,23.1695,39.8681,NA,13.511,39.8681,0,0,0,0,0,0,OK
+J12d4,16,4,dheu,dctcp,compact,1,12,tp3.dp2.pp2.ep1,ring,ecnexact,0,0.06,5264,demand-driven,NA,NA,NA,48,0,23.955,23.955,14.9752,NA,13.3265,23.955,0,0,0,0,0,0,OK
+J12d4,16,4,jellyfish,dctcp,compact,1,12,tp3.dp2.pp2.ep1,auto,ecnexact,0,0.03,5032,random regular graph; degree budget 4,31,3,1.96667,0,0,27.1017,23.7227,27.1017,NA,22.0316,27.1017,0,0,0,0,0,0,OK
+J12d4,16,4,flatbutterfly,dctcp,compact,1,12,tp3.dp2.pp2.ep1,auto,ecnexact,0,0.05,4924,2-ary 4-flat; degree 4,32,4,2.13333,0,0,33.2713,23.7499,33.2713,NA,23.0324,33.2713,0,0,0,0,0,0,OK
+J12d4,16,4,dragonfly,dctcp,compact,1,12,tp3.dp2.pp2.ep1,auto,ecnexact,0,0.05,5108,4 groups x 4 nodes; 1 global port(s) per node,32,3,2.1,0,0,29.8881,12.4453,29.8881,NA,11.6362,29.8881,0,0,0,0,0,0,OK
+J12d4,16,4,megafly,dctcp,compact,1,12,tp3.dp2.pp2.ep1,auto,ecnexact,0,0.07,4832,4 groups x [2 leaf + 2 spine],22,5,2.55,0,0,39.8681,23.1695,39.8681,NA,13.511,39.8681,0,0,0,0,0,0,OK
+J12d4,16,4,dheu,dctcp,compact,1,12,tp3.dp2.pp2.ep1,auto,ecnexact,0,0.05,5236,demand-driven,NA,NA,NA,48,0,23.955,23.955,14.9752,NA,13.3265,23.955,0,0,0,0,0,0,OK
+J12d4,16,4,jellyfish,dctcp,compact,1,12,tp2.dp3.pp2.ep1,ring,ecnexact,0,0.06,5052,random regular graph; degree budget 4,31,3,1.96667,0,0,25.6346,13.5308,25.6346,NA,12.0828,25.6346,0,0,0,0,0,0,OK
+J12d4,16,4,flatbutterfly,dctcp,compact,1,12,tp2.dp3.pp2.ep1,ring,ecnexact,0,0.03,5124,2-ary 4-flat; degree 4,32,4,2.13333,0,0,7.1711,0.673987,7.1711,NA,0.336994,7.1711,0,0,0,0,0,0,OK
+J12d4,16,4,dragonfly,dctcp,compact,1,12,tp2.dp3.pp2.ep1,ring,ecnexact,0,0.08,5056,4 groups x 4 nodes; 1 global port(s) per node,32,3,2.1,0,0,38.6903,0.673987,38.6903,NA,0.336994,38.6903,0,0,0,0,0,0,OK
+J12d4,16,4,megafly,dctcp,compact,1,12,tp2.dp3.pp2.ep1,ring,ecnexact,0,0.08,5176,4 groups x [2 leaf + 2 spine],22,5,2.55,0,0,41.2826,23.0036,41.2826,NA,11.8723,41.2826,0,0,0,0,0,0,OK
+J12d4,16,4,dheu,dctcp,compact,1,12,tp2.dp3.pp2.ep1,ring,ecnexact,0,0.06,5196,demand-driven,NA,NA,NA,51,0,25.8689,23.1319,25.8689,NA,12.2375,25.8689,0,0,0,0,0,0,OK
+J12d4,16,4,jellyfish,dctcp,compact,1,12,tp2.dp3.pp2.ep1,auto,ecnexact,0,0.06,5012,random regular graph; degree budget 4,31,3,1.96667,0,0,25.6346,13.5308,25.6346,NA,12.0828,25.6346,0,0,0,0,0,0,OK
+J12d4,16,4,flatbutterfly,dctcp,compact,1,12,tp2.dp3.pp2.ep1,auto,ecnexact,0,0.04,5120,2-ary 4-flat; degree 4,32,4,2.13333,0,0,7.1711,0.673987,7.1711,NA,0.336994,7.1711,0,0,0,0,0,0,OK
+J12d4,16,4,dragonfly,dctcp,compact,1,12,tp2.dp3.pp2.ep1,auto,ecnexact,0,0.07,5000,4 groups x 4 nodes; 1 global port(s) per node,32,3,2.1,0,0,38.6903,0.673987,38.6903,NA,0.336994,38.6903,0,0,0,0,0,0,OK
+J12d4,16,4,megafly,dctcp,compact,1,12,tp2.dp3.pp2.ep1,auto,ecnexact,0,0.09,4988,4 groups x [2 leaf + 2 spine],22,5,2.55,0,0,41.2826,23.0036,41.2826,NA,11.8723,41.2826,0,0,0,0,0,0,OK
+J12d4,16,4,dheu,dctcp,compact,1,12,tp2.dp3.pp2.ep1,auto,ecnexact,0,0.07,5128,demand-driven,NA,NA,NA,51,0,25.8689,23.1319,25.8689,NA,12.2375,25.8689,0,0,0,0,0,0,OK
+J12d4,16,4,jellyfish,dctcp,compact,1,12,tp3.dp4.pp1.ep1,ring,ecnexact,0,0.07,5080,random regular graph; degree budget 4,31,3,1.96667,0,0,49.5713,26.0556,49.5713,NA,NA,49.5713,0,0,0,0,0,0,OK
+J12d4,16,4,flatbutterfly,dctcp,compact,1,12,tp3.dp4.pp1.ep1,ring,ecnexact,0,0.09,5064,2-ary 4-flat; degree 4,32,4,2.13333,0,0,71.3559,24.1694,71.3559,NA,NA,71.3559,0,0,0,0,0,0,OK
+J12d4,16,4,dragonfly,dctcp,compact,1,12,tp3.dp4.pp1.ep1,ring,ecnexact,0,0.06,5028,4 groups x 4 nodes; 1 global port(s) per node,32,3,2.1,0,0,36.2599,23.0265,36.2599,NA,NA,36.2599,0,0,0,0,0,0,OK
+J12d4,16,4,megafly,dctcp,compact,1,12,tp3.dp4.pp1.ep1,ring,ecnexact,0,0.07,5056,4 groups x [2 leaf + 2 spine],22,5,2.55,0,0,40.822,24.0387,40.822,NA,NA,40.822,0,0,0,0,0,0,OK
+J12d4,16,4,dheu,dctcp,compact,1,12,tp3.dp4.pp1.ep1,ring,ecnexact,0,0.08,5184,demand-driven,NA,NA,NA,54,0,27.5166,23.659,27.5166,NA,NA,27.5166,0,0,0,0,0,0,OK
+J12d4,16,4,jellyfish,dctcp,compact,1,12,tp3.dp4.pp1.ep1,auto,ecnexact,0,0.07,5000,random regular graph; degree budget 4,31,3,1.96667,0,0,27.2448,27.2448,24.8354,NA,NA,27.2448,0,0,0,0,0,0,OK
+J12d4,16,4,flatbutterfly,dctcp,compact,1,12,tp3.dp4.pp1.ep1,auto,ecnexact,0,0.08,4868,2-ary 4-flat; degree 4,32,4,2.13333,0,0,52.3688,25.3789,52.3688,NA,NA,52.3688,0,0,0,0,0,0,OK
+J12d4,16,4,dragonfly,dctcp,compact,1,12,tp3.dp4.pp1.ep1,auto,ecnexact,0,0.06,4996,4 groups x 4 nodes; 1 global port(s) per node,32,3,2.1,0,0,29.4715,12.5283,29.4715,NA,NA,29.4715,0,0,0,0,0,0,OK
+J12d4,16,4,megafly,dctcp,compact,1,12,tp3.dp4.pp1.ep1,auto,ecnexact,0,0.10,4948,4 groups x [2 leaf + 2 spine],22,5,2.55,0,0,58.6468,23.1223,58.6468,NA,NA,58.6468,0,0,0,0,0,0,OK
+J12d4,16,4,dheu,dctcp,compact,1,12,tp3.dp4.pp1.ep1,auto,ecnexact,0,0.06,5244,demand-driven,NA,NA,NA,54,0,27.4126,22.6095,27.4126,NA,NA,27.4126,0,0,0,0,0,0,OK
+J12d4,16,4,jellyfish,dctcp,compact,1,12,tp4.dp3.pp1.ep1,ring,ecnexact,0,0.07,4996,random regular graph; degree budget 4,31,3,1.96667,0,0,66.1004,66.1004,25.7535,NA,NA,66.1004,0,0,0,0,0,0,OK
+J12d4,16,4,flatbutterfly,dctcp,compact,1,12,tp4.dp3.pp1.ep1,ring,ecnexact,0,0.04,5116,2-ary 4-flat; degree 4,32,4,2.13333,0,0,66.1708,66.1708,7.1711,NA,NA,66.1708,0,0,0,0,0,0,OK
+J12d4,16,4,dragonfly,dctcp,compact,1,12,tp4.dp3.pp1.ep1,ring,ecnexact,0,0.07,5000,4 groups x 4 nodes; 1 global port(s) per node,32,3,2.1,0,0,38.2009,1.0147,38.2009,NA,NA,38.2009,0,0,0,0,0,0,OK
+J12d4,16,4,megafly,dctcp,compact,1,12,tp4.dp3.pp1.ep1,ring,ecnexact,0,0.07,5000,4 groups x [2 leaf + 2 spine],22,5,2.55,0,0,66.1705,66.1705,45.6634,NA,NA,66.1705,0,0,0,0,0,0,OK
+J12d4,16,4,dheu,dctcp,compact,1,12,tp4.dp3.pp1.ep1,ring,ecnexact,0,0.06,4968,demand-driven,NA,NA,NA,45,0,22.7567,22.7567,16.9809,NA,NA,22.7567,0,0,0,0,0,0,OK
+J12d4,16,4,jellyfish,dctcp,compact,1,12,tp4.dp3.pp1.ep1,auto,ecnexact,0,0.06,5072,random regular graph; degree budget 4,31,3,1.96667,0,0,24.2145,24.2145,23.9576,NA,NA,24.2145,0,0,0,0,0,0,OK
+J12d4,16,4,flatbutterfly,dctcp,compact,1,12,tp4.dp3.pp1.ep1,auto,ecnexact,0,0.04,5052,2-ary 4-flat; degree 4,32,4,2.13333,0,0,7.1711,1.01198,7.1711,NA,NA,7.1711,0,0,0,0,0,0,OK
+J12d4,16,4,dragonfly,dctcp,compact,1,12,tp4.dp3.pp1.ep1,auto,ecnexact,0,0.06,5024,4 groups x 4 nodes; 1 global port(s) per node,32,3,2.1,0,0,34.6898,1.01842,34.6898,NA,NA,34.6898,0,0,0,0,0,0,OK
+J12d4,16,4,megafly,dctcp,compact,1,12,tp4.dp3.pp1.ep1,auto,ecnexact,0,0.07,4864,4 groups x [2 leaf + 2 spine],22,5,2.55,0,0,57.3026,24.0918,57.3026,NA,NA,57.3026,0,0,0,0,0,0,OK
+J12d4,16,4,dheu,dctcp,compact,1,12,tp4.dp3.pp1.ep1,auto,ecnexact,0,0.06,5248,demand-driven,NA,NA,NA,65,0,33.2123,33.2123,26.8829,NA,NA,33.2123,0,0,0,0,0,0,OK
+J12d4,16,4,jellyfish,dctcp,compact,1,12,tp12.dp1.pp1.ep1,ring,ecnexact,0,0.01,5116,random regular graph; degree budget 4,31,3,1.96667,0,0,2.57138,2.57138,NA,NA,NA,2.57138,0,0,0,0,0,0,OK
+J12d4,16,4,flatbutterfly,dctcp,compact,1,12,tp12.dp1.pp1.ep1,ring,ecnexact,0,0.01,5008,2-ary 4-flat; degree 4,32,4,2.13333,0,0,5.02958,5.02958,NA,NA,NA,5.02958,0,0,0,0,0,0,OK
+J12d4,16,4,dragonfly,dctcp,compact,1,12,tp12.dp1.pp1.ep1,ring,ecnexact,0,0.01,5060,4 groups x 4 nodes; 1 global port(s) per node,32,3,2.1,0,0,2.60911,2.60911,NA,NA,NA,2.60911,0,0,0,0,0,0,OK
+J12d4,16,4,megafly,dctcp,compact,1,12,tp12.dp1.pp1.ep1,ring,ecnexact,0,0.01,5008,4 groups x [2 leaf + 2 spine],22,5,2.55,0,0,2.57138,2.57138,NA,NA,NA,2.57138,0,0,0,0,0,0,OK
+J12d4,16,4,dheu,dctcp,compact,1,12,tp12.dp1.pp1.ep1,ring,ecnexact,0,0.01,5056,demand-driven,NA,NA,NA,4,0,1.62315,1.62315,NA,NA,NA,1.62315,0,0,0,0,0,0,OK
+J12d4,16,4,jellyfish,dctcp,compact,1,12,tp12.dp1.pp1.ep1,auto,ecnexact,0,0.01,5064,random regular graph; degree budget 4,31,3,1.96667,0,0,2.57138,2.57138,NA,NA,NA,2.57138,0,0,0,0,0,0,OK
+J12d4,16,4,flatbutterfly,dctcp,compact,1,12,tp12.dp1.pp1.ep1,auto,ecnexact,0,0.01,5108,2-ary 4-flat; degree 4,32,4,2.13333,0,0,5.02958,5.02958,NA,NA,NA,5.02958,0,0,0,0,0,0,OK
+J12d4,16,4,dragonfly,dctcp,compact,1,12,tp12.dp1.pp1.ep1,auto,ecnexact,0,0.01,5028,4 groups x 4 nodes; 1 global port(s) per node,32,3,2.1,0,0,2.60911,2.60911,NA,NA,NA,2.60911,0,0,0,0,0,0,OK
+J12d4,16,4,megafly,dctcp,compact,1,12,tp12.dp1.pp1.ep1,auto,ecnexact,0,0.01,5092,4 groups x [2 leaf + 2 spine],22,5,2.55,0,0,2.57138,2.57138,NA,NA,NA,2.57138,0,0,0,0,0,0,OK
+J12d4,16,4,dheu,dctcp,compact,1,12,tp12.dp1.pp1.ep1,auto,ecnexact,0,0.01,5000,demand-driven,NA,NA,NA,4,0,1.62315,1.62315,NA,NA,NA,1.62315,0,0,0,0,0,0,OK
+J12d6,16,6,jellyfish,dctcp,compact,1,12,tp3.dp2.pp2.ep1,ring,ecnexact,0,0.04,5056,random regular graph; degree budget 6,48,3,1.61667,0,0,21.7409,12.0336,21.7409,NA,11.3404,21.7409,0,0,0,0,0,0,OK
+J12d6,16,6,flatbutterfly,dctcp,compact,1,12,tp3.dp2.pp2.ep1,ring,ecnexact,0,0.04,5008,4-ary 2-flat; degree 6,48,2,1.6,0,0,21.7409,12.3588,21.7409,NA,0.999543,21.7409,0,0,0,0,0,0,OK
+J12d6,16,6,dragonfly,dctcp,compact,1,12,tp3.dp2.pp2.ep1,ring,ecnexact,0,0.04,5056,4 groups x 4 nodes; 3 global port(s) per node,48,3,1.60833,0,0,17.0462,15.7086,17.0462,NA,0.342998,17.0462,0,0,0,0,0,0,OK
+J12d6,16,6,megafly,dctcp,compact,1,12,tp3.dp2.pp2.ep1,ring,ecnexact,0,0.07,5048,4 groups x [2 leaf + 2 spine],22,5,2.55,0,0,39.8681,23.1695,39.8681,NA,13.511,39.8681,0,0,0,0,0,0,OK
+J12d6,16,6,dheu,dctcp,compact,1,12,tp3.dp2.pp2.ep1,ring,ecnexact,0,0.04,5176,demand-driven,NA,NA,NA,46,0,22.6114,22.6114,12.7071,NA,11.337,22.6114,0,0,0,0,0,0,OK
+J12d6,16,6,jellyfish,dctcp,compact,1,12,tp3.dp2.pp2.ep1,auto,ecnexact,0,0.03,5052,random regular graph; degree budget 6,48,3,1.61667,0,0,21.7409,12.0336,21.7409,NA,11.3404,21.7409,0,0,0,0,0,0,OK
+J12d6,16,6,flatbutterfly,dctcp,compact,1,12,tp3.dp2.pp2.ep1,auto,ecnexact,0,0.05,5008,4-ary 2-flat; degree 6,48,2,1.6,0,0,21.7409,12.3588,21.7409,NA,0.999543,21.7409,0,0,0,0,0,0,OK
+J12d6,16,6,dragonfly,dctcp,compact,1,12,tp3.dp2.pp2.ep1,auto,ecnexact,0,0.04,5068,4 groups x 4 nodes; 3 global port(s) per node,48,3,1.60833,0,0,17.0462,15.7086,17.0462,NA,0.342998,17.0462,0,0,0,0,0,0,OK
+J12d6,16,6,megafly,dctcp,compact,1,12,tp3.dp2.pp2.ep1,auto,ecnexact,0,0.07,5008,4 groups x [2 leaf + 2 spine],22,5,2.55,0,0,39.8681,23.1695,39.8681,NA,13.511,39.8681,0,0,0,0,0,0,OK
+J12d6,16,6,dheu,dctcp,compact,1,12,tp3.dp2.pp2.ep1,auto,ecnexact,0,0.05,5136,demand-driven,NA,NA,NA,46,0,22.6114,22.6114,12.7071,NA,11.337,22.6114,0,0,0,0,0,0,OK
+J12d6,16,6,jellyfish,dctcp,compact,1,12,tp2.dp3.pp2.ep1,ring,ecnexact,0,0.04,5120,random regular graph; degree budget 6,48,3,1.61667,0,0,31.1867,12.0618,31.1867,NA,11.6132,31.1867,0,0,0,0,0,0,OK
+J12d6,16,6,flatbutterfly,dctcp,compact,1,12,tp2.dp3.pp2.ep1,ring,ecnexact,0,0.03,5264,4-ary 2-flat; degree 6,48,2,1.6,0,0,7.16424,0.673987,7.16424,NA,0.336994,7.16424,0,0,0,0,0,0,OK
+J12d6,16,6,dragonfly,dctcp,compact,1,12,tp2.dp3.pp2.ep1,ring,ecnexact,0,0.04,5116,4 groups x 4 nodes; 3 global port(s) per node,48,3,1.60833,0,0,33.4731,0.673987,33.4731,NA,0.336994,33.4731,0,0,0,0,0,0,OK
+J12d6,16,6,megafly,dctcp,compact,1,12,tp2.dp3.pp2.ep1,ring,ecnexact,0,0.08,5124,4 groups x [2 leaf + 2 spine],22,5,2.55,0,0,41.2826,23.0036,41.2826,NA,11.8723,41.2826,0,0,0,0,0,0,OK
+J12d6,16,6,dheu,dctcp,compact,1,12,tp2.dp3.pp2.ep1,ring,ecnexact,0,0.05,5148,demand-driven,NA,NA,NA,45,0,22.2256,22.2256,15.4066,NA,1.5434,22.2256,0,0,0,0,0,0,OK
+J12d6,16,6,jellyfish,dctcp,compact,1,12,tp2.dp3.pp2.ep1,auto,ecnexact,0,0.05,5000,random regular graph; degree budget 6,48,3,1.61667,0,0,31.1867,12.0618,31.1867,NA,11.6132,31.1867,0,0,0,0,0,0,OK
+J12d6,16,6,flatbutterfly,dctcp,compact,1,12,tp2.dp3.pp2.ep1,auto,ecnexact,0,0.03,5144,4-ary 2-flat; degree 6,48,2,1.6,0,0,7.16424,0.673987,7.16424,NA,0.336994,7.16424,0,0,0,0,0,0,OK
+J12d6,16,6,dragonfly,dctcp,compact,1,12,tp2.dp3.pp2.ep1,auto,ecnexact,0,0.04,5156,4 groups x 4 nodes; 3 global port(s) per node,48,3,1.60833,0,0,33.4731,0.673987,33.4731,NA,0.336994,33.4731,0,0,0,0,0,0,OK
+J12d6,16,6,megafly,dctcp,compact,1,12,tp2.dp3.pp2.ep1,auto,ecnexact,0,0.08,5108,4 groups x [2 leaf + 2 spine],22,5,2.55,0,0,41.2826,23.0036,41.2826,NA,11.8723,41.2826,0,0,0,0,0,0,OK
+J12d6,16,6,dheu,dctcp,compact,1,12,tp2.dp3.pp2.ep1,auto,ecnexact,0,0.07,5128,demand-driven,NA,NA,NA,45,0,22.2256,22.2256,15.4066,NA,1.5434,22.2256,0,0,0,0,0,0,OK
+J12d6,16,6,jellyfish,dctcp,compact,1,12,tp3.dp4.pp1.ep1,ring,ecnexact,0,0.05,5040,random regular graph; degree budget 6,48,3,1.61667,0,0,35.2676,1.464,35.2676,NA,NA,35.2676,0,0,0,0,0,0,OK
+J12d6,16,6,flatbutterfly,dctcp,compact,1,12,tp3.dp4.pp1.ep1,ring,ecnexact,0,0.06,5056,4-ary 2-flat; degree 6,48,2,1.6,0,0,29.7273,1.1338,29.7273,NA,NA,29.7273,0,0,0,0,0,0,OK
+J12d6,16,6,dragonfly,dctcp,compact,1,12,tp3.dp4.pp1.ep1,ring,ecnexact,0,0.06,5204,4 groups x 4 nodes; 3 global port(s) per node,48,3,1.60833,0,0,9.02448,1.83066,9.02448,NA,NA,9.02448,0,0,0,0,0,0,OK
+J12d6,16,6,megafly,dctcp,compact,1,12,tp3.dp4.pp1.ep1,ring,ecnexact,0,0.07,5056,4 groups x [2 leaf + 2 spine],22,5,2.55,0,0,40.822,24.0387,40.822,NA,NA,40.822,0,0,0,0,0,0,OK
+J12d6,16,6,dheu,dctcp,compact,1,12,tp3.dp4.pp1.ep1,ring,ecnexact,0,0.08,5144,demand-driven,NA,NA,NA,51,0,25.9186,13.7718,25.9186,NA,NA,25.9186,0,0,0,0,0,0,OK
+J12d6,16,6,jellyfish,dctcp,compact,1,12,tp3.dp4.pp1.ep1,auto,ecnexact,0,0.06,5008,random regular graph; degree budget 6,48,3,1.61667,0,0,23.6307,12.7032,23.6307,NA,NA,23.6307,0,0,0,0,0,0,OK
+J12d6,16,6,flatbutterfly,dctcp,compact,1,12,tp3.dp4.pp1.ep1,auto,ecnexact,0,0.06,5068,4-ary 2-flat; degree 6,48,2,1.6,0,0,26.0055,26.0055,19.6433,NA,NA,26.0055,0,0,0,0,0,0,OK
+J12d6,16,6,dragonfly,dctcp,compact,1,12,tp3.dp4.pp1.ep1,auto,ecnexact,0,0.04,5008,4 groups x 4 nodes; 3 global port(s) per node,48,3,1.60833,0,0,19.0657,11.9076,19.0657,NA,NA,19.0657,0,0,0,0,0,0,OK
+J12d6,16,6,megafly,dctcp,compact,1,12,tp3.dp4.pp1.ep1,auto,ecnexact,0,0.08,4908,4 groups x [2 leaf + 2 spine],22,5,2.55,0,0,58.6468,23.1223,58.6468,NA,NA,58.6468,0,0,0,0,0,0,OK
+J12d6,16,6,dheu,dctcp,compact,1,12,tp3.dp4.pp1.ep1,auto,ecnexact,0,0.05,5184,demand-driven,NA,NA,NA,28,0,13.97,12.6514,13.97,NA,NA,13.97,0,0,0,0,0,0,OK
+J12d6,16,6,jellyfish,dctcp,compact,1,12,tp4.dp3.pp1.ep1,ring,ecnexact,0,0.04,5032,random regular graph; degree budget 6,48,3,1.61667,0,0,23.5293,23.5293,18.1721,NA,NA,23.5293,0,0,0,0,0,0,OK
+J12d6,16,6,flatbutterfly,dctcp,compact,1,12,tp4.dp3.pp1.ep1,ring,ecnexact,0,0.03,5000,4-ary 2-flat; degree 6,48,2,1.6,0,0,7.16424,1.01398,7.16424,NA,NA,7.16424,0,0,0,0,0,0,OK
+J12d6,16,6,dragonfly,dctcp,compact,1,12,tp4.dp3.pp1.ep1,ring,ecnexact,0,0.04,5092,4 groups x 4 nodes; 3 global port(s) per node,48,3,1.60833,0,0,18.181,1.01398,18.181,NA,NA,18.181,0,0,0,0,0,0,OK
+J12d6,16,6,megafly,dctcp,compact,1,12,tp4.dp3.pp1.ep1,ring,ecnexact,0,0.08,5056,4 groups x [2 leaf + 2 spine],22,5,2.55,0,0,66.1705,66.1705,45.6634,NA,NA,66.1705,0,0,0,0,0,0,OK
+J12d6,16,6,dheu,dctcp,compact,1,12,tp4.dp3.pp1.ep1,ring,ecnexact,0,0.07,5112,demand-driven,NA,NA,NA,46,0,23.0104,23.0104,15.0891,NA,NA,23.0104,0,0,0,0,0,0,OK
+J12d6,16,6,jellyfish,dctcp,compact,1,12,tp4.dp3.pp1.ep1,auto,ecnexact,0,0.05,5048,random regular graph; degree budget 6,48,3,1.61667,0,0,29.4893,12.4993,29.4893,NA,NA,29.4893,0,0,0,0,0,0,OK
+J12d6,16,6,flatbutterfly,dctcp,compact,1,12,tp4.dp3.pp1.ep1,auto,ecnexact,0,0.03,5056,4-ary 2-flat; degree 6,48,2,1.6,0,0,7.16424,1.01198,7.16424,NA,NA,7.16424,0,0,0,0,0,0,OK
+J12d6,16,6,dragonfly,dctcp,compact,1,12,tp4.dp3.pp1.ep1,auto,ecnexact,0,0.04,5052,4 groups x 4 nodes; 3 global port(s) per node,48,3,1.60833,0,0,33.4731,1.01198,33.4731,NA,NA,33.4731,0,0,0,0,0,0,OK
+J12d6,16,6,megafly,dctcp,compact,1,12,tp4.dp3.pp1.ep1,auto,ecnexact,0,0.08,4972,4 groups x [2 leaf + 2 spine],22,5,2.55,0,0,57.3026,24.0918,57.3026,NA,NA,57.3026,0,0,0,0,0,0,OK
+J12d6,16,6,dheu,dctcp,compact,1,12,tp4.dp3.pp1.ep1,auto,ecnexact,0,0.05,5052,demand-driven,NA,NA,NA,51,0,25.4776,22.6596,25.4776,NA,NA,25.4776,0,0,0,0,0,0,OK
+J12d6,16,6,jellyfish,dctcp,compact,1,12,tp12.dp1.pp1.ep1,ring,ecnexact,0,0.01,5032,random regular graph; degree budget 6,48,3,1.61667,0,0,1.33992,1.33992,NA,NA,NA,1.33992,0,0,0,0,0,0,OK
+J12d6,16,6,flatbutterfly,dctcp,compact,1,12,tp12.dp1.pp1.ep1,ring,ecnexact,0,0.01,5000,4-ary 2-flat; degree 6,48,2,1.6,0,0,2.51793,2.51793,NA,NA,NA,2.51793,0,0,0,0,0,0,OK
+J12d6,16,6,dragonfly,dctcp,compact,1,12,tp12.dp1.pp1.ep1,ring,ecnexact,0,0.01,5076,4 groups x 4 nodes; 3 global port(s) per node,48,3,1.60833,0,0,1.30219,1.30219,NA,NA,NA,1.30219,0,0,0,0,0,0,OK
+J12d6,16,6,megafly,dctcp,compact,1,12,tp12.dp1.pp1.ep1,ring,ecnexact,0,0.01,5056,4 groups x [2 leaf + 2 spine],22,5,2.55,0,0,2.57138,2.57138,NA,NA,NA,2.57138,0,0,0,0,0,0,OK
+J12d6,16,6,dheu,dctcp,compact,1,12,tp12.dp1.pp1.ep1,ring,ecnexact,0,0.01,4996,demand-driven,NA,NA,NA,3,0,0.928445,0.928445,NA,NA,NA,0.928445,0,0,0,0,0,0,OK
+J12d6,16,6,jellyfish,dctcp,compact,1,12,tp12.dp1.pp1.ep1,auto,ecnexact,0,0.01,5056,random regular graph; degree budget 6,48,3,1.61667,0,0,1.33992,1.33992,NA,NA,NA,1.33992,0,0,0,0,0,0,OK
+J12d6,16,6,flatbutterfly,dctcp,compact,1,12,tp12.dp1.pp1.ep1,auto,ecnexact,0,0.01,5008,4-ary 2-flat; degree 6,48,2,1.6,0,0,2.51793,2.51793,NA,NA,NA,2.51793,0,0,0,0,0,0,OK
+J12d6,16,6,dragonfly,dctcp,compact,1,12,tp12.dp1.pp1.ep1,auto,ecnexact,0,0.01,5136,4 groups x 4 nodes; 3 global port(s) per node,48,3,1.60833,0,0,1.30219,1.30219,NA,NA,NA,1.30219,0,0,0,0,0,0,OK
+J12d6,16,6,megafly,dctcp,compact,1,12,tp12.dp1.pp1.ep1,auto,ecnexact,0,0.01,5176,4 groups x [2 leaf + 2 spine],22,5,2.55,0,0,2.57138,2.57138,NA,NA,NA,2.57138,0,0,0,0,0,0,OK
+J12d6,16,6,dheu,dctcp,compact,1,12,tp12.dp1.pp1.ep1,auto,ecnexact,0,0.01,5056,demand-driven,NA,NA,NA,3,0,0.928445,0.928445,NA,NA,NA,0.928445,0,0,0,0,0,0,OK
+fullmdp,128,9,jellyfish,dctcp,compact,1,128,tp4.dp4.pp4.ep2,rhd,ecnexact,0,2.39,22052,random regular graph; degree budget 9,574,4,2.44058,0,0,53.6884,46.1853,53.6884,37.3013,24.0108,53.6884,0,0,0,0,0,0,OK
+fullmdp,128,9,flatbutterfly,dctcp,compact,1,128,tp4.dp4.pp4.ep2,rhd,ecnexact,0,0.82,23840,2-ary 7-flat; degree 7,448,7,3.52756,0,0,8.05784,1.01198,8.05784,0.672272,0.338709,8.05784,0,0,0,0,0,0,OK
+fullmdp,128,9,dragonfly,dctcp,compact,1,128,tp4.dp4.pp4.ep2,rhd,ecnexact,0,1.70,22340,16 groups x 8 nodes; 2 global port(s) per node,576,3,2.63189,0,0,55.7048,1.03014,55.7048,11.9352,13.3874,55.7048,0,0,0,0,0,0,OK
+fullmdp,128,9,megafly,dctcp,compact,1,128,tp4.dp4.pp4.ep2,rhd,ecnexact,0,3.27,21024,8 groups x [8 leaf + 8 spine],540,5,3.45965,0,0,152.806,34.567,152.806,38.1645,52.7666,152.806,0,0,0,0,0,0,OK
+fullmdp,128,9,dheu,dctcp,compact,1,128,tp4.dp4.pp4.ep2,rhd,ecnexact,0,26.28,24808,demand-driven,NA,NA,NA,66,0,34.237,33.3476,34.237,11.5833,22.0033,34.237,0,0,0,0,0,0,OK
+fullmdp,128,9,jellyfish,dctcp,compact,1,128,tp4.dp4.pp4.ep2,ring,ecnexact,0,2.16,22680,random regular graph; degree budget 9,574,4,2.44058,0,0,66.1763,66.1763,63.5643,50.1182,46.512,66.1763,0,0,0,0,0,0,OK
+fullmdp,128,9,flatbutterfly,dctcp,compact,1,128,tp4.dp4.pp4.ep2,ring,ecnexact,0,1.01,24440,2-ary 7-flat; degree 7,448,7,3.52756,0,0,72.3462,66.1708,72.3462,0.672272,0.338709,72.3462,0,0,0,0,0,0,OK
+fullmdp,128,9,dragonfly,dctcp,compact,1,128,tp4.dp4.pp4.ep2,ring,ecnexact,0,1.65,22936,16 groups x 8 nodes; 2 global port(s) per node,576,3,2.63189,0,0,82.3697,1.0147,82.3697,11.885,13.9342,82.3697,0,0,0,0,0,0,OK
+fullmdp,128,9,megafly,dctcp,compact,1,128,tp4.dp4.pp4.ep2,ring,ecnexact,0,3.22,21620,8 groups x [8 leaf + 8 spine],540,5,3.45965,0,0,159.285,48.5507,159.285,47.8098,95.37,159.285,0,0,0,0,0,0,OK
+fullmdp,128,9,dheu,dctcp,compact,1,128,tp4.dp4.pp4.ep2,ring,ecnexact,0,27.15,24776,demand-driven,NA,NA,NA,88,0,45.227,45.227,35.3387,12.1662,22.0299,45.227,0,0,0,0,0,0,OK
+fullmdp,128,12,jellyfish,dctcp,compact,1,128,tp4.dp4.pp4.ep2,rhd,ecnexact,0,1.75,22064,random regular graph; degree budget 12,768,3,2.18369,0,0,50.5424,37.017,50.5424,25.2285,34.9159,50.5424,0,0,0,0,0,0,OK
+fullmdp,128,12,flatbutterfly,dctcp,compact,1,128,tp4.dp4.pp4.ep2,rhd,ecnexact,0,0.84,23880,2-ary 7-flat; degree 7,448,7,3.52756,0,0,8.05784,1.01198,8.05784,0.672272,0.338709,8.05784,0,0,0,0,0,0,OK
+fullmdp,128,12,dragonfly,dctcp,compact,1,128,tp4.dp4.pp4.ep2,rhd,ecnexact,0,1.76,22636,16 groups x 8 nodes; 5 global port(s) per node,766,3,2.32259,0,0,41.6936,1.94947,41.6936,11.6011,12.5182,41.6936,0,0,0,0,0,0,OK
+fullmdp,128,12,megafly,dctcp,compact,1,128,tp4.dp4.pp4.ep2,rhd,ecnexact,0,3.23,21048,8 groups x [8 leaf + 8 spine],540,5,3.45965,0,0,152.806,34.567,152.806,38.1645,52.7666,152.806,0,0,0,0,0,0,OK
+fullmdp,128,12,dheu,dctcp,compact,1,128,tp4.dp4.pp4.ep2,rhd,ecnexact,0,26.20,24616,demand-driven,NA,NA,NA,69,0,35.4181,33.1607,35.4181,11.4359,22.0305,35.4181,0,0,0,0,0,0,OK
+fullmdp,256,12,jellyfish,dctcp,compact,1,256,tp4.dp4.pp4.ep4,rhd,ecnexact,0,5.01,67412,random regular graph; degree budget 12,1536,4,2.50824,0,0,63.7459,45.0236,63.7459,35.7235,24.9658,63.7459,0,0,0,0,0,0,OK
+fullmdp,256,12,flatbutterfly,dctcp,compact,1,256,tp4.dp4.pp4.ep4,rhd,ecnexact,0,2.47,75428,4-ary 4-flat; degree 12,1536,4,3.01176,0,0,8.05784,1.01198,8.05784,0.224758,0.336994,8.05784,0,0,0,0,0,0,OK
+fullmdp,256,12,dragonfly,dctcp,compact,1,256,tp4.dp4.pp4.ep4,rhd,ecnexact,0,4.13,67336,32 groups x 8 nodes; 5 global port(s) per node,1536,3,2.61529,0,0,40.0348,12.266,40.0348,22.3426,22.6607,40.0348,0,0,0,0,0,0,OK
+fullmdp,256,12,megafly,dctcp,compact,1,256,tp4.dp4.pp4.ep4,rhd,ecnexact,0,5.70,66664,16 groups x [8 leaf + 8 spine],1144,5,3.55221,0,0,264.715,45.276,264.715,50.2053,63.224,264.715,0,0,0,0,0,0,OK
+fullmdp,256,12,jellyfish,dctcp,compact,1,256,tp4.dp4.pp4.ep4,ring,ecnexact,0,5.97,68956,random regular graph; degree budget 12,1536,4,2.50824,0,0,78.9574,60.2653,78.9574,56.2083,36.189,78.9574,0,0,0,0,0,0,OK
+fullmdp,256,12,flatbutterfly,dctcp,compact,1,256,tp4.dp4.pp4.ep4,ring,ecnexact,0,2.64,75260,4-ary 4-flat; degree 12,1536,4,3.01176,0,0,8.06127,1.01398,8.06127,0.224758,0.336994,8.06127,0,0,0,0,0,0,OK
+fullmdp,256,12,dragonfly,dctcp,compact,1,256,tp4.dp4.pp4.ep4,ring,ecnexact,0,3.69,68560,32 groups x 8 nodes; 5 global port(s) per node,1536,3,2.61529,0,0,72.3462,1.03657,72.3462,22.3251,13.4679,72.3462,0,0,0,0,0,0,OK
+fullmdp,256,12,megafly,dctcp,compact,1,256,tp4.dp4.pp4.ep4,ring,ecnexact,0,6.19,68496,16 groups x [8 leaf + 8 spine],1144,5,3.55221,0,0,370.271,113.872,370.271,37.786,141.728,370.271,0,0,0,0,0,0,OK
+tenancy,128,9,jellyfish,dctcp,compact,1,32,tp2.dp4.pp2.ep2,rhd,ecnexact,0,0.50,17472,random regular graph; degree budget 9,574,4,2.44058,0,0,45.4245,22.3143,45.4245,18.2814,15.0373,45.4245,0,0,0,0,0,0,OK
+tenancy,128,9,jellyfish,dctcp,compact,2,32,tp2.dp4.pp2.ep2,rhd,ecnexact,0,1.02,18728,random regular graph; degree budget 9,574,4,2.44058,0,0,45.5982,23.4012,45.5982,25.8333,14.8136,45.5982,0,0,0,0,0,0,OK
+tenancy,128,9,jellyfish,dctcp,compact,4,32,tp2.dp4.pp2.ep2,rhd,ecnexact,0,2.32,21360,random regular graph; degree budget 9,574,4,2.44058,0,0,48.2814,26.0466,48.2814,38.195,24.9406,48.5071,0,0,0,0,0,0,OK
+tenancy,128,9,jellyfish,dctcp,scatter,1,32,tp2.dp4.pp2.ep2,rhd,ecnexact,0,0.47,17572,random regular graph; degree budget 9,574,4,2.44058,0,0,32.4267,12.0659,32.4267,12.014,11.731,32.4267,0,0,0,0,0,0,OK
+tenancy,128,9,jellyfish,dctcp,scatter,2,32,tp2.dp4.pp2.ep2,rhd,ecnexact,0,0.90,18948,random regular graph; degree budget 9,574,4,2.44058,0,0,32.4267,12.5215,32.4267,13.0189,12.2307,32.4267,0,0,0,0,0,0,OK
+tenancy,128,9,jellyfish,dctcp,scatter,4,32,tp2.dp4.pp2.ep2,rhd,ecnexact,0,1.78,21416,random regular graph; degree budget 9,574,4,2.44058,0,0,31.0759,12.503,31.0759,23.95,12.4852,45.8316,0,0,0,0,0,0,OK
+tenancy,128,9,flatbutterfly,dctcp,compact,1,32,tp2.dp4.pp2.ep2,rhd,ecnexact,0,0.34,18008,2-ary 7-flat; degree 7,448,7,3.52756,0,0,8.05784,0.673987,8.05784,0.672272,0.336994,8.05784,0,0,0,0,0,0,OK
+tenancy,128,9,flatbutterfly,dctcp,compact,2,32,tp2.dp4.pp2.ep2,rhd,ecnexact,0,0.42,19752,2-ary 7-flat; degree 7,448,7,3.52756,0,0,8.05784,0.673987,8.05784,0.672272,0.336994,8.05784,0,0,0,0,0,0,OK
+tenancy,128,9,flatbutterfly,dctcp,compact,4,32,tp2.dp4.pp2.ep2,rhd,ecnexact,0,0.78,23284,2-ary 7-flat; degree 7,448,7,3.52756,0,0,8.05784,0.673987,8.05784,0.672272,0.336994,8.05784,0,0,0,0,0,0,OK
+tenancy,128,9,flatbutterfly,dctcp,scatter,1,32,tp2.dp4.pp2.ep2,rhd,ecnexact,0,0.70,17564,2-ary 7-flat; degree 7,448,7,3.52756,0,0,39.4597,23.0098,39.4597,33.6226,12.1583,39.4597,0,0,0,0,0,0,OK
+tenancy,128,9,flatbutterfly,dctcp,scatter,2,32,tp2.dp4.pp2.ep2,rhd,ecnexact,0,1.13,18828,2-ary 7-flat; degree 7,448,7,3.52756,0,0,44.3661,22.3396,44.3661,24.2859,13.0173,44.5846,0,0,0,0,0,0,OK
+tenancy,128,9,flatbutterfly,dctcp,scatter,4,32,tp2.dp4.pp2.ep2,rhd,ecnexact,0,2.25,21180,2-ary 7-flat; degree 7,448,7,3.52756,0,0,69.2726,27.3112,69.2726,38.0093,15.4383,82.9898,0,0,0,0,0,0,OK
+tenancy,128,9,dragonfly,dctcp,compact,1,32,tp2.dp4.pp2.ep2,rhd,ecnexact,0,0.39,17592,16 groups x 8 nodes; 2 global port(s) per node,576,3,2.63189,0,0,56.461,0.673987,56.461,0.672987,0.336994,56.461,0,0,0,0,0,0,OK
+tenancy,128,9,dragonfly,dctcp,compact,2,32,tp2.dp4.pp2.ep2,rhd,ecnexact,0,0.76,18748,16 groups x 8 nodes; 2 global port(s) per node,576,3,2.63189,0,0,56.461,0.673987,56.461,0.672987,0.336994,56.461,0,0,0,0,0,0,OK
+tenancy,128,9,dragonfly,dctcp,compact,4,32,tp2.dp4.pp2.ep2,rhd,ecnexact,0,1.92,21652,16 groups x 8 nodes; 2 global port(s) per node,576,3,2.63189,0,0,63.6308,0.673987,63.6308,0.672987,0.336994,63.6308,0,0,0,0,0,0,OK
+tenancy,128,9,dragonfly,dctcp,scatter,1,32,tp2.dp4.pp2.ep2,rhd,ecnexact,0,0.49,17652,16 groups x 8 nodes; 2 global port(s) per node,576,3,2.63189,0,0,21.4258,11.9804,21.4258,13.4035,11.809,21.4258,0,0,0,0,0,0,OK
+tenancy,128,9,dragonfly,dctcp,scatter,2,32,tp2.dp4.pp2.ep2,rhd,ecnexact,0,1.11,18896,16 groups x 8 nodes; 2 global port(s) per node,576,3,2.63189,0,0,32.9532,14.6749,32.9532,22.6298,12.6927,32.9532,0,0,0,0,0,0,OK
+tenancy,128,9,dragonfly,dctcp,scatter,4,32,tp2.dp4.pp2.ep2,rhd,ecnexact,0,1.93,21796,16 groups x 8 nodes; 2 global port(s) per node,576,3,2.63189,0,0,36.7809,25.3426,36.7809,25.4884,23.1069,55.6598,0,0,0,0,0,0,OK
+tenancy,128,9,megafly,dctcp,compact,1,32,tp2.dp4.pp2.ep2,rhd,ecnexact,0,0.41,17760,8 groups x [8 leaf + 8 spine],540,5,3.45965,0,0,92.2336,23.6666,92.2336,24.4829,12.4236,92.2336,0,0,0,0,0,0,OK
+tenancy,128,9,megafly,dctcp,compact,2,32,tp2.dp4.pp2.ep2,rhd,ecnexact,0,0.68,18664,8 groups x [8 leaf + 8 spine],540,5,3.45965,0,0,86.875,23.6666,86.875,24.5168,12.4236,86.875,0,0,0,0,0,0,OK
+tenancy,128,9,megafly,dctcp,compact,4,32,tp2.dp4.pp2.ep2,rhd,ecnexact,0,1.66,21008,8 groups x [8 leaf + 8 spine],540,5,3.45965,0,0,88.8977,23.6666,88.8977,24.3943,12.7351,88.8977,0,0,0,0,0,0,OK
+tenancy,128,9,megafly,dctcp,scatter,1,32,tp2.dp4.pp2.ep2,rhd,ecnexact,0,0.76,17788,8 groups x [8 leaf + 8 spine],540,5,3.45965,0,0,66.1632,36.0592,66.1632,40.3743,35.9839,66.1632,0,0,0,0,0,0,OK
+tenancy,128,9,megafly,dctcp,scatter,2,32,tp2.dp4.pp2.ep2,rhd,ecnexact,0,1.50,18436,8 groups x [8 leaf + 8 spine],540,5,3.45965,0,0,95.6423,47.7837,95.6423,40.4853,48.292,108.881,0,0,0,0,0,0,OK
+tenancy,128,9,megafly,dctcp,scatter,4,32,tp2.dp4.pp2.ep2,rhd,ecnexact,0,3.38,20380,8 groups x [8 leaf + 8 spine],540,5,3.45965,0,0,165.761,63.0444,165.761,46.3369,52.4985,166.798,0,0,0,0,0,0,OK
+tenancy,128,9,dheu,dctcp,compact,1,32,tp2.dp4.pp2.ep2,rhd,ecnexact,0,5.64,17952,demand-driven,NA,NA,NA,66,0,33.3277,11.7131,33.3277,11.3776,11.3778,33.3277,0,0,0,0,0,0,OK
+tenancy,128,9,dheu,dctcp,compact,2,32,tp2.dp4.pp2.ep2,rhd,ecnexact,0,11.42,19368,demand-driven,NA,NA,NA,48,0,24.5545,11.7235,24.5545,11.4233,11.4235,24.5545,0,0,0,0,0,0,OK
+tenancy,128,9,dheu,dctcp,compact,4,32,tp2.dp4.pp2.ep2,rhd,ecnexact,0,23.91,23020,demand-driven,NA,NA,NA,68,0,34.6184,11.9898,34.6184,11.4559,11.4388,34.6184,0,0,0,0,0,0,OK
+tenancy,128,9,dheu,dctcp,scatter,1,32,tp2.dp4.pp2.ep2,rhd,ecnexact,0,7.03,18240,demand-driven,NA,NA,NA,48,0,24.3329,11.3814,24.3329,11.38,11.3788,24.3329,0,0,0,0,0,0,OK
+tenancy,128,9,dheu,dctcp,scatter,2,32,tp2.dp4.pp2.ep2,rhd,ecnexact,0,12.11,19736,demand-driven,NA,NA,NA,48,0,24.522,11.7296,24.522,11.4353,11.4325,24.522,0,0,0,0,0,0,OK
+tenancy,128,9,dheu,dctcp,scatter,4,32,tp2.dp4.pp2.ep2,rhd,ecnexact,0,25.94,23012,demand-driven,NA,NA,NA,67,0,23.3408,22.4327,23.3408,11.3962,11.4379,34.3931,0,0,0,0,0,0,OK
+tenancy,256,12,jellyfish,dctcp,compact,1,64,tp4.dp4.pp2.ep2,rhd,ecnexact,0,1.48,54980,random regular graph; degree budget 12,1536,4,2.50824,0,0,44.6109,37.1645,44.6109,37.2373,34.0432,44.6109,0,0,0,0,0,0,OK
+tenancy,256,12,jellyfish,dctcp,compact,2,64,tp4.dp4.pp2.ep2,rhd,ecnexact,0,2.97,57596,random regular graph; degree budget 12,1536,4,2.50824,0,0,47.6626,35.1915,47.6626,37.0603,24.0046,47.6626,0,0,0,0,0,0,OK
+tenancy,256,12,jellyfish,dctcp,compact,4,64,tp4.dp4.pp2.ep2,rhd,ecnexact,0,4.86,63316,random regular graph; degree budget 12,1536,4,2.50824,0,0,60.2761,36.6979,60.2761,41.4294,34.6559,60.2761,0,0,0,0,0,0,OK
+tenancy,256,12,jellyfish,dctcp,scatter,1,64,tp4.dp4.pp2.ep2,rhd,ecnexact,0,1.40,55140,random regular graph; degree budget 12,1536,4,2.50824,0,0,42.6065,24.9124,42.6065,24.1624,23.1415,42.6065,0,0,0,0,0,0,OK
+tenancy,256,12,jellyfish,dctcp,scatter,2,64,tp4.dp4.pp2.ep2,rhd,ecnexact,0,2.56,57708,random regular graph; degree budget 12,1536,4,2.50824,0,0,45.2314,26.7466,45.2314,26.7004,23.199,45.2314,0,0,0,0,0,0,OK
+tenancy,256,12,jellyfish,dctcp,scatter,4,64,tp4.dp4.pp2.ep2,rhd,ecnexact,0,4.92,63060,random regular graph; degree budget 12,1536,4,2.50824,0,0,46.4859,27.4209,46.4859,26.9242,46.3613,46.4859,0,0,0,0,0,0,OK
+tenancy,256,12,flatbutterfly,dctcp,compact,1,64,tp4.dp4.pp2.ep2,rhd,ecnexact,0,0.95,55564,4-ary 4-flat; degree 12,1536,4,3.01176,0,0,8.05784,1.01198,8.05784,0.672272,0.336994,8.05784,0,0,0,0,0,0,OK
+tenancy,256,12,flatbutterfly,dctcp,compact,2,64,tp4.dp4.pp2.ep2,rhd,ecnexact,0,1.33,58600,4-ary 4-flat; degree 12,1536,4,3.01176,0,0,8.05784,1.01198,8.05784,0.672272,0.336994,8.05784,0,0,0,0,0,0,OK
+tenancy,256,12,flatbutterfly,dctcp,compact,4,64,tp4.dp4.pp2.ep2,rhd,ecnexact,0,2.48,65748,4-ary 4-flat; degree 12,1536,4,3.01176,0,0,8.05784,1.01198,8.05784,0.672272,0.336994,8.05784,0,0,0,0,0,0,OK
+tenancy,256,12,flatbutterfly,dctcp,scatter,1,64,tp4.dp4.pp2.ep2,rhd,ecnexact,0,1.42,55360,4-ary 4-flat; degree 12,1536,4,3.01176,0,0,31.8866,13.9326,31.8866,12.3399,12.0988,31.8866,0,0,0,0,0,0,OK
+tenancy,256,12,flatbutterfly,dctcp,scatter,2,64,tp4.dp4.pp2.ep2,rhd,ecnexact,0,2.57,58284,4-ary 4-flat; degree 12,1536,4,3.01176,0,0,34.96,24.9237,34.96,12.5742,12.0988,41.2974,0,0,0,0,0,0,OK
+tenancy,256,12,flatbutterfly,dctcp,scatter,4,64,tp4.dp4.pp2.ep2,rhd,ecnexact,0,5.42,63476,4-ary 4-flat; degree 12,1536,4,3.01176,0,0,36.7313,25.0239,36.7313,24.1933,12.4258,45.8717,0,0,0,0,0,0,OK
+tenancy,256,12,dragonfly,dctcp,compact,1,64,tp4.dp4.pp2.ep2,rhd,ecnexact,0,1.16,55036,32 groups x 8 nodes; 5 global port(s) per node,1536,3,2.61529,0,0,55.8097,2.17574,55.8097,0.672272,13.5427,55.8097,0,0,0,0,0,0,OK
+tenancy,256,12,dragonfly,dctcp,compact,2,64,tp4.dp4.pp2.ep2,rhd,ecnexact,0,2.15,57808,32 groups x 8 nodes; 5 global port(s) per node,1536,3,2.61529,0,0,54.7395,2.17574,54.7395,0.672272,13.5427,54.7395,0,0,0,0,0,0,OK
+tenancy,256,12,dragonfly,dctcp,compact,4,64,tp4.dp4.pp2.ep2,rhd,ecnexact,0,4.10,63704,32 groups x 8 nodes; 5 global port(s) per node,1536,3,2.61529,0,0,57.317,13.2443,57.317,0.672272,23.675,57.317,0,0,0,0,0,0,OK
+tenancy,256,12,dragonfly,dctcp,scatter,1,64,tp4.dp4.pp2.ep2,rhd,ecnexact,0,1.47,55144,32 groups x 8 nodes; 5 global port(s) per node,1536,3,2.61529,0,0,44.3388,44.3388,31.598,13.565,12.0068,44.3388,0,0,0,0,0,0,OK
+tenancy,256,12,dragonfly,dctcp,scatter,2,64,tp4.dp4.pp2.ep2,rhd,ecnexact,0,2.67,57904,32 groups x 8 nodes; 5 global port(s) per node,1536,3,2.61529,0,0,34.52,26.0061,34.52,23.7237,12.5059,35.2386,0,0,0,0,0,0,OK
+tenancy,256,12,dragonfly,dctcp,scatter,4,64,tp4.dp4.pp2.ep2,rhd,ecnexact,0,5.26,63204,32 groups x 8 nodes; 5 global port(s) per node,1536,3,2.61529,0,0,45.3386,45.3386,41.5712,25.0562,33.3367,51.7289,0,0,0,0,0,0,OK
+tenancy,256,12,megafly,dctcp,compact,1,64,tp4.dp4.pp2.ep2,rhd,ecnexact,0,1.75,56272,16 groups x [8 leaf + 8 spine],1144,5,3.55221,0,0,152.186,28.2014,152.186,24.9435,23.2502,152.186,0,0,0,0,0,0,OK
+tenancy,256,12,megafly,dctcp,compact,2,64,tp4.dp4.pp2.ep2,rhd,ecnexact,0,3.61,58004,16 groups x [8 leaf + 8 spine],1144,5,3.55221,0,0,144.786,23.7577,144.786,29.2372,22.1484,144.786,0,0,0,0,0,0,OK
+tenancy,256,12,megafly,dctcp,compact,4,64,tp4.dp4.pp2.ep2,rhd,ecnexact,0,5.78,62484,16 groups x [8 leaf + 8 spine],1144,5,3.55221,0,0,230.032,62.278,230.032,63.1828,22.1011,230.032,0,0,0,0,0,0,OK
+tenancy,256,12,megafly,dctcp,scatter,1,64,tp4.dp4.pp2.ep2,rhd,ecnexact,0,2.43,56176,16 groups x [8 leaf + 8 spine],1144,5,3.55221,0,0,114.165,28.1069,114.165,52.0501,35.1394,114.165,0,0,0,0,0,0,OK
+tenancy,256,12,megafly,dctcp,scatter,2,64,tp4.dp4.pp2.ep2,rhd,ecnexact,0,3.58,58332,16 groups x [8 leaf + 8 spine],1144,5,3.55221,0,0,187.295,72.7976,187.295,110.198,82.8241,193.684,0,0,0,0,0,0,OK
+tenancy,256,12,megafly,dctcp,scatter,4,64,tp4.dp4.pp2.ep2,rhd,ecnexact,0,7.37,61780,16 groups x [8 leaf + 8 spine],1144,5,3.55221,0,0,356.901,68.6714,356.901,114.698,87.3259,359.513,0,0,0,0,0,0,OK

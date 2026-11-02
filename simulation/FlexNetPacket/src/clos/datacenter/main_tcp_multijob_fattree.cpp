@@ -77,6 +77,12 @@ void print_path(std::ofstream &paths, const Route *rt)
   paths << endl;
 }
 
+#ifdef USE_DCTCP
+#define FABRIC_QUEUE ECN
+#else
+#define FABRIC_QUEUE LOSSLESS_INPUT
+#endif
+
 int main(int argc, char **argv)
 {
 
@@ -91,6 +97,7 @@ int main(int argc, char **argv)
   SPEED = DEFAULT_SPEED;
   // fct_util_out = std::cout;
 
+  string placement_policy = "scatter";
   string flowfiles;       // so we can read the flows from a specified file
   double simtime;        // seconds
   double utiltime = .01; // seconds
@@ -168,6 +175,23 @@ int main(int argc, char **argv)
       }
       printf("Using epsilon %f\n", epsilon);
     }
+    else if (!strcmp(argv[i], "-placementseed"))
+    {
+      FFApplication::placement_seed = atoi(argv[i + 1]);
+      cout << "placementseed " << FFApplication::placement_seed << endl;
+      i++;
+    }
+    else if (!strcmp(argv[i], "-placement"))
+    {
+      placement_policy = argv[i + 1];
+      if (placement_policy != "compact" && placement_policy != "scatter") {
+        std::cerr << "ERROR: -placement must be compact or scatter, got '"
+                  << placement_policy << "'\n";
+        exit(1);
+      }
+      cout << "placement " << placement_policy << endl;
+      i++;
+    }
     else if (!strcmp(argv[i], "-flowfiles"))
     {
       flowfiles = argv[i + 1];
@@ -205,9 +229,11 @@ int main(int argc, char **argv)
   // this assumes the file is in the form "model_nnode.fbuf"
   std::vector<int> nnodes_for_flowfile;
   for (const string & s:  flowfile_arr) {
-    size_t start = s.find('_') + 1;
-    size_t end = s.find('.');
-    nnodes_for_flowfile.push_back(std::stoi(s.substr(start, end-start)));
+    size_t slash = s.find_last_of('/');
+    string base = (slash == string::npos) ? s : s.substr(slash + 1);
+    size_t start = base.find('_') + 1;
+    size_t end = base.find('.');
+    nnodes_for_flowfile.push_back(std::stoi(base.substr(start, end-start)));
   }
 
   //cout <<  "Using algo="<<algo<< " epsilon=" << epsilon << endl;
@@ -238,15 +264,48 @@ int main(int argc, char **argv)
 
   TcpRtxTimerScanner tcpRtxScanner(timeFromMs(1), eventlist);
 
-  FatTreeTopology *top = new FatTreeTopology(no_of_nodes, queuesize, nullptr /*&logfile*/, &eventlist, ff, ECN);
+  {
+    uint64_t rtt_ps = 12ULL * RTT_net * 1000ULL;
+    uint64_t bdp_bytes = (uint64_t)SPEED * 1000000ULL / 8ULL * rtt_ps / 1000000000000ULL;
+    uint32_t credits = (uint32_t)(2 * bdp_bytes / 9000);
+    FFApplication::roce_initial_credits = credits < 8 ? 8 : credits;
+    cout << "roce_initial_credits " << FFApplication::roce_initial_credits << endl;
+  }
+
+  FatTreeTopology *top = new FatTreeTopology(no_of_nodes, queuesize, nullptr /*&logfile*/, &eventlist, ff, FABRIC_QUEUE);
   // note that 'queuesize' does not pass throuf_nodesgh currently for RANDOM...
 
   std::unordered_set<int> candidates;
   for (int i = 0; i < no_of_nodes; i++) candidates.insert(i);
+  int compact_next = 0;
+  std::unordered_set<int> assigned;
 
   std::vector<FFApplication*> ffapps;
   for (int i = 0; i < flowfile_arr.size(); i++) {
-    std::vector<int> nodes = FFApplication::choose_gpus(candidates, nnodes_for_flowfile[i]);
+    std::vector<int> nodes;
+    if (placement_policy == "compact") {
+      for (int k = 0; k < nnodes_for_flowfile[i]; k++) {
+        if (compact_next >= no_of_nodes) {
+          std::cerr << "ERROR: compact placement ran out of nodes at job " << i
+                    << " (" << no_of_nodes << " nodes total)\n";
+          exit(1);
+        }
+        nodes.push_back(compact_next);
+        candidates.erase(compact_next);
+        compact_next++;
+      }
+    } else {
+      nodes = FFApplication::choose_gpus(candidates, nnodes_for_flowfile[i]);
+    }
+    for (int n: nodes)
+      if (!assigned.insert(n).second) {
+        std::cerr << "ERROR: node " << n << " assigned to more than one job\n";
+        exit(1);
+      }
+    fct_util_out << "Nodes_" << flowfile_arr[i] << " ";
+    for (size_t k = 0; k < nodes.size(); k++)
+      fct_util_out << (k ? "," : "") << nodes[k];
+    fct_util_out << std::endl;
     std::cerr << flowfile_arr[i] << ": ";
     for (int n: nodes) std::cerr << n << ", ";
     std::cerr << endl;
@@ -277,6 +336,7 @@ int main(int argc, char **argv)
 
   for (int i = 0; i < flowfile_arr.size(); i++) {
     fct_util_out << "FinalFinish_" << flowfile_arr[i] << " " << ffapps[i]->first_iter_time << std::endl;
+  fct_util_out << "Placement " << placement_policy << std::endl;
   }
 }
 

@@ -20,6 +20,9 @@
 #include "firstfit.h"
 #include "topology.h"
 #include "dyn_net_sch.h"
+#include "topoopt_builder.h"
+#include "queue_lossless_input.h"
+#include "queue_lossless_output.h"
 //#include "connection_matrix.h"
 
 // Choose the topology here:
@@ -89,7 +92,21 @@ int main(int argc, char **argv)
   int ssthresh = 15;
   int degree = DEFAULT_DEGREE;
   uint32_t reconf_delay = DEFAULT_RECONF_DELAY;
+#ifdef USE_DCTCP
+  string queue_kind = "ecn";
+#else
+  string queue_kind = "lossless";
+#endif
   string opt_method = "sipring";
+  unsigned dyn_seed = 1;
+  bool allow_inert_pause = false;
+  string routing_kind = "updown";
+  string logical_family = "";
+  double pfc_xoff = 15, pfc_xon = 12, pfc_buf = -1;
+  long long pfc_delay_ns = 0;
+  double rtx_scan_ms = 1000;
+  int pfc_classes = 1;
+  long long rdelay_ns = -1, rperiod_ns = 0;
 
   int no_of_nodes = DEFAULT_NODES;
 
@@ -155,6 +172,61 @@ int main(int argc, char **argv)
       degree = atoi(argv[i + 1]);
       cout << "degree " << degree << endl;
       i++;
+    }
+    else if (!strcmp(argv[i], "-queue"))
+    {
+      queue_kind = string(argv[i + 1]);
+      if (queue_kind != "ecn" && queue_kind != "lossless") {
+        std::cerr << "ERROR: -queue must be ecn or lossless, got '" << queue_kind << "'\n";
+        exit(1);
+      }
+      cout << "queue " << queue_kind << endl;
+      i++;
+    }
+    else if (!strcmp(argv[i], "-rdelayns")) { rdelay_ns = atoll(argv[i + 1]); i++; }
+    else if (!strcmp(argv[i], "-rperiodns")) { rperiod_ns = atoll(argv[i + 1]); i++; }
+    else if (!strcmp(argv[i], "-pfcdelayns")) { pfc_delay_ns = atoll(argv[i + 1]); i++; }
+    else if (!strcmp(argv[i], "-ecnqexact")) { FlatTopology::ecn_queue_exact = true; }
+    else if (!strcmp(argv[i], "-rtxscanms")) { rtx_scan_ms = atof(argv[i + 1]); i++; }
+    else if (!strcmp(argv[i], "-rocedemand")) { DemandRecorder::include_roce = atoi(argv[i + 1]) != 0; i++; }
+    else if (!strcmp(argv[i], "-logicalseed")) { dyn_sch_set_logical_seed((unsigned)strtoul(argv[i + 1], nullptr, 10)); i++; }
+    else if (!strcmp(argv[i], "-pfcxoff")) { pfc_xoff = atof(argv[i + 1]); i++; }
+    else if (!strcmp(argv[i], "-pfcxon"))  { pfc_xon  = atof(argv[i + 1]); i++; }
+    else if (!strcmp(argv[i], "-pfcbuf"))  { pfc_buf  = atof(argv[i + 1]); i++; }
+    else if (!strcmp(argv[i], "-pfcclasses")) { pfc_classes = atoi(argv[i + 1]); i++; }
+    else if (!strcmp(argv[i], "-logical"))
+    {
+      logical_family = string(argv[i + 1]);
+      if (logical_family != "jellyfish" && logical_family != "flatbutterfly" &&
+          logical_family != "dragonfly" && logical_family != "megafly" &&
+          logical_family != "topoopt") {
+        std::cerr << "ERROR: -logical must be jellyfish, flatbutterfly, dragonfly"
+                     " or megafly, got '" << logical_family << "'\n";
+        exit(1);
+      }
+      cout << "logical " << logical_family << endl;
+      i++;
+    }
+    else if (!strcmp(argv[i], "-routing"))
+    {
+      routing_kind = string(argv[i + 1]);
+      if (routing_kind != "updown" && routing_kind != "shortest") {
+        std::cerr << "ERROR: -routing must be updown or shortest, got '"
+                  << routing_kind << "'\n";
+        exit(1);
+      }
+      cout << "routing " << routing_kind << endl;
+      i++;
+    }
+    else if (!strcmp(argv[i], "-seed"))
+    {
+      dyn_seed = (unsigned)strtoul(argv[i + 1], nullptr, 10);
+      cout << "seed " << dyn_seed << endl;
+      i++;
+    }
+    else if (!strcmp(argv[i], "-allow-inert-pause"))
+    {
+      allow_inert_pause = true;
     }
     else if (!strcmp(argv[i], "-omethod"))
     {
@@ -227,15 +299,65 @@ int main(int argc, char **argv)
   }
 #endif
 
-  TcpRtxTimerScanner tcpRtxScanner(timeFromMs(1000), eventlist);
+  TcpRtxTimerScanner tcpRtxScanner(timeFromMs(rtx_scan_ms), eventlist);
+  std::cout << "rtx_scan_ms " << rtx_scan_ms << std::endl;
   DemandRecorder demandrecorder = DemandRecorder(degree, &tcpRtxScanner);
 
-  FlatTopology *top = new FlatTopology(no_of_nodes, queuesize, nullptr /* &logfile */, &eventlist, ff, ECN);
-  DynFlatScheduler sch = DynFlatScheduler(no_of_nodes, degree, top, optstrategy, &demandrecorder, 10000000ULL * reconf_delay, eventlist);
+
+    {
+        uint64_t rtt_ps = 12ULL * RTT * 1000ULL;
+        uint64_t bdp_bytes = (uint64_t)SPEED * 1000000ULL / 8ULL * rtt_ps / 1000000000000ULL;
+        uint32_t credits = (uint32_t)(2 * bdp_bytes / 9000);
+        FFApplication::roce_initial_credits = credits < 8 ? 8 : credits;
+    }
+
+#ifdef USE_DCTCP
+  std::cout << "transport dctcp" << std::endl;
+#else
+  std::cout << "transport rocev2" << std::endl;
+#endif
+  if (allow_inert_pause)
+    std::cerr << "WARNING: -allow-inert-pause no longer does anything; both "
+                 "transports support the reconfiguration pause.\n";
+
+  dyn_sch_set_seed(dyn_seed);
+
+  if (pfc_buf < 0) pfc_buf = pfc_xoff + 5;
+  LosslessInputQueue::configure(pfc_xoff, pfc_xon, pfc_buf);
+  if (pfc_classes < 1 || pfc_classes > 16) {
+    std::cerr << "ERROR: -pfcclasses must be 1..16 (the class lives in 4 bits)\n";
+    exit(1);
+  }
+  LosslessInputQueue::cfg_classes = pfc_classes;
+
+  LosslessInputQueue::cfg_pause_delay = (simtime_picosec)pfc_delay_ns * 1000ULL;
+
+  queue_type qt = (queue_kind == "lossless") ? LOSSLESS_INPUT : ECN;
+  FlatTopology *top = new FlatTopology(no_of_nodes, queuesize, nullptr /* &logfile */, &eventlist, ff, qt);
+  simtime_picosec delay_ps = (rdelay_ns >= 0) ? (simtime_picosec)rdelay_ns * 1000ULL
+                                              : 10000000ULL * reconf_delay;
+  simtime_picosec period_ps = (simtime_picosec)rperiod_ns * 1000ULL;
+  std::cout << "reconf_delay_ps " << delay_ps << std::endl;
+  std::cout << "reconf_period_ps " << (period_ps ? period_ps : 4 * delay_ps) << std::endl;
+  TopoOptPlan topoopt;
+  if (logical_family == "topoopt") {
+    topoopt = topoopt_plan(flowfile, no_of_nodes, degree);
+    ocs_external_conn() = topoopt.conn;
+    std::string st;
+    for (int p : topoopt.strides) st += (st.empty() ? "" : "/") + std::to_string(p);
+    ocs_external_how() = "TopoOpt reconstruction: " + std::to_string(topoopt.d_ar) +
+                         " AllReduce ring interface(s), strides " + st + "; " +
+                         std::to_string(topoopt.d_mp) + " model-parallel matching interface(s)";
+  }
+  DynFlatScheduler sch = DynFlatScheduler(no_of_nodes, degree, top, optstrategy, &demandrecorder, delay_ps, eventlist, routing_kind == "shortest" ? DynFlatScheduler::ROUTING_SHORTEST : DynFlatScheduler::ROUTING_UPDOWN, logical_family, period_ps);
   // TcpSrc::demand_recorder = &sch.demandrecorder;
 
       // FFApplication app = FFApplication(top, ssthresh, sinkLogger, traffic_logger, tcpRtxScanner, eventlist);
   FFApplication app = FFApplication(top, ssthresh, &fct_util_out, tcpRtxScanner, eventlist);
+  if (logical_family == "topoopt" && !topoopt.rings.empty()) {
+    app.fancy_ring = true;
+    for (auto &kv : topoopt.rings) app.selected_jumps[kv.first] = kv.second;
+  }
   app.load_taskgraph_flatbuf(flowfile);
   app.start_init_tasks();
 
@@ -258,6 +380,13 @@ int main(int argc, char **argv)
   }
 
   fct_util_out << "FinalFinish " << app.final_finish_time << std::endl;
+
+  sch.print_stats(fct_util_out);
+  sch.print_stats(std::cout);
+  LosslessInputQueue::print_stats(fct_util_out);
+  LosslessOutputQueue::print_stats(fct_util_out);
+  LosslessInputQueue::print_stats(std::cout);
+  LosslessOutputQueue::print_stats(std::cout);
 }
 
 string ntoa(double n)

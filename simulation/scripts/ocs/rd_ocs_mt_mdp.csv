@@ -1,0 +1,8 @@
+series,arm,transport,placement,jobs,jobnodes,dims,exit,wall_s,rss_kb,links,diameter,reconfs,pfc_stop,pfc_resume,job0_ms,makespan_ms,job0_nodes,incomplete,verdict
+tenancy,dheu,roce,compact,1,4,tp2.dp2.pp1.ep1,0,0.03,10072,NA,NA,9,17,17,3.97379,3.97379,a1489b81,0,OK
+tenancy,dheu,roce,compact,2,4,tp2.dp2.pp1.ep1,0,0.09,15236,NA,NA,12,47,47,5.39794,5.39794,a1489b81,0,OK
+tenancy,dheu,roce,compact,4,4,tp2.dp2.pp1.ep1,0,0.17,25972,NA,NA,12,240,240,5.53597,5.53597,a1489b81,0,OK
+tenancy,dheu,roce,scatter,1,4,tp2.dp2.pp1.ep1,0,0.03,10104,NA,NA,6,1,1,2.60316,2.60316,74a3849b,0,OK
+tenancy,dheu,roce,scatter,2,4,tp2.dp2.pp1.ep1,0,0.08,15348,NA,NA,7,36,36,2.87027,3.0412,74a3849b,0,OK
+tenancy,dheu,roce,scatter,4,4,tp2.dp2.pp1.ep1,0,0.19,25960,NA,NA,8,287,287,3.16684,3.70821,74a3849b,0,OK
+fullmdp,dheu,roce,compact,1,16,tp2.dp2.pp2.ep2,0,0.23,29152,NA,NA,16,1399,1399,8.26469,8.26469,7cac9285,0,OK

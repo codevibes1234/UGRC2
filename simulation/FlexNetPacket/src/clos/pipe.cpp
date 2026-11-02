@@ -70,6 +70,7 @@ void Pipe::doNextEvent() {
         case NDPNACK:
         case NDPPULL:
         case ETH_PAUSE:
+        case ROCECREDIT:
             break;
         }
     }
@@ -77,7 +78,7 @@ void Pipe::doNextEvent() {
     // tell the packet to move itself on to the next hop
     pkt->sendOn();
 
-	if (dyn_sch && dyn_sch->status == DynFlatScheduler::DynNetworkStatus::DYN_NET_RECONF) {
+	if (dyn_sch && dyn_sch->status == DynFlatScheduler::DynNetworkStatus::DYN_NET_DRAIN) {
 		// std::cerr << this << std::endl;
 	 	// pkt->_nexthop = pkt->_route->size() - 1;
 	  // pkt->sendOn();

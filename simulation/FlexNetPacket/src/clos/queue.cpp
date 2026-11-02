@@ -1,9 +1,27 @@
 // -*- c-basic-offset: 4; tab-width: 8; indent-tabs-mode: t -*-
 #include <sstream>
 #include <math.h>
+#include <limits>
 #include "queue.h"
+#include "dyn_net_sch.h"
 #include "ndppacket.h"
 #include "queue_lossless.h"
+
+void Queue::set_circuit_up(bool up)
+{
+    if (_circuit_up == up)
+        return;
+    _circuit_up = up;
+
+    if (up && !_enqueued.empty() && pfc_ready())
+        beginService();
+}
+
+void Queue::notify_dyn_sch_drained()
+{
+    if (dyn_sch && dyn_sch->status == DynFlatScheduler::DynNetworkStatus::DYN_NET_DRAIN)
+        dyn_sch->do_reconf();
+}
 
 Queue::Queue(linkspeed_bps bitrate, mem_b maxsize, EventList &eventlist,
              QueueLogger *logger)
@@ -11,7 +29,9 @@ Queue::Queue(linkspeed_bps bitrate, mem_b maxsize, EventList &eventlist,
       _maxsize(maxsize), _logger(logger), _bitrate(bitrate), _num_drops(0)
 {
     _queuesize = 0;
-    _ps_per_byte = (simtime_picosec)((pow(10.0, 12.0) * 8) / _bitrate);
+    _ps_per_byte = (_bitrate == 0)
+                       ? std::numeric_limits<simtime_picosec>::max() / 65536
+                       : (simtime_picosec)((pow(10.0, 12.0) * 8) / _bitrate);
     stringstream ss;
     ss << "queue(" << bitrate / 1000000 << "Mb/s," << maxsize << "bytes)";
     _nodename = ss.str();
@@ -99,6 +119,7 @@ PriorityQueue::PriorityQueue(linkspeed_bps bitrate, mem_b maxsize,
     _queuesize[Q_MID] = 0;
     _queuesize[Q_HI] = 0;
     _servicing = Q_NONE;
+    _sending = false;
     _state_send = LosslessQueue::READY;
 }
 
@@ -109,6 +130,7 @@ PriorityQueue::getPriority(Packet &pkt)
     switch (pkt.type())
     {
     case TCPACK:
+    case ROCECREDIT:
     case NDPACK:
     case NDPNACK:
     case NDPPULL:
@@ -191,8 +213,7 @@ void PriorityQueue::receivePacket(Packet &pkt)
             _state_send = LosslessQueue::READY;
             //cout << timeAsMs(eventlist().now()) << " " << _name << " GO "<<endl;
 
-            //start transmission if we have packets to send!
-            if (queuesize() > 0)
+            if (queuesize() > 0 && !_sending)
                 beginService();
         }
 
@@ -233,6 +254,7 @@ void PriorityQueue::beginService()
         {
             eventlist().sourceIsPendingRel(*this, drainTime(_queue[prio].back()));
             _servicing = (queue_priority_t)prio;
+            _sending = true;
             return;
         }
     }
@@ -240,9 +262,10 @@ void PriorityQueue::beginService()
 
 void PriorityQueue::completeService()
 {
+    _sending = false;
     /* dequeue the packet */
-    assert(!_queue[_servicing].empty());
     assert(_servicing != Q_NONE);
+    assert(!_queue[_servicing].empty());
     Packet *pkt = _queue[_servicing].back();
     _queue[_servicing].pop_back();
     _queuesize[_servicing] -= pkt->size();

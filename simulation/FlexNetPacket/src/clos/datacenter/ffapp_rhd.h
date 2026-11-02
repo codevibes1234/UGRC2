@@ -222,7 +222,31 @@ public:
     void advance();
 };
 
-// Flow-completion callback (DCTCPSrc finish hook)
 void ar_finish_rhd_zcube(void* ar_ptr);
+
+// ============================================================================
+// ============================================================================
+class FFGroupRingAllreduceTask : public FFTask {
+public:
+    Topology*              _topology;
+    std::vector<uint64_t>  node_group;
+    uint64_t               operator_size;
+
+    int curr_step;
+    int finished_curr_step;
+    int flows_this_step;
+    int num_steps;
+
+    FFGroupRingAllreduceTask(FFApplication*        ffapp,
+                             Topology*             top,
+                             std::vector<uint64_t> ng,
+                             uint64_t              sz);
+
+    void doNextEvent() override;
+    void start_all_flows();
+    void advance();
+};
+
+void ar_finish_group_ring(void* ar_ptr);
 
 #endif // FFAPP_RHD_H

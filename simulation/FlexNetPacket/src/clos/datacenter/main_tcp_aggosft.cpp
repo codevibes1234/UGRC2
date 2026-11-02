@@ -74,6 +74,12 @@ void print_path(std::ofstream &paths, const Route* rt){
     paths<<endl;
 }
 
+#ifdef USE_DCTCP
+#define FABRIC_QUEUE ECN
+#else
+#define FABRIC_QUEUE LOSSLESS_INPUT
+#endif
+
 int main(int argc, char **argv) {
 
     TcpPacket::set_packet_size(DEFAULT_PACKET_SIZE - DEFAULT_HEADER_SIZE); // MTU
@@ -203,7 +209,7 @@ int main(int argc, char **argv) {
 
     TcpRtxTimerScanner tcpRtxScanner(timeFromMs(1), eventlist);
 
-    AggOverSubscribedFatTree* top = new AggOverSubscribedFatTree(k, nup, queuesize, nullptr /* &logfile */, &eventlist, ff, ECN);
+    AggOverSubscribedFatTree* top = new AggOverSubscribedFatTree(k, nup, queuesize, nullptr /* &logfile */, &eventlist, ff, FABRIC_QUEUE);
 
     // FFApplication app = FFApplication(top, ssthresh, sinkLogger, traffic_logger, tcpRtxScanner, eventlist);
     FFApplication app = FFApplication(top, ssthresh, &fct_util_out, tcpRtxScanner, eventlist);

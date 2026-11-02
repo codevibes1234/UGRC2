@@ -33,6 +33,7 @@ Packet::set_route(PacketFlow& flow, const Route &route, int pkt_size,
 void 
 Packet::set_route(const Route &route){
     _route = &route;
+    _nexthop = 0;
 }
 
 PacketSink *
@@ -127,6 +128,9 @@ Packet::str() const {
 	break;
     case TCPACK:
 	s = "TCPACK";
+	break;
+    case ROCECREDIT:
+	s = "ROCECREDIT";
 	break;
     case TCPNACK:
 	s = "TCPNACK";

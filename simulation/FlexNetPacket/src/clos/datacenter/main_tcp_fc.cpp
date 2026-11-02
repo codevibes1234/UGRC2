@@ -73,6 +73,12 @@ void print_path(std::ofstream &paths, const Route* rt){
     paths<<endl;
 }
 
+#ifdef USE_DCTCP
+#define FABRIC_QUEUE ECN
+#else
+#define FABRIC_QUEUE LOSSLESS_INPUT
+#endif
+
 int main(int argc, char **argv) {
 
     TcpPacket::set_packet_size(DEFAULT_PACKET_SIZE - DEFAULT_HEADER_SIZE); // MTU
@@ -193,7 +199,15 @@ int main(int argc, char **argv) {
 
     TcpRtxTimerScanner tcpRtxScanner(timeFromMs(1), eventlist);
 
-    FCTopology* top = new FCTopology(no_of_nodes, queuesize, nullptr /* &logfile */, &eventlist, ff, ECN);
+
+    {
+        uint64_t rtt_ps = 12ULL * RTT * 1000ULL;
+        uint64_t bdp_bytes = (uint64_t)SPEED * 1000000ULL / 8ULL * rtt_ps / 1000000000000ULL;
+        uint32_t credits = (uint32_t)(2 * bdp_bytes / 9000);
+        FFApplication::roce_initial_credits = credits < 8 ? 8 : credits;
+    }
+
+    FCTopology* top = new FCTopology(no_of_nodes, queuesize, nullptr /* &logfile */, &eventlist, ff, FABRIC_QUEUE);
 
     FFApplication app = FFApplication(top, ssthresh, &fct_util_out, tcpRtxScanner, eventlist);
     app.load_taskgraph_flatbuf(flowfile);

@@ -1,0 +1,8 @@
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_tg.sh roce fattree ecmp 400
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_tg.sh roce zcubepartial ecmp 400
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_tg.sh roce fattree ecmp 200
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_tg.sh roce zcubepartial ecmp 200
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_tg.sh roce fattree ecmp 100
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_tg.sh roce zcubepartial ecmp 100
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_tg.sh roce fattree ecmp 40
+/home/venkatks/Code/git_repositories/UGRC2/simulation/scripts/audit_rerun/r_tg.sh roce zcubepartial ecmp 40

@@ -4,7 +4,7 @@
 #include <vector>
 #include "flat_topology.h"
 #include "queue.h"
-#ifdef USE_GUROBI
+#if defined(USE_GUROBI) || defined(HAVE_GUROBI)
 #include "gurobi_c++.h"
 #endif
 
@@ -286,13 +286,19 @@ struct DemandRecorder {
   /* unsatisfied traffic demand over the last reconf_delay */
   int degree;
   TcpRtxTimerScanner * rtx_scanner;
+
+  static bool include_roce;
 };
+
+void dyn_sch_set_seed(unsigned seed);
+void dyn_sch_set_logical_seed(unsigned seed);
 
 class DynFlatScheduler : public EventSource {
 public:
   enum DynNetworkStatus {
     DYN_NET_INIT,
     DYN_NET_LIVE,
+    DYN_NET_DRAIN,
     DYN_NET_RECONF
   };
 
@@ -302,30 +308,49 @@ public:
     D_HEURISTIC
   };
 
+  enum RoutingMode { ROUTING_SHORTEST, ROUTING_UPDOWN };
+  RoutingMode routing_mode = ROUTING_UPDOWN;
+
+  std::string logical_family;
+
   DynFlatScheduler(int nnodes, int degree, FlatTopology* topo, OptStrategy method,
-    DemandRecorder* demandrecorder, simtime_picosec refonc_delay, EventList & eventlist);
+    DemandRecorder* demandrecorder, simtime_picosec refonc_delay, EventList & eventlist,
+    RoutingMode routing = ROUTING_UPDOWN, const std::string & logical_family = "",
+    simtime_picosec live_period_ps = 0);
 
   virtual void doNextEvent();
 
-  /* pause every queue. bake in the new topology
-   * Set all queue status to "PAUSE_RECEIVED"
+  /* LIVE -> DRAIN. Pause the traffic sources and take a census of everything
+   * still in the fabric. If the fabric is already empty, go straight on to
+   * _do_reconf().
    */
   void start_reconf();
-  /* send continue events on queues with positive bw; 
-   * set state of queue to paused otherwise 
+  /* RECONF -> LIVE. Bring the circuits back up: queues on links that exist in
+   * the new topology go READY and restart service if packets accumulated while
+   * the circuit was down; queues on links with no circuit stay PAUSED. Then
+   * un-pause the sources.
    */
   void finish_reconf();
 
   void do_reconf();
   void _do_reconf();
+  uint64_t count_fabric_occupancy();
+  uint64_t fabric_occupancy_live(bool stop_at_first);
+  std::vector<std::pair<int, int>> live_links;
+  uint64_t occupancy_scans = 0;
+  void print_stats(std::ostream & os) const;
 
   void update_all_queue_bandwidth();
-  void set_all_queues_pause_recved();
+  void pause_all_queues();
   void set_all_tcp_pause();
   void update_all_route();
   void resume_tcp_flows();
 
-  void install_new_route_for_src(int src, std::vector<std::vector<size_t>> && route);
+  void install_routes_for_topology(const std::vector<size_t> & conn);
+  int repair_connectivity(std::vector<size_t> & conn);
+  void install_shortest_path_routes(const std::vector<size_t> & conn);
+  void install_updown_routes(const std::vector<size_t> & conn);
+  void store_route(int src, int dst, const std::vector<int> & hops);
   // void resume_lively_queues();
   // void pause_no_bw_queues();
 
@@ -334,7 +359,12 @@ public:
   int nnodes;
   int degree;
   int n_nondelay = 4;
-#ifdef USE_GUROBI
+  simtime_picosec live_period = 0;
+  simtime_picosec effective_live_period() const
+  {
+    return live_period ? live_period : (simtime_picosec)n_nondelay * reconf_delay;
+  }
+#if defined(USE_GUROBI) || defined(HAVE_GUROBI)
   GRBModel *gmodel;
 #endif
   FlatTopology* topo;
@@ -346,6 +376,17 @@ public:
   DemandRecorder * demandrecorder;
 
   uint64_t non_empty_queues;
+
+  uint64_t reconfs_started = 0;
+  uint64_t reconfs_torn_down = 0;
+  uint64_t reconfs_completed = 0;
+  uint64_t drains_immediate = 0;
+  simtime_picosec drain_time_total = 0;
+  simtime_picosec drain_time_max = 0;
+  simtime_picosec drain_started_at = 0;
+  uint64_t pkts_buffered_during_reconf = 0;
+  uint64_t stranded_on_dead_link = 0;
+  uint64_t circuits_added_for_connectivity = 0;
 };
 
 class FlatDegConstraintNetworkTopologyGenerator {
