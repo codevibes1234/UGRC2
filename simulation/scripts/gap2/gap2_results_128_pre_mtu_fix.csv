@@ -1,0 +1,7 @@
+family,nodes,transport,algo,exit,wall_s,rss_kb,latency_ms,algbw_gbs,theoretical_gbs,pfc_stop,pfc_resume,fc_routed,fallback_routed,verdict
+megafly,128,roce,forestcoll,0,18.54,1234336,706.55,0.753912,12.5984,177087,177087,0,32512,OK
+megafly,128,roce,fcpaths,1,0.00,6000,NA,NA,12.5984,0,0,NA,NA,NO_RESULT
+megafly,128,roce,rhd,0,21.98,1192840,103.036,5.16983,NA,214740,214740,NA,NA,OK
+megafly,128,dctcp,forestcoll,0,54.52,58456,219027,0.00243201,12.5984,0,0,0,32512,OK
+megafly,128,dctcp,fcpaths,1,0.00,5780,NA,NA,12.5984,0,0,NA,NA,NO_RESULT
+megafly,128,dctcp,rhd,0,43.21,182296,8042.91,0.0662293,NA,0,0,NA,NA,OK

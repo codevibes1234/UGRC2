@@ -116,16 +116,13 @@ bool FFCirBFBAllreduceTask::start_bfb_flow(int snd, int rcv,
 {
     auto *f = new FFCirBFBTaskFlow{this, current_step, current_phase};
 
-    DCTCPSrc *fs = new DCTCPSrc(
-        nullptr, nullptr, ffapp->fstream_out,
-        eventlist(), snd, rcv,
+    RoCEv2Src *fs = new RoCEv2Src(
+        nullptr, eventlist(), snd, rcv,
         ar_finish_circulant_bfb_task, static_cast<void*>(f));
-    TcpSink *snk = new TcpSink();
+    RoCEv2Sink *snk = new RoCEv2Sink(nullptr, eventlist());
 
     fs->set_flowsize(total_bytes);
-    fs->set_ssthresh(ffapp->ssthresh * Packet::data_packet_size());
-    fs->_rto = timeFromMs(ffapp->bfb_rto_ms);
-    ffapp->tcpRtxScanner.registerTcp(*fs);
+    fs->set_initial_credits(RoCEv2Src::default_initial_credits);
 
     // Data path: snd → rcv
     auto *sp = cir_topology->get_paths(snd, rcv);

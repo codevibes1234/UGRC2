@@ -1,5 +1,5 @@
-OBJS=eventlist.o tcppacket.o pipe.o queue.o queue_lossless.o queue_lossless_input.o queue_lossless_output.o ecnqueue.o tcp.o dctcp.o mtcp.o loggers.o logfile.o clock.o config.o network.o qcn.o exoqueue.o randomqueue.o cbr.o cbrpacket.o sent_packets.o ndp.o ndppacket.o eth_pause_packet.o compositequeue.o prioqueue.o cpqueue.o compositeprioqueue.o switch.o fairpullqueue.o route.o ffapp.o dyn_net_sch.o #taskgraph.pb.o
-HDRS=network.h ndp.h queue_lossless.h queue_lossless_input.h queue_lossless_output.h compositequeue.h prioqueue.h cpqueue.h queue.h loggers.h loggertypes.h pipe.h eventlist.h config.h tcp.h dctcp.h mtcp.h sent_packets.h tcppacket.h ndppacket.h eth_pause_packet.h compositeprioqueue.h ecnqueue.h switch.h ffapp.h taskgraph_generated.h dyn_net_sch.h #taskgraph.pb.h
+OBJS=eventlist.o tcppacket.o pipe.o queue.o queue_lossless.o queue_lossless_input.o queue_lossless_output.o ecnqueue.o tcp.o dctcp.o rocev2.o mtcp.o loggers.o logfile.o clock.o config.o network.o qcn.o exoqueue.o randomqueue.o cbr.o cbrpacket.o sent_packets.o ndp.o ndppacket.o eth_pause_packet.o compositequeue.o prioqueue.o cpqueue.o compositeprioqueue.o switch.o fairpullqueue.o route.o ffapp.o dyn_net_sch.o #taskgraph.pb.o
+HDRS=network.h ndp.h queue_lossless.h queue_lossless_input.h queue_lossless_output.h compositequeue.h prioqueue.h cpqueue.h queue.h loggers.h loggertypes.h pipe.h eventlist.h config.h tcp.h dctcp.h rocev2.h mtcp.h sent_packets.h tcppacket.h ndppacket.h eth_pause_packet.h compositeprioqueue.h ecnqueue.h switch.h ffapp.h taskgraph_generated.h dyn_net_sch.h #taskgraph.pb.h
 
 FF_HOME?=$(HOME)/FlexFlow
 GUROBI_DIR?=$(HOME)/gurobi912/linux64
@@ -11,6 +11,8 @@ ifeq ($(USE_GUROBI), 1)
 	INC+= -I$(GUROBI_DIR)/include/ #-I/usr/local/Cellar/flatbuffers/2.0.0/include/
 	CFLAGS+= -L$(GUROBI_DIR)/lib -lgurobi_c++ -lgurobi91 -DHAVE_GUROBI #-O0 -g  #-L$(FF_HOME)/protobuf/src/.libs -lprotobuf 
 endif
+
+$(OBJS): $(HDRS)
 
 # all:	htsim lib parse_output
 all:	lib 
@@ -58,6 +60,7 @@ compositeprioqueue.o: compositeprioqueue.cpp $(HDRS)
 qcn.o: qcn.cpp qcn.h loggers.h config.h 
 ffapp.o: ffapp.cpp ffapp.h $(HDRS)
 taskgraph.pb.o: taskgraph.pb.cc taskgraph.pb.h $(HDRS)
+dyn_net_sch.o: datacenter/ocs_logical_topology.h flat_topology.h
 dyn_net_sch.o: dyn_net_sch.cpp $(HDRS)
 
 .cpp.o:

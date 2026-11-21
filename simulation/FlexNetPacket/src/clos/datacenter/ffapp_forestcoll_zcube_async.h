@@ -78,7 +78,6 @@ class FFForestCollZCubeTask;
 // ============================================================================
 // Callback context associated with one TCP flow.
 //
-// When DCTCPSrc finishes, ar_finish_forestcoll_zcube() receives this object
 // and tells the ForestColl task which tree/node has completed.
 // ============================================================================
 
@@ -271,7 +270,6 @@ private:
 
 
     // ========================================================================
-    // Create one DCTCP flow.
     //
     // NOTE:
     //
@@ -301,7 +299,6 @@ private:
 
 
 // ============================================================================
-// DCTCP completion callback
 // ============================================================================
 
 void ar_finish_forestcoll_zcube(

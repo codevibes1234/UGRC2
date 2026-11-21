@@ -1,0 +1,8 @@
+workload,nodes,degree,transport,arm,exit,wall_s,rss_kb,links,deg_min,deg_max,deg_mean,diameter,mean_hops,reconfs,pfc_stop,pfc_resume,tasks,total_tasks,makespan_ps,verdict
+dlrm,16,4,roce,dheu,0,5.14,196508,NA,NA,NA,NA,NA,NA,77,4238,4238,1278,1278,79160059011,OK
+vgg,16,4,roce,dheu,0,3.87,617412,NA,NA,NA,NA,NA,NA,300,25,25,768,768,151818506159,OK
+transformer,16,4,roce,dheu,0,1.15,148444,NA,NA,NA,NA,NA,NA,125,972,972,2020,2020,63550119695,OK
+candle,16,4,roce,dheu,0,23.76,1371644,NA,NA,NA,NA,NA,NA,742,58360,58360,1580,1580,690412632906,OK
+dlrm,32,5,roce,dheu,0,37.56,522220,NA,NA,NA,NA,NA,NA,111,36698,36698,3662,3662,146830489013,OK
+vgg,32,5,roce,dheu,0,13.25,1286920,NA,NA,NA,NA,NA,NA,302,2742,2742,1504,1504,154917163993,OK
+transformer,32,5,roce,dheu,0,7.76,699664,NA,NA,NA,NA,NA,NA,250,743,743,7878,7878,125461981438,OK

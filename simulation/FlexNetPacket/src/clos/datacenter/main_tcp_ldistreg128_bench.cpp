@@ -51,6 +51,12 @@ EventList eventlist;
 string ntoa(double n) { stringstream s; s << n; return s.str(); }
 string itoa(uint64_t n) { stringstream s; s << n; return s.str(); }
 
+#ifdef USE_DCTCP
+#define FABRIC_QUEUE ECN
+#else
+#define FABRIC_QUEUE LOSSLESS_INPUT
+#endif
+
 int main(int argc, char **argv)
 {
     TcpPacket::set_packet_size(DEFAULT_PACKET_SIZE - DEFAULT_HEADER_SIZE);
@@ -92,9 +98,17 @@ int main(int argc, char **argv)
     TcpRtxTimerScanner tcpRtxScanner(timeFromMs(1), eventlist);
 
     // Build L(DistReg(4,32)) topology — 128 nodes, degree 4, diameter 6
+
+    {
+        uint64_t rtt_ps = 12ULL * RTT * 1000ULL;
+        uint64_t bdp_bytes = (uint64_t)SPEED * 1000000ULL / 8ULL * rtt_ps / 1000000000000ULL;
+        uint32_t credits = (uint32_t)(2 * bdp_bytes / 9000);
+        RoCEv2Src::default_initial_credits = credits < 8 ? 8 : credits;
+    }
+
     LDistReg128Topology *top = new LDistReg128Topology(
         LDISTREG128_N, queuesize,
-        nullptr, &eventlist, ff, ECN);
+        nullptr, &eventlist, ff, FABRIC_QUEUE);
 
     FFApplication app(top, ssthresh, &fct_util_out,
                       tcpRtxScanner, eventlist,

@@ -22,9 +22,10 @@
  * Therefore DO NOT compile that generated .cpp separately.
  */
 
+#include "ecmp_hash.h"
 #include "ffapp_forestcoll_zcube.h"
 
-#include "dctcp.h"
+#include "rocev2.h"
 #include "tcp.h"
 
 #include <algorithm>
@@ -444,6 +445,7 @@ FFDevice::FFDevice(
 // ============================================================================
 
 #include "zcube_fc_schedule_generated.cpp"
+
 
 
 // ============================================================================
@@ -1198,11 +1200,9 @@ bool FFForestCollZCubeTask::start_flow(
         };
 
 
-    DCTCPSrc *fs =
-        new DCTCPSrc(
+    RoCEv2Src *fs =
+        new RoCEv2Src(
             nullptr,
-            nullptr,
-            ffapp->fstream_out,
             eventlist(),
             src,
             dst,
@@ -1211,29 +1211,14 @@ bool FFForestCollZCubeTask::start_flow(
         );
 
 
-    TcpSink *snk =
-        new TcpSink();
+    RoCEv2Sink *snk =
+        new RoCEv2Sink(nullptr, eventlist());
 
 
     fs->set_flowsize(bytes);
 
 
-    fs->set_ssthresh(
-        ffapp->ssthresh
-        *
-        Packet::data_packet_size()
-    );
-
-
-    fs->_rto =
-        timeFromMs(
-            ffapp->bfb_rto_ms
-        );
-
-
-    ffapp->tcpRtxScanner.registerTcp(
-        *fs
-    );
+    fs->set_initial_credits(RoCEv2Src::default_initial_credits);
 
 
     // ------------------------------------------------------------------------
@@ -1262,7 +1247,7 @@ bool FFForestCollZCubeTask::start_flow(
     Route *ro =
         new Route(
             *(sp->at(
-                rand() % sp->size()
+                ecmp_path_index(src, dst, sp->size())
             ))
         );
 
@@ -1299,7 +1284,7 @@ bool FFForestCollZCubeTask::start_flow(
     Route *ri =
         new Route(
             *(dp->at(
-                rand() % dp->size()
+                ecmp_path_index(dst, src, dp->size())
             ))
         );
 

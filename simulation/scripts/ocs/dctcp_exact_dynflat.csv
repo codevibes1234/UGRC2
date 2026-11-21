@@ -1,0 +1,120 @@
+series,workload,nodes,deg,transport,routing,arm,variant,extra,exit,wall_s,rss_kb,reconfs,drain_ps_mean,drain_ps_max,reconf_delay_ps,reconf_period_ps,pfc_stop,tasks,total_tasks,makespan_ps,pfc_peak_pkts,pfc_overshoot_pkts,pfc_overflow,egress_peak_transit_pkts,egress_overflow_local,egress_overflow_transit,egress_transit_only_overflow,verdict
+X1,dlrm,16,4,dctcp,updown,jellyfish,scan1,-rtxscanms 1,0,0.83,19060,0,0,0,100000000,400000000,0,1278,1278,104418807417,0,0,0,0,0,0,0,OK
+X2,dlrm,16,4,dctcp,updown,jellyfish,scan1_ecnexact,-rtxscanms 1 -ecnqexact,0,0.86,17788,0,0,0,100000000,400000000,0,1278,1278,638020637161,0,0,0,0,0,0,0,OK
+X1,dlrm,16,4,dctcp,updown,flatbutterfly,scan1,-rtxscanms 1,0,0.66,18852,0,0,0,100000000,400000000,0,1278,1278,185908839158,0,0,0,0,0,0,0,OK
+X2,dlrm,16,4,dctcp,updown,flatbutterfly,scan1_ecnexact,-rtxscanms 1 -ecnqexact,0,0.75,17268,0,0,0,100000000,400000000,0,1278,1278,1058074558512,0,0,0,0,0,0,0,OK
+X1,dlrm,16,4,dctcp,updown,dragonfly,scan1,-rtxscanms 1,0,0.59,18140,0,0,0,100000000,400000000,0,1278,1278,102334019565,0,0,0,0,0,0,0,OK
+X2,dlrm,16,4,dctcp,updown,dragonfly,scan1_ecnexact,-rtxscanms 1 -ecnqexact,0,0.58,17176,0,0,0,100000000,400000000,0,1278,1278,178471161602,0,0,0,0,0,0,0,OK
+X1,dlrm,16,4,dctcp,updown,megafly,scan1,-rtxscanms 1,0,0.86,19156,0,0,0,100000000,400000000,0,1278,1278,109086307031,0,0,0,0,0,0,0,OK
+X2,dlrm,16,4,dctcp,updown,megafly,scan1_ecnexact,-rtxscanms 1 -ecnqexact,0,0.72,17324,0,0,0,100000000,400000000,0,1278,1278,1662020637161,0,0,0,0,0,0,0,OK
+X1,dlrm,16,4,dctcp,updown,dheu,scan1,-rtxscanms 1,0,1.09,21712,53,376900207,3239024320,100000000,400000000,0,1278,1278,45782798374,0,0,0,0,0,0,0,OK
+X2,dlrm,16,4,dctcp,updown,dheu,scan1_ecnexact,-rtxscanms 1 -ecnqexact,0,0.67,24464,378,12361658,131854640,100000000,400000000,0,1278,1278,192968496832,0,0,0,0,0,0,0,OK
+X1,vgg,16,4,dctcp,updown,jellyfish,scan1,-rtxscanms 1,0,2.66,14360,0,0,0,100000000,400000000,0,768,768,377976798166,0,0,0,0,0,0,0,OK
+X2,vgg,16,4,dctcp,updown,jellyfish,scan1_ecnexact,-rtxscanms 1 -ecnqexact,0,2.28,14192,0,0,0,100000000,400000000,0,768,768,633167435784,0,0,0,0,0,0,0,OK
+X1,vgg,16,4,dctcp,updown,flatbutterfly,scan1,-rtxscanms 1,0,1.85,14008,0,0,0,100000000,400000000,0,768,768,725530566246,0,0,0,0,0,0,0,OK
+X2,vgg,16,4,dctcp,updown,flatbutterfly,scan1_ecnexact,-rtxscanms 1 -ecnqexact,0,2.12,13712,0,0,0,100000000,400000000,0,768,768,1273093292217,0,0,0,0,0,0,0,OK
+X1,vgg,16,4,dctcp,updown,dragonfly,scan1,-rtxscanms 1,0,1.52,13540,0,0,0,100000000,400000000,0,768,768,377839353286,0,0,0,0,0,0,0,OK
+X2,vgg,16,4,dctcp,updown,dragonfly,scan1_ecnexact,-rtxscanms 1 -ecnqexact,0,1.58,13584,0,0,0,100000000,400000000,0,768,768,393850090133,0,0,0,0,0,0,0,OK
+X1,vgg,16,4,dctcp,updown,megafly,scan1,-rtxscanms 1,0,2.12,14360,0,0,0,100000000,400000000,0,768,768,377955089366,0,0,0,0,0,0,0,OK
+X2,vgg,16,4,dctcp,updown,megafly,scan1_ecnexact,-rtxscanms 1 -ecnqexact,0,1.89,13748,0,0,0,100000000,400000000,0,768,768,542724991771,0,0,0,0,0,0,0,OK
+X1,vgg,16,4,dctcp,updown,dheu,scan1,-rtxscanms 1,0,1.24,14616,295,13335004,93236966,100000000,400000000,0,768,768,150961526399,0,0,0,0,0,0,0,OK
+X2,vgg,16,4,dctcp,updown,dheu,scan1_ecnexact,-rtxscanms 1 -ecnqexact,0,1.26,15156,296,12708570,81798886,100000000,400000000,0,768,768,151151107655,0,0,0,0,0,0,0,OK
+X1,transformer,16,4,dctcp,updown,jellyfish,scan1,-rtxscanms 1,0,0.69,32572,0,0,0,100000000,400000000,0,2020,2020,91901062255,0,0,0,0,0,0,0,OK
+X2,transformer,16,4,dctcp,updown,jellyfish,scan1_ecnexact,-rtxscanms 1 -ecnqexact,0,0.59,32344,0,0,0,100000000,400000000,0,2020,2020,159448472787,0,0,0,0,0,0,0,OK
+X1,transformer,16,4,dctcp,updown,flatbutterfly,scan1,-rtxscanms 1,0,0.51,31792,0,0,0,100000000,400000000,0,2020,2020,160387589583,0,0,0,0,0,0,0,OK
+X2,transformer,16,4,dctcp,updown,flatbutterfly,scan1_ecnexact,-rtxscanms 1 -ecnqexact,0,0.58,31256,0,0,0,100000000,400000000,0,2020,2020,247362912474,0,0,0,0,0,0,0,OK
+X1,transformer,16,4,dctcp,updown,dragonfly,scan1,-rtxscanms 1,0,0.48,30824,0,0,0,100000000,400000000,0,2020,2020,91899871967,0,0,0,0,0,0,0,OK
+X2,transformer,16,4,dctcp,updown,dragonfly,scan1_ecnexact,-rtxscanms 1 -ecnqexact,0,0.53,30288,0,0,0,100000000,400000000,0,2020,2020,113888922463,0,0,0,0,0,0,0,OK
+X1,transformer,16,4,dctcp,updown,megafly,scan1,-rtxscanms 1,0,0.54,32224,0,0,0,100000000,400000000,0,2020,2020,91829293087,0,0,0,0,0,0,0,OK
+X2,transformer,16,4,dctcp,updown,megafly,scan1_ecnexact,-rtxscanms 1 -ecnqexact,0,0.60,31524,0,0,0,100000000,400000000,0,2020,2020,245409752477,0,0,0,0,0,0,0,OK
+X1,transformer,16,4,dctcp,updown,dheu,scan1,-rtxscanms 1,0,0.47,29672,127,8496799,87534608,100000000,400000000,0,2020,2020,64012630167,0,0,0,0,0,0,0,OK
+X2,transformer,16,4,dctcp,updown,dheu,scan1_ecnexact,-rtxscanms 1 -ecnqexact,0,0.39,29556,127,5063364,76578176,100000000,400000000,0,2020,2020,63368995775,0,0,0,0,0,0,0,OK
+X1,candle,16,4,dctcp,updown,jellyfish,scan1,-rtxscanms 1,0,6.13,16240,0,0,0,100000000,400000000,0,1580,1580,876199513751,0,0,0,0,0,0,0,OK
+X2,candle,16,4,dctcp,updown,jellyfish,scan1_ecnexact,-rtxscanms 1 -ecnqexact,0,5.10,15724,0,0,0,100000000,400000000,0,1580,1580,1067185651825,0,0,0,0,0,0,0,OK
+X1,candle,16,4,dctcp,updown,flatbutterfly,scan1,-rtxscanms 1,0,4.05,15580,0,0,0,100000000,400000000,0,1580,1580,853264690973,0,0,0,0,0,0,0,OK
+X2,candle,16,4,dctcp,updown,flatbutterfly,scan1_ecnexact,-rtxscanms 1 -ecnqexact,0,4.69,15600,0,0,0,100000000,400000000,0,1580,1580,1090545275617,0,0,0,0,0,0,0,OK
+X1,candle,16,4,dctcp,updown,dragonfly,scan1,-rtxscanms 1,0,5.16,15688,0,0,0,100000000,400000000,0,1580,1580,624870195157,0,0,0,0,0,0,0,OK
+X2,candle,16,4,dctcp,updown,dragonfly,scan1_ecnexact,-rtxscanms 1 -ecnqexact,0,4.57,15576,0,0,0,100000000,400000000,0,1580,1580,637808074681,0,0,0,0,0,0,0,OK
+X1,candle,16,4,dctcp,updown,megafly,scan1,-rtxscanms 1,0,5.94,16300,0,0,0,100000000,400000000,0,1580,1580,849169233953,0,0,0,0,0,0,0,OK
+X2,candle,16,4,dctcp,updown,megafly,scan1_ecnexact,-rtxscanms 1 -ecnqexact,0,5.11,15860,0,0,0,100000000,400000000,0,1580,1580,1190007810312,0,0,0,0,0,0,0,OK
+X1,candle,16,4,dctcp,updown,dheu,scan1,-rtxscanms 1,0,5.19,30196,540,190565496,623491840,100000000,400000000,0,1580,1580,372503841600,0,0,0,0,0,0,0,OK
+X2,candle,16,4,dctcp,updown,dheu,scan1_ecnexact,-rtxscanms 1 -ecnqexact,0,4.49,36848,845,54883157,186057440,100000000,400000000,0,1580,1580,468097999780,0,0,0,0,0,0,0,OK
+X1,dlrm,32,5,dctcp,updown,jellyfish,scan1,-rtxscanms 1,0,3.05,75256,0,0,0,100000000,400000000,0,3662,3662,300578168576,0,0,0,0,0,0,0,OK
+X2,dlrm,32,5,dctcp,updown,jellyfish,scan1_ecnexact,-rtxscanms 1 -ecnqexact,0,2.99,69752,0,0,0,100000000,400000000,0,3662,3662,1218512415321,0,0,0,0,0,0,0,OK
+X1,dlrm,32,5,dctcp,updown,flatbutterfly,scan1,-rtxscanms 1,0,2.47,69076,0,0,0,100000000,400000000,0,3662,3662,296671860026,0,0,0,0,0,0,0,OK
+X2,dlrm,32,5,dctcp,updown,flatbutterfly,scan1_ecnexact,-rtxscanms 1 -ecnqexact,0,2.16,65004,0,0,0,100000000,400000000,0,3662,3662,954053349208,0,0,0,0,0,0,0,OK
+X1,dlrm,32,5,dctcp,updown,dragonfly,scan1,-rtxscanms 1,0,2.05,66448,0,0,0,100000000,400000000,0,3662,3662,181848054354,0,0,0,0,0,0,0,OK
+X2,dlrm,32,5,dctcp,updown,dragonfly,scan1_ecnexact,-rtxscanms 1 -ecnqexact,0,1.87,62340,0,0,0,100000000,400000000,0,3662,3662,850209838983,0,0,0,0,0,0,0,OK
+X1,dlrm,32,5,dctcp,updown,megafly,scan1,-rtxscanms 1,0,3.04,71232,0,0,0,100000000,400000000,0,3662,3662,265168492696,0,0,0,0,0,0,0,OK
+X2,dlrm,32,5,dctcp,updown,megafly,scan1_ecnexact,-rtxscanms 1 -ecnqexact,0,2.51,66336,0,0,0,100000000,400000000,0,3662,3662,697688432946,0,0,0,0,0,0,0,OK
+X1,dlrm,32,5,dctcp,updown,dheu,scan1,-rtxscanms 1,0,8.40,75464,81,487963989,6973558480,100000000,400000000,0,3662,3662,79268618477,0,0,0,0,0,0,0,OK
+X2,dlrm,32,5,dctcp,updown,dheu,scan1_ecnexact,-rtxscanms 1 -ecnqexact,0,3.21,101728,1120,7753114,200959636,100000000,400000000,0,3662,3662,568028566430,0,0,0,0,0,0,0,OK
+X1,vgg,32,5,dctcp,updown,jellyfish,scan1,-rtxscanms 1,0,7.01,43232,0,0,0,100000000,400000000,0,1504,1504,932576371606,0,0,0,0,0,0,0,OK
+X2,vgg,32,5,dctcp,updown,jellyfish,scan1_ecnexact,-rtxscanms 1 -ecnqexact,0,6.90,42712,0,0,0,100000000,400000000,0,1504,1504,1604559508064,0,0,0,0,0,0,0,OK
+X1,vgg,32,5,dctcp,updown,flatbutterfly,scan1,-rtxscanms 1,0,4.90,40116,0,0,0,100000000,400000000,0,1504,1504,932344396486,0,0,0,0,0,0,0,OK
+X2,vgg,32,5,dctcp,updown,flatbutterfly,scan1_ecnexact,-rtxscanms 1 -ecnqexact,0,4.26,39764,0,0,0,100000000,400000000,0,1504,1504,1526403480665,0,0,0,0,0,0,0,OK
+X1,vgg,32,5,dctcp,updown,dragonfly,scan1,-rtxscanms 1,0,4.12,38612,0,0,0,100000000,400000000,0,1504,1504,572886835126,0,0,0,0,0,0,0,OK
+X2,vgg,32,5,dctcp,updown,dragonfly,scan1_ecnexact,-rtxscanms 1 -ecnqexact,0,4.25,38368,0,0,0,100000000,400000000,0,1504,1504,943559970440,0,0,0,0,0,0,0,OK
+X1,vgg,32,5,dctcp,updown,megafly,scan1,-rtxscanms 1,0,5.74,40776,0,0,0,100000000,400000000,0,1504,1504,573046434726,0,0,0,0,0,0,0,OK
+X2,vgg,32,5,dctcp,updown,megafly,scan1_ecnexact,-rtxscanms 1 -ecnqexact,0,6.11,40584,0,0,0,100000000,400000000,0,1504,1504,777007145983,0,0,0,0,0,0,0,OK
+X1,vgg,32,5,dctcp,updown,dheu,scan1,-rtxscanms 1,0,5.26,39628,300,36864426,284242560,100000000,400000000,0,1504,1504,160296608219,0,0,0,0,0,0,0,OK
+X2,vgg,32,5,dctcp,updown,dheu,scan1_ecnexact,-rtxscanms 1 -ecnqexact,0,4.26,41696,554,13003353,196376906,100000000,400000000,0,1504,1504,283576071817,0,0,0,0,0,0,0,OK
+X1,transformer,32,5,dctcp,updown,jellyfish,scan1,-rtxscanms 1,0,4.50,245148,0,0,0,100000000,400000000,0,7878,7878,410272271790,0,0,0,0,0,0,0,OK
+X2,transformer,32,5,dctcp,updown,jellyfish,scan1_ecnexact,-rtxscanms 1 -ecnqexact,0,5.08,244336,0,0,0,100000000,400000000,0,7878,7878,1021014418056,0,0,0,0,0,0,0,OK
+X1,transformer,32,5,dctcp,updown,flatbutterfly,scan1,-rtxscanms 1,0,3.02,225224,0,0,0,100000000,400000000,0,7878,7878,409953939630,0,0,0,0,0,0,0,OK
+X2,transformer,32,5,dctcp,updown,flatbutterfly,scan1_ecnexact,-rtxscanms 1 -ecnqexact,0,3.02,224180,0,0,0,100000000,400000000,0,7878,7878,686026417395,0,0,0,0,0,0,0,OK
+X1,transformer,32,5,dctcp,updown,dragonfly,scan1,-rtxscanms 1,0,3.04,214360,0,0,0,100000000,400000000,0,7878,7878,263157312318,0,0,0,0,0,0,0,OK
+X2,transformer,32,5,dctcp,updown,dragonfly,scan1_ecnexact,-rtxscanms 1 -ecnqexact,0,2.86,213920,0,0,0,100000000,400000000,0,7878,7878,340372954259,0,0,0,0,0,0,0,OK
+X1,transformer,32,5,dctcp,updown,megafly,scan1,-rtxscanms 1,0,3.81,230064,0,0,0,100000000,400000000,0,7878,7878,263347696270,0,0,0,0,0,0,0,OK
+X2,transformer,32,5,dctcp,updown,megafly,scan1_ecnexact,-rtxscanms 1 -ecnqexact,0,3.53,229404,0,0,0,100000000,400000000,0,7878,7878,491949804598,0,0,0,0,0,0,0,OK
+X1,transformer,32,5,dctcp,updown,dheu,scan1,-rtxscanms 1,0,2.39,203104,249,6140461,88035120,100000000,400000000,0,7878,7878,125285586902,0,0,0,0,0,0,0,OK
+X2,transformer,32,5,dctcp,updown,dheu,scan1_ecnexact,-rtxscanms 1 -ecnqexact,0,2.74,203408,249,6140461,88035120,100000000,400000000,0,7878,7878,125285586902,0,0,0,0,0,0,0,OK
+X3,dlrm,16,4,dctcp,updown,dheu,d10_p400000_scan1_ecnexact,-rdelayns 10 -rperiodns 400000 -rtxscanms 1 -ecnqexact,0,0.70,26780,833,7442927,198652905,10000,400000000,0,1278,1278,339140812570,0,0,0,0,0,0,0,OK
+X3,dlrm,16,4,dctcp,updown,dheu,d100_p400000_scan1_ecnexact,-rdelayns 100 -rperiodns 400000 -rtxscanms 1 -ecnqexact,0,0.60,26796,430,10148685,143312892,100000,400000000,0,1278,1278,176360258504,0,0,0,0,0,0,0,OK
+X3,dlrm,16,4,dctcp,updown,dheu,d1000_p400000_scan1_ecnexact,-rdelayns 1000 -rperiodns 400000 -rtxscanms 1 -ecnqexact,0,0.68,27144,435,10448446,171468726,1000000,400000000,0,1278,1278,178755785905,0,0,0,0,0,0,0,OK
+X3,dlrm,16,4,dctcp,updown,dheu,d10000_p400000_scan1_ecnexact,-rdelayns 10000 -rperiodns 400000 -rtxscanms 1 -ecnqexact,0,0.65,25956,583,10738504,204478298,10000000,400000000,0,1278,1278,245008149110,0,0,0,0,0,0,0,DRAIN_STALLED
+X3,dlrm,16,4,dctcp,updown,dheu,d100000_p400000_scan1_ecnexact,-rdelayns 100000 -rperiodns 400000 -rtxscanms 1 -ecnqexact,0,0.62,24716,439,10426955,155668451,100000000,400000000,0,1278,1278,223864916951,0,0,0,0,0,0,0,OK
+X3,dlrm,16,4,dctcp,updown,dheu,d1000000_p400000_scan1_ecnexact,-rdelayns 1000000 -rperiodns 400000 -rtxscanms 1 -ecnqexact,0,0.67,22272,125,24077141,123267389,1000000000,400000000,0,1278,1278,176661254629,0,0,0,0,0,0,0,OK
+X3,dlrm,16,4,dctcp,updown,dheu,d10000000_p400000_scan1_ecnexact,-rdelayns 10000000 -rperiodns 400000 -rtxscanms 1 -ecnqexact,0,0.71,20376,107,32212420,183609504,10000000000,400000000,0,1278,1278,1106119230722,0,0,0,0,0,0,0,OK
+X3,vgg,16,4,dctcp,updown,dheu,d10_p400000_scan1_ecnexact,-rdelayns 10 -rperiodns 400000 -rtxscanms 1 -ecnqexact,0,1.41,14852,322,11019769,35932720,10000,400000000,0,768,768,132092692260,0,0,0,0,0,0,0,OK
+X3,vgg,16,4,dctcp,updown,dheu,d100_p400000_scan1_ecnexact,-rdelayns 100 -rperiodns 400000 -rtxscanms 1 -ecnqexact,0,1.27,15464,325,10987558,35145000,100000,400000000,0,768,768,133603356460,0,0,0,0,0,0,0,OK
+X3,vgg,16,4,dctcp,updown,dheu,d1000_p400000_scan1_ecnexact,-rdelayns 1000 -rperiodns 400000 -rtxscanms 1 -ecnqexact,0,1.45,15728,324,11626655,115305126,1000000,400000000,0,768,768,133601418541,0,0,0,0,0,0,0,OK
+X3,vgg,16,4,dctcp,updown,dheu,d10000_p400000_scan1_ecnexact,-rdelayns 10000 -rperiodns 400000 -rtxscanms 1 -ecnqexact,0,1.26,15460,344,10601674,35145000,10000000,400000000,0,768,768,144588358147,0,0,0,0,0,0,0,OK
+X3,vgg,16,4,dctcp,updown,dheu,d100000_p400000_scan1_ecnexact,-rdelayns 100000 -rperiodns 400000 -rtxscanms 1 -ecnqexact,0,1.26,15344,295,12337686,35145000,100000000,400000000,0,768,768,150959811519,0,0,0,0,0,0,0,OK
+X3,vgg,16,4,dctcp,updown,dheu,d1000000_p400000_scan1_ecnexact,-rdelayns 1000000 -rperiodns 400000 -rtxscanms 1 -ecnqexact,0,1.37,15728,232,15202538,35145000,1000000000,400000000,0,768,768,327163184480,0,0,0,0,0,0,0,OK
+X3,vgg,16,4,dctcp,updown,dheu,d10000000_p400000_scan1_ecnexact,-rdelayns 10000000 -rperiodns 400000 -rtxscanms 1 -ecnqexact,0,1.46,15640,215,17073952,68957520,10000000000,400000000,0,768,768,2229412016187,0,0,0,0,0,0,0,OK
+X3,transformer,16,4,dctcp,updown,dheu,d10_p400000_scan1_ecnexact,-rdelayns 10 -rperiodns 400000 -rtxscanms 1 -ecnqexact,0,0.38,30164,180,5879417,139296736,10000,400000000,0,2020,2020,73052368888,0,0,0,0,0,0,0,OK
+X3,transformer,16,4,dctcp,updown,dheu,d100_p400000_scan1_ecnexact,-rdelayns 100 -rperiodns 400000 -rtxscanms 1 -ecnqexact,0,0.39,30160,180,6091736,139026736,100000,400000000,0,2020,2020,73052369341,0,0,0,0,0,0,0,OK
+X3,transformer,16,4,dctcp,updown,dheu,d1000_p400000_scan1_ecnexact,-rdelayns 1000 -rperiodns 400000 -rtxscanms 1 -ecnqexact,0,0.38,29800,170,5578305,86931856,1000000,400000000,0,2020,2020,68743260514,0,0,0,0,0,0,0,OK
+X3,transformer,16,4,dctcp,updown,dheu,d10000_p400000_scan1_ecnexact,-rdelayns 10000 -rperiodns 400000 -rtxscanms 1 -ecnqexact,0,0.40,29784,168,4850683,62646656,10000000,400000000,0,2020,2020,69492502973,0,0,0,0,0,0,0,OK
+X3,transformer,16,4,dctcp,updown,dheu,d100000_p400000_scan1_ecnexact,-rdelayns 100000 -rperiodns 400000 -rtxscanms 1 -ecnqexact,0,0.53,30548,213,4287051,87623817,100000000,400000000,0,2020,2020,107074579053,0,0,0,0,0,0,0,OK
+X3,transformer,16,4,dctcp,updown,dheu,d1000000_p400000_scan1_ecnexact,-rdelayns 1000000 -rperiodns 400000 -rtxscanms 1 -ecnqexact,0,0.37,32124,77,6154439,35422280,1000000000,400000000,0,2020,2020,107003634434,0,0,0,0,0,0,0,OK
+X3,transformer,16,4,dctcp,updown,dheu,d10000000_p400000_scan1_ecnexact,-rdelayns 10000000 -rperiodns 400000 -rtxscanms 1 -ecnqexact,0,0.40,33028,62,8492052,65385320,10000000000,400000000,0,2020,2020,635303220912,0,0,0,0,0,0,0,OK
+X3,candle,16,4,dctcp,updown,dheu,d10_p400000_scan1_ecnexact,-rdelayns 10 -rperiodns 400000 -rtxscanms 1 -ecnqexact,0,4.66,36976,989,47631069,222371520,10000,400000000,0,1580,1580,442324745118,0,0,0,0,0,0,0,OK
+X3,candle,16,4,dctcp,updown,dheu,d100_p400000_scan1_ecnexact,-rdelayns 100 -rperiodns 400000 -rtxscanms 1 -ecnqexact,0,4.43,36968,930,51307899,213222880,100000,400000000,0,1580,1580,419510687385,0,0,0,0,0,0,0,OK
+X3,candle,16,4,dctcp,updown,dheu,d1000_p400000_scan1_ecnexact,-rdelayns 1000 -rperiodns 400000 -rtxscanms 1 -ecnqexact,0,4.73,37080,954,50429548,233882080,1000000,400000000,0,1580,1580,430531937855,0,0,0,0,0,0,0,OK
+X3,candle,16,4,dctcp,updown,dheu,d10000_p400000_scan1_ecnexact,-rdelayns 10000 -rperiodns 400000 -rtxscanms 1 -ecnqexact,0,4.47,36184,939,51043543,237307840,10000000,400000000,0,1580,1580,432617404440,0,0,0,0,0,0,0,OK
+X3,candle,16,4,dctcp,updown,dheu,d100000_p400000_scan1_ecnexact,-rdelayns 100000 -rperiodns 400000 -rtxscanms 1 -ecnqexact,0,4.74,36652,905,52020388,222945840,100000000,400000000,0,1580,1580,499210487399,0,0,0,0,0,0,0,OK
+X3,candle,16,4,dctcp,updown,dheu,d1000000_p400000_scan1_ecnexact,-rdelayns 1000000 -rperiodns 400000 -rtxscanms 1 -ecnqexact,0,4.73,35572,628,61810881,220299200,1000000000,400000000,0,1580,1580,916941001825,0,0,0,0,0,0,0,OK
+X3,candle,16,4,dctcp,updown,dheu,d10000000_p400000_scan1_ecnexact,-rdelayns 10000000 -rperiodns 400000 -rtxscanms 1 -ecnqexact,0,5.59,37148,545,70651833,228018400,10000000000,400000000,0,1580,1580,5696464046586,0,0,0,0,0,0,0,OK
+X3,dlrm,32,5,dctcp,updown,dheu,d10_p400000_scan1_ecnexact,-rdelayns 10 -rperiodns 400000 -rtxscanms 1 -ecnqexact,0,2.91,107376,823,9479585,205292796,10000,400000000,0,3662,3662,336863898219,0,0,0,0,0,0,0,OK
+X3,dlrm,32,5,dctcp,updown,dheu,d100_p400000_scan1_ecnexact,-rdelayns 100 -rperiodns 400000 -rtxscanms 1 -ecnqexact,0,2.72,99944,524,15091336,193664548,100000,400000000,0,3662,3662,217414139333,0,0,0,0,0,0,0,OK
+X3,dlrm,32,5,dctcp,updown,dheu,d1000_p400000_scan1_ecnexact,-rdelayns 1000 -rperiodns 400000 -rtxscanms 1 -ecnqexact,0,3.16,102224,486,15741601,194168708,1000000,400000000,0,3662,3662,202400437527,0,0,0,0,0,0,0,OK
+X3,dlrm,32,5,dctcp,updown,dheu,d10000_p400000_scan1_ecnexact,-rdelayns 10000 -rperiodns 400000 -rtxscanms 1 -ecnqexact,0,3.45,105156,817,10858624,165170672,10000000,400000000,0,3662,3662,343616208261,0,0,0,0,0,0,0,OK
+X3,dlrm,32,5,dctcp,updown,dheu,d100000_p400000_scan1_ecnexact,-rdelayns 100000 -rperiodns 400000 -rtxscanms 1 -ecnqexact,0,2.71,97740,457,18149489,185196640,100000000,400000000,0,3662,3662,236502117559,0,0,0,0,0,0,0,OK
+X3,dlrm,32,5,dctcp,updown,dheu,d1000000_p400000_scan1_ecnexact,-rdelayns 1000000 -rperiodns 400000 -rtxscanms 1 -ecnqexact,0,2.24,77460,299,12834905,128007280,1000000000,400000000,0,3662,3662,421060725854,0,0,0,0,0,0,0,OK
+X3,dlrm,32,5,dctcp,updown,dheu,d10000000_p400000_scan1_ecnexact,-rdelayns 10000000 -rperiodns 400000 -rtxscanms 1 -ecnqexact,0,2.23,76308,342,10408714,130296320,10000000000,400000000,0,3662,3662,3549996588613,0,0,0,0,0,0,0,OK
+X3,vgg,32,5,dctcp,updown,dheu,d10_p400000_scan1_ecnexact,-rdelayns 10 -rperiodns 400000 -rtxscanms 1 -ecnqexact,0,4.59,41700,861,9795307,180729760,10000,400000000,0,1504,1504,352624402838,0,0,0,0,0,0,0,OK
+X3,vgg,32,5,dctcp,updown,dheu,d100_p400000_scan1_ecnexact,-rdelayns 100 -rperiodns 400000 -rtxscanms 1 -ecnqexact,0,5.20,42036,911,8411775,189197760,100000,400000000,0,1504,1504,372026067428,0,0,0,0,0,0,0,OK
+X3,vgg,32,5,dctcp,updown,dheu,d1000_p400000_scan1_ecnexact,-rdelayns 1000 -rperiodns 400000 -rtxscanms 1 -ecnqexact,0,5.69,42248,1193,8887711,187036440,1000000,400000000,0,1504,1504,488630354503,0,0,0,0,0,0,0,OK
+X3,vgg,32,5,dctcp,updown,dheu,d10000_p400000_scan1_ecnexact,-rdelayns 10000 -rperiodns 400000 -rtxscanms 1 -ecnqexact,0,3.84,41112,498,10074940,145411220,10000000,400000000,0,1504,1504,208860523351,0,0,0,0,0,0,0,OK
+X3,vgg,32,5,dctcp,updown,dheu,d100000_p400000_scan1_ecnexact,-rdelayns 100000 -rperiodns 400000 -rtxscanms 1 -ecnqexact,0,5.16,41564,706,11113157,186661440,100000000,400000000,0,1504,1504,360738822490,0,0,0,0,0,0,0,OK
+X3,vgg,32,5,dctcp,updown,dheu,d1000000_p400000_scan1_ecnexact,-rdelayns 1000000 -rperiodns 400000 -rtxscanms 1 -ecnqexact,0,5.13,41160,448,18674943,145947520,1000000000,400000000,0,1504,1504,634395421320,0,0,0,0,0,0,0,OK
+X3,vgg,32,5,dctcp,updown,dheu,d10000000_p400000_scan1_ecnexact,-rdelayns 10000000 -rperiodns 400000 -rtxscanms 1 -ecnqexact,0,4.55,40676,220,31544246,165440608,10000000000,400000000,0,1504,1504,2284765206442,0,0,0,0,0,0,0,OK
+X3,transformer,32,5,dctcp,updown,dheu,d10_p400000_scan1_ecnexact,-rdelayns 10 -rperiodns 400000 -rtxscanms 1 -ecnqexact,0,2.24,203120,311,3520736,80564448,10000,400000000,0,7878,7878,125140508198,0,0,0,0,0,0,0,OK
+X3,transformer,32,5,dctcp,updown,dheu,d100_p400000_scan1_ecnexact,-rdelayns 100 -rperiodns 400000 -rtxscanms 1 -ecnqexact,0,2.50,203748,309,5228221,84768528,100000,400000000,0,7878,7878,125072768558,0,0,0,0,0,0,0,OK
+X3,transformer,32,5,dctcp,updown,dheu,d1000_p400000_scan1_ecnexact,-rdelayns 1000 -rperiodns 400000 -rtxscanms 1 -ecnqexact,0,3.02,204260,308,6707421,117976609,1000000,400000000,0,7878,7878,125540863718,0,0,0,0,0,0,0,OK
+X3,transformer,32,5,dctcp,updown,dheu,d10000_p400000_scan1_ecnexact,-rdelayns 10000 -rperiodns 400000 -rtxscanms 1 -ecnqexact,0,2.83,203504,302,4868455,97291248,10000000,400000000,0,7878,7878,125092568558,0,0,0,0,0,0,0,OK
+X3,transformer,32,5,dctcp,updown,dheu,d100000_p400000_scan1_ecnexact,-rdelayns 100000 -rperiodns 400000 -rtxscanms 1 -ecnqexact,0,2.74,203284,249,6536131,91461200,100000000,400000000,0,7878,7878,125967168838,0,0,0,0,0,0,0,OK
+X3,transformer,32,5,dctcp,updown,dheu,d1000000_p400000_scan1_ecnexact,-rdelayns 1000000 -rperiodns 400000 -rtxscanms 1 -ecnqexact,0,2.52,216244,140,9043715,42331144,1000000000,400000000,0,7878,7878,195880273196,0,0,0,0,0,0,0,OK
+X3,transformer,32,5,dctcp,updown,dheu,d10000000_p400000_scan1_ecnexact,-rdelayns 10000000 -rperiodns 400000 -rtxscanms 1 -ecnqexact,0,2.68,226784,123,11348788,39800758,10000000000,400000000,0,7878,7878,1270404750595,0,0,0,0,0,0,0,OK

@@ -1,0 +1,15 @@
+workload,nodes,arm,transport,exit,makespan_ps,tasks,wall_s
+dlrm,16,dragonfly,dcqcn,0,128580373991,1278/1278,5.35
+dlrm,16,dheu,dcqcn,0,93427296513,1278/1278,3.80
+vgg,16,dragonfly,dcqcn,0,533681927272,768/768,9.19
+vgg,16,dheu,dcqcn,0,245890437951,768/768,5.96
+transformer,16,dragonfly,dcqcn,0,90902681487,2020/2020,2.50
+transformer,16,dheu,dcqcn,0,64273420601,2020/2020,1.66
+candle,16,dragonfly,dcqcn,0,787990008965,1580/1580,27.16
+candle,16,dheu,dcqcn,0,730388310733,1580/1580,26.01
+dlrm,32,dragonfly,dcqcn,0,289656581772,3662/3662,26.87
+dlrm,32,dheu,dcqcn,0,131683989974,3662/3662,29.56
+vgg,32,dragonfly,dcqcn,0,1016724919316,1504/1504,21.91
+vgg,32,dheu,dcqcn,0,255466978991,1504/1504,16.69
+transformer,32,dragonfly,dcqcn,0,254504091390,7878/7878,11.33
+transformer,32,dheu,dcqcn,0,126079597502,7878/7878,13.31

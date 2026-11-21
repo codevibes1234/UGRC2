@@ -189,6 +189,8 @@ void FlatTopology::load_topology_protobuf(const std::string & taskgraph) {
 //     return alloc_queue(queueLogger, SPEED, queuesize);
 // }
 
+bool FlatTopology::ecn_queue_exact = false;
+
 Queue *FlatTopology::alloc_queue(QueueLogger *queueLogger, uint64_t speed, mem_b queuesize)
 {
   if (qt == RANDOM)
@@ -198,7 +200,9 @@ Queue *FlatTopology::alloc_queue(QueueLogger *queueLogger, uint64_t speed, mem_b
   else if (qt == CTRL_PRIO)
     return new CtrlPrioQueue(speedFromMbps(speed), queuesize, *eventlist, queueLogger);
   else if (qt == ECN)
-    return new ECNQueue(speedFromMbps(speed), memFromPkt(queuesize), *eventlist, queueLogger, memFromPkt(50));
+    return new ECNQueue(speedFromMbps(speed),
+                        ecn_queue_exact ? queuesize : memFromPkt(queuesize),
+                        *eventlist, queueLogger, memFromPkt(50));
   else if (qt == LOSSLESS)
     return new LosslessQueue(speedFromMbps(speed), memFromPkt(50), *eventlist, queueLogger, NULL);
   else if (qt == LOSSLESS_INPUT)
@@ -285,7 +289,7 @@ void FlatTopology::init_network()
 }
 
 // ???
-void check_non_null(Route *rt)
+static void check_non_null(Route *rt)
 {
   int fail = 0;
   for (unsigned int i = 1; i < rt->size() - 1; i += 2)
@@ -326,35 +330,29 @@ vector<const Route *> *FlatTopology::get_paths(int src, int dest)
 
     const vector<size_t> &route = *r;
 
-    for (size_t i = 0; i < route.size() - 1; i++)
+    for (size_t i = 0; i + 1 < route.size(); i++)
     {
       assert(queues[route[i]][route[i + 1]] != nullptr);
       routeout->push_back(queues[route[i]][route[i + 1]]);
       routeout->push_back(pipes[route[i]][route[i + 1]]);
-    }
-    // routeout->push_back(queues[src][dest]);
-    // routeout->push_back(pipes[src][dest]);
 
-    if (qt == LOSSLESS_INPUT || qt == LOSSLESS_INPUT_ECN)
-      routeout->push_back(queues[src][dest]->getRemoteEndpoint());
+      bool last_hop = (i + 2 == route.size());
+      if ((qt == LOSSLESS_INPUT || qt == LOSSLESS_INPUT_ECN) && !last_hop)
+        routeout->push_back(queues[route[i]][route[i + 1]]->getRemoteEndpoint());
+    }
 
     routeback = new Route();
-    // reverse path for RTS packets
-    // assert(_routes.find(dest * _no_of_nodes + src) != _routes.end());
-    // route = *(_routes[dest * _no_of_nodes + src]);
 
-    for (size_t i = route.size() - 1; i > 1; i--)
+    for (size_t i = route.size() - 1; i > 0; i--)
     {
       assert(queues[route[i]][route[i - 1]] != nullptr);
       routeback->push_back(queues[route[i]][route[i - 1]]);
       routeback->push_back(pipes[route[i]][route[i - 1]]);
+
+      bool last_hop = (i == 1);
+      if ((qt == LOSSLESS_INPUT || qt == LOSSLESS_INPUT_ECN) && !last_hop)
+        routeback->push_back(queues[route[i]][route[i - 1]]->getRemoteEndpoint());
     }
-
-    // routeback->push_back(queues[dest][src]);
-    // routeback->push_back(pipes[dest][src]);
-
-    if (qt == LOSSLESS_INPUT || qt == LOSSLESS_INPUT_ECN)
-      routeback->push_back(queues[dest][src]->getRemoteEndpoint());
 
     routeout->set_reverse(routeback);
     routeback->set_reverse(routeout);

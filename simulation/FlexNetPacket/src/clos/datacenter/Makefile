@@ -13,15 +13,31 @@ ifeq ($(USE_GUROBI), 1)
 	CFLAGS+= -DHAVE_GUROBI
 endif
 #-Lksp
-OBJS=../eventlist.o ../tcppacket.o ../pipe.o ../queue.o ../queue_lossless.o ../queue_lossless_input.o ../queue_lossless_output.o ../ecnqueue.o ../tcp.o ../dctcp.o ../mtcp.o ../loggers.o ../logfile.o ../clock.o ../config.o ../network.o ../qcn.o ../exoqueue.o ../randomqueue.o ../cbr.o ../cbrpacket.o ../sent_packets.o ../ndp.o ../ndppacket.o ../eth_pause_packet.o ../compositequeue.o ../prioqueue.o ../cpqueue.o ../compositeprioqueue.o ../switch.o ../fairpullqueue.o ../route.o ../ffapp.o ../dyn_net_sch.o#../taskgraph.pb.o
+OBJS=../eventlist.o ../tcppacket.o ../pipe.o ../queue.o ../queue_lossless.o ../queue_lossless_input.o ../queue_lossless_output.o ../ecnqueue.o ../tcp.o ../dctcp.o ../rocev2.o ../mtcp.o ../loggers.o ../logfile.o ../clock.o ../config.o ../network.o ../qcn.o ../exoqueue.o ../randomqueue.o ../cbr.o ../cbrpacket.o ../sent_packets.o ../ndp.o ../ndppacket.o ../eth_pause_packet.o ../compositequeue.o ../prioqueue.o ../cpqueue.o ../compositeprioqueue.o ../switch.o ../fairpullqueue.o ../route.o ../ffapp.o ../dyn_net_sch.o#../taskgraph.pb.o
 
-all: htsim_tcp_fc htsim_tcp_fattree htsim_tcp_os_fattree htsim_tcp_flat htsim_tcp_aggosft htsim_tcp_dyn_flat htsim_tcp_fattree_multijob htsim_tcp_aggos_fattree_multijob
+LIBHDRS=$(wildcard $(CRT)/../*.h)
+LOCALOBJS=$(patsubst %.cpp,%.o,$(wildcard $(CRT)/*.cpp))
+$(notdir $(LOCALOBJS)): $(LIBHDRS)
+
+%.o: %.cpp
+	$(CC) $(INCLUDE) $(CFLAGS) -c $< -o $@
+
+all: htsim_tcp_fc htsim_tcp_fattree htsim_tcp_zcube htsim_tcp_os_fattree htsim_tcp_flat htsim_tcp_aggosft htsim_tcp_dyn_flat htsim_tcp_fattree_multijob htsim_tcp_aggos_fattree_multijob
 
 htsim_tcp_fattree_multijob: main_tcp_multijob_fattree.o firstfit.o fat_tree_topology.o
 	$(CC) $(CFLAGS) $(INCLUDE) firstfit.o main_tcp_multijob_fattree.o fat_tree_topology.o $(OBJS) $(LIB) -lhtsim -o htsim_tcp_fattree_multijob
 
+htsim_tcp_graph_multijob: main_tcp_graph_multijob.o firstfit.o fat_tree_topology.o zcube_partial_topology.o graph_topology.o
+	$(CC) $(CFLAGS) $(INCLUDE) firstfit.o main_tcp_graph_multijob.o fat_tree_topology.o zcube_partial_topology.o graph_topology.o $(OBJS) $(LIB) -lhtsim -o htsim_tcp_graph_multijob
+
+main_tcp_graph_multijob.o: main_tcp_graph_multijob.cpp
+	$(CC) $(INCLUDE) $(CFLAGS) -c main_tcp_graph_multijob.cpp
+
 htsim_tcp_aggos_fattree_multijob: main_tcp_multijob_aggos_fattree.o firstfit.o agg_os_fattree.o
 	$(CC) $(CFLAGS) $(INCLUDE) firstfit.o main_tcp_multijob_aggos_fattree.o agg_os_fattree.o $(OBJS) $(LIB) -lhtsim -o htsim_tcp_aggos_fattree_multijob
+
+dump_switch_graph: dump_switch_graph.o
+	$(CC) $(CFLAGS) $(INCLUDE) dump_switch_graph.o -o dump_switch_graph
 
 htsim_tcp_dyn_flat: main_tcp_dyn_flat.o firstfit.o flat_topology.o
 	$(CC) $(CFLAGS) $(INCLUDE) firstfit.o main_tcp_dyn_flat.o flat_topology.o $(OBJS) $(LIB) -lhtsim -o htsim_tcp_dyn_flat
@@ -31,6 +47,9 @@ htsim_tcp_fc: main_tcp_fc.o firstfit.o  fc_topology.o
 
 htsim_tcp_fattree: main_tcp_fattree.o firstfit.o fat_tree_topology.o
 	$(CC) $(CFLAGS) $(INCLUDE) firstfit.o main_tcp_fattree.o fat_tree_topology.o $(OBJS) $(LIB) -lhtsim -o htsim_tcp_fattree
+
+htsim_tcp_zcube: main_tcp_zcube.o firstfit.o zcube_topology.o
+	$(CC) $(CFLAGS) $(INCLUDE) firstfit.o main_tcp_zcube.o zcube_topology.o $(OBJS) $(LIB) -lhtsim -o htsim_tcp_zcube
 
 htsim_tcp_os_fattree: main_tcp_os_fattree.o firstfit.o os_fattree.o
 	$(CC) $(CFLAGS) $(INCLUDE) firstfit.o main_tcp_os_fattree.o os_fattree.o $(OBJS) $(LIB) -lhtsim -o htsim_tcp_os_fattree
@@ -49,6 +68,9 @@ main_tcp_fc.o: main_tcp_fc.cpp
 
 main_tcp_fattree.o: main_tcp_fattree.cpp 
 	$(CC) $(INCLUDE) $(CFLAGS) -c  main_tcp_fattree.cpp
+
+main_tcp_zcube.o: main_tcp_zcube.cpp 
+	$(CC) $(INCLUDE) $(CFLAGS) -c  main_tcp_zcube.cpp
 
 main_tcp_multijob_fattree.o: main_tcp_multijob_fattree.cpp 
 	$(CC) $(INCLUDE) $(CFLAGS) -c  main_tcp_multijob_fattree.cpp
@@ -76,6 +98,9 @@ fc_topology.o: fc_topology.cpp fc_topology.h topology.h
 
 fat_tree_topology.o: fat_tree_topology.cpp fat_tree_topology.h topology.h
 	$(CC) $(INCLUDE) $(CFLAGS) -c fat_tree_topology.cpp
+
+zcube_topology.o: zcube_topology.cpp zcube_topology.h topology.h
+	$(CC) $(INCLUDE) $(CFLAGS) -c zcube_topology.cpp
 
 os_fattree.o: os_fattree.cpp os_fattree.h topology.h
 	$(CC) $(INCLUDE) $(CFLAGS) -c os_fattree.cpp

@@ -38,7 +38,7 @@ g++ ${FLAGS} \
     "${CLOS}/queue.o"         \
     "${CLOS}/ecnqueue.o"      \
     "${CLOS}/tcp.o"           \
-    "${CLOS}/dctcp.o"         \
+    "${CLOS}/rocev2.o"        \
     "${CLOS}/mtcp.o"          \
     "${CLOS}/loggers.o"       \
     "${CLOS}/logfile.o"       \

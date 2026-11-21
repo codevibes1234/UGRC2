@@ -1,0 +1,10 @@
+match    decomp.csv             job0 stored    19.3949 now    19.3949  makespan stored    19.3949 now    19.3949  OK
+match    rd_decomp.csv          job0 stored    4.47674 now    4.47674  makespan stored    4.47674 now    4.47674  OK
+match    phased.csv             job0 stored     11.063 now     11.063  makespan stored     11.063 now     11.063  OK
+match    ocs_scale.csv          job0 stored    187.947 now    187.947  makespan stored    187.947 now    187.947  OK
+match    seeds_mdp.csv          job0 stored    31.0934 now    31.0934  makespan stored    31.0934 now    31.0934  OK
+match    pfc_realism_mdp.csv    job0 stored    22.0545 now    22.0545  makespan stored    24.8274 now    24.8274  OK
+match    framework.csv          job0 stored    67.0423 now    67.0423  makespan stored    67.0423 now    67.0423  OK
+match    dheu_scale.csv         job0 stored    6.62085 now    6.62085  makespan stored    6.62085 now    6.62085  OK
+match    ocs_432.csv            job0 stored    41.8907 now    41.8907  makespan stored    41.8907 now    41.8907  OK
+ALL MATCH

@@ -182,11 +182,11 @@ struct Task FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
-           VerifyField<int16_t>(verifier, VT_TYPE) &&
-           VerifyField<uint64_t>(verifier, VT_TASKID) &&
-           VerifyField<uint64_t>(verifier, VT_DEVICEID) &&
-           VerifyField<float>(verifier, VT_RUNTIME) &&
-           VerifyField<uint64_t>(verifier, VT_XFERSIZE) &&
+           VerifyField<int16_t>(verifier, VT_TYPE, sizeof(int16_t)) &&
+           VerifyField<uint64_t>(verifier, VT_TASKID, sizeof(uint64_t)) &&
+           VerifyField<uint64_t>(verifier, VT_DEVICEID, sizeof(uint64_t)) &&
+           VerifyField<float>(verifier, VT_RUNTIME, sizeof(float)) &&
+           VerifyField<uint64_t>(verifier, VT_XFERSIZE, sizeof(uint64_t)) &&
            VerifyOffset(verifier, VT_NEXTTASKS) &&
            verifier.VerifyVector(nexttasks()) &&
            verifier.EndTable();
@@ -289,11 +289,11 @@ struct Device FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
-           VerifyField<int16_t>(verifier, VT_TYPE) &&
-           VerifyField<uint64_t>(verifier, VT_DEVICEID) &&
-           VerifyField<uint64_t>(verifier, VT_NODEID) &&
-           VerifyField<uint64_t>(verifier, VT_DEVICEPROPERTY) &&
-           VerifyField<uint64_t>(verifier, VT_BANDWIDTH) &&
+           VerifyField<int16_t>(verifier, VT_TYPE, sizeof(int16_t)) &&
+           VerifyField<uint64_t>(verifier, VT_DEVICEID, sizeof(uint64_t)) &&
+           VerifyField<uint64_t>(verifier, VT_NODEID, sizeof(uint64_t)) &&
+           VerifyField<uint64_t>(verifier, VT_DEVICEPROPERTY, sizeof(uint64_t)) &&
+           VerifyField<uint64_t>(verifier, VT_BANDWIDTH, sizeof(uint64_t)) &&
            verifier.EndTable();
   }
 };
@@ -362,9 +362,9 @@ struct Connection FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
-           VerifyField<uint32_t>(verifier, VT_FROMNODE) &&
-           VerifyField<uint32_t>(verifier, VT_TONODE) &&
-           VerifyField<uint32_t>(verifier, VT_NCONN) &&
+           VerifyField<uint32_t>(verifier, VT_FROMNODE, sizeof(uint32_t)) &&
+           VerifyField<uint32_t>(verifier, VT_TONODE, sizeof(uint32_t)) &&
+           VerifyField<uint32_t>(verifier, VT_NCONN, sizeof(uint32_t)) &&
            verifier.EndTable();
   }
 };
@@ -421,7 +421,7 @@ struct Path FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
     return VerifyTableStart(verifier) &&
            VerifyOffset(verifier, VT_HOPNODE) &&
            verifier.VerifyVector(hopnode()) &&
-           VerifyField<float>(verifier, VT_CHANCE) &&
+           VerifyField<float>(verifier, VT_CHANCE, sizeof(float)) &&
            verifier.EndTable();
   }
 };
@@ -486,8 +486,8 @@ struct Route FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
-           VerifyField<uint32_t>(verifier, VT_FROMNODE) &&
-           VerifyField<uint32_t>(verifier, VT_TONODE) &&
+           VerifyField<uint32_t>(verifier, VT_FROMNODE, sizeof(uint32_t)) &&
+           VerifyField<uint32_t>(verifier, VT_TONODE, sizeof(uint32_t)) &&
            VerifyOffset(verifier, VT_PATHS) &&
            verifier.VerifyVector(paths()) &&
            verifier.VerifyVectorOfTables(paths()) &&
@@ -562,8 +562,8 @@ struct Operator FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
-           VerifyField<uint64_t>(verifier, VT_OPID) &&
-           VerifyField<uint64_t>(verifier, VT_TYPE) &&
+           VerifyField<uint64_t>(verifier, VT_OPID, sizeof(uint64_t)) &&
+           VerifyField<uint64_t>(verifier, VT_TYPE, sizeof(uint64_t)) &&
            VerifyOffset(verifier, VT_NAME) &&
            verifier.VerifyString(name()) &&
            verifier.EndTable();
@@ -684,7 +684,7 @@ struct Rings FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
-           VerifyField<uint64_t>(verifier, VT_RINGSZ) &&
+           VerifyField<uint64_t>(verifier, VT_RINGSZ, sizeof(uint64_t)) &&
            VerifyOffset(verifier, VT_RINGPATHS) &&
            verifier.VerifyVector(ringpaths()) &&
            verifier.VerifyVectorOfTables(ringpaths()) &&
@@ -788,12 +788,12 @@ struct TaskGraph FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
-           VerifyField<uint32_t>(verifier, VT_NGPUPERNODE) &&
-           VerifyField<uint32_t>(verifier, VT_NNODE) &&
-           VerifyField<uint32_t>(verifier, VT_NSWITCH) &&
-           VerifyField<float>(verifier, VT_INTERGPUBW) &&
-           VerifyField<float>(verifier, VT_DRAMBW) &&
-           VerifyField<float>(verifier, VT_NETBW) &&
+           VerifyField<uint32_t>(verifier, VT_NGPUPERNODE, sizeof(uint32_t)) &&
+           VerifyField<uint32_t>(verifier, VT_NNODE, sizeof(uint32_t)) &&
+           VerifyField<uint32_t>(verifier, VT_NSWITCH, sizeof(uint32_t)) &&
+           VerifyField<float>(verifier, VT_INTERGPUBW, sizeof(float)) &&
+           VerifyField<float>(verifier, VT_DRAMBW, sizeof(float)) &&
+           VerifyField<float>(verifier, VT_NETBW, sizeof(float)) &&
            VerifyOffset(verifier, VT_CONN) &&
            verifier.VerifyVector(conn()) &&
            verifier.VerifyVectorOfTables(conn()) &&

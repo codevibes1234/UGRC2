@@ -34,7 +34,9 @@
 
 #include "zcube_topology.h"
 #include "ffapp_rhd.h"
+#include "rocev2.h"
 #include "main.h"
+#include "expt_options.h"
 
 // ── Globals ──────────────────────────────────────────────────────────────────
 uint32_t RTT_rack  = 500;
@@ -63,6 +65,12 @@ void exit_error(char *prog) {
     exit(1);
 }
 
+#ifdef USE_DCTCP
+#define FABRIC_QUEUE ECN
+#else
+#define FABRIC_QUEUE LOSSLESS_INPUT
+#endif
+
 int main(int argc, char **argv)
 {
     TcpPacket::set_packet_size(DEFAULT_PACKET_SIZE - DEFAULT_HEADER_SIZE);
@@ -75,6 +83,7 @@ int main(int argc, char **argv)
     SPEED = DEFAULT_SPEED;
 
     for (int i = 1; i < argc; i++) {
+        if (expt_parse_option(i, argc, argv)) continue;
         if      (!strcmp(argv[i], "-msgsize")  && i+1 < argc) msgsize   = (uint64_t)atoll(argv[++i]);
         else if (!strcmp(argv[i], "-simtime")  && i+1 < argc) simtime   = atof(argv[++i]);
         else if (!strcmp(argv[i], "-ofile")    && i+1 < argc) ofile     = argv[++i];
@@ -100,13 +109,22 @@ int main(int argc, char **argv)
     srand(13);
     eventlist.setEndtime(timeFromSec(simtime));
     Clock c(timeFromSec(5.0/100.0), eventlist);
-    TcpRtxTimerScanner tcpRtxScanner(timeFromMs(1), eventlist);
+    TcpRtxTimerScanner tcpRtxScanner(expt_scan_period(timeFromMs(1)), eventlist);
 
     fct_util_out = std::ofstream(ofile);
 
     // Build ZCube(4,2): 16 nodes
+
+    {
+        uint64_t rtt_ps = 12ULL * RTT_net * 1000ULL;
+        uint64_t bdp_bytes = (uint64_t)SPEED * 1000000ULL / 8ULL * rtt_ps / 1000000000000ULL;
+        uint32_t credits = (uint32_t)(2 * bdp_bytes / 9000);
+        RoCEv2Src::default_initial_credits = credits < 8 ? 8 : credits;
+        expt_apply_roce(RoCEv2Src::default_initial_credits, SPEED);
+        std::cerr << "  RoCE credits : " << RoCEv2Src::default_initial_credits << "\n";
+    }
     ZCubeTopology *top = new ZCubeTopology(
-        16, queuesize, nullptr, &eventlist, ff, ECN);
+        16, queuesize, nullptr, &eventlist, ff, FABRIC_QUEUE);
 
     FFApplication app(top, ssthresh, &fct_util_out,
                       tcpRtxScanner, eventlist,

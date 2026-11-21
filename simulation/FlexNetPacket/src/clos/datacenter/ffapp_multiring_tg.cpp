@@ -120,16 +120,13 @@ bool FFMultiRingAllreduceTask::start_flow(int ring_idx, int snd, int rcv,
     RingState &r = rings[ring_idx];
     auto *f = new FFMultiRingTaskFlow{this, ring_idx, r.current_step, r.current_phase};
 
-    DCTCPSrc *fs = new DCTCPSrc(
-        nullptr, nullptr, ffapp->fstream_out,
-        eventlist(), snd, rcv,
+    RoCEv2Src *fs = new RoCEv2Src(
+        nullptr, eventlist(), snd, rcv,
         ar_finish_multiring_task, static_cast<void*>(f));
-    TcpSink *snk = new TcpSink();
+    RoCEv2Sink *snk = new RoCEv2Sink(nullptr, eventlist());
 
     fs->set_flowsize(total_bytes);
-    fs->set_ssthresh(ffapp->ssthresh * Packet::data_packet_size());
-    fs->_rto = timeFromMs(rto_ms);
-    ffapp->tcpRtxScanner.registerTcp(*fs);
+    fs->set_initial_credits(RoCEv2Src::default_initial_credits);
 
     // Data path: snd → rcv
     auto *sp = topology->get_direct_route(snd, rcv);

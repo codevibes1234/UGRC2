@@ -1,0 +1,113 @@
+series,nodes,deg,arm,transport,placement,jobs,jobnodes,decomp,allreduce,pfc_variant,exit,wall_s,rss_kb,construction,links,diameter,mean_hops,reconfs,pfc_stop,job0_ms,job0_tp_ms,job0_dp_ms,job0_ep_ms,job0_pp_ms,makespan_ms,incomplete,pfc_peak_pkts,pfc_overshoot_pkts,pfc_overflow,egress_peak_transit_pkts,egress_transit_only_overflow,verdict
+tenancy,16,4,jellyfish,roce,compact,1,4,tp2.dp2.pp1.ep1,rhd,base,0,0.09,10164,random regular graph; degree budget 4,31,3,1.96667,0,1,6.10239,1.42205,6.10239,NA,NA,6.10239,0,16.1862,1.18621,0,24.2838,0,OK
+tenancy,16,4,jellyfish,roce,compact,2,4,tp2.dp2.pp1.ep1,rhd,base,0,0.17,15452,random regular graph; degree budget 4,31,3,1.96667,0,588,12.1945,3.25313,12.1945,NA,NA,12.1945,0,16.2668,1.26679,0,32.3724,0,OK
+tenancy,16,4,jellyfish,roce,compact,4,4,tp2.dp2.pp1.ep1,rhd,base,0,0.41,26040,random regular graph; degree budget 4,31,3,1.96667,0,1656,12.1945,3.25313,12.1945,NA,NA,12.1945,0,16.2668,1.26679,0,32.3724,0,OK
+tenancy,16,4,jellyfish,roce,scatter,1,4,tp2.dp2.pp1.ep1,rhd,base,0,0.06,10120,random regular graph; degree budget 4,31,3,1.96667,0,59,6.09895,2.05481,6.09895,NA,NA,6.09895,0,16.1862,1.18621,0,27.3232,0,OK
+tenancy,16,4,jellyfish,roce,scatter,2,4,tp2.dp2.pp1.ep1,rhd,base,0,0.13,15284,random regular graph; degree budget 4,31,3,1.96667,0,98,6.09895,2.05481,6.09895,NA,NA,6.11728,0,16.2131,1.21307,0,27.3232,0,OK
+tenancy,16,4,jellyfish,roce,scatter,4,4,tp2.dp2.pp1.ep1,rhd,base,0,0.38,25816,random regular graph; degree budget 4,31,3,1.96667,0,631,6.09895,2.05481,6.09895,NA,NA,11.5132,0,16.2131,1.21307,0,27.3232,0,OK
+fullmdp,16,4,jellyfish,roce,compact,1,16,tp2.dp2.pp2.ep2,rhd,base,0,0.61,28980,random regular graph; degree budget 4,31,3,1.96667,0,4786,19.3348,8.58921,19.3348,7.62824,4.55126,19.3348,0,16.3563,1.35631,0,48.5586,0,OK
+tenancy,16,4,flatbutterfly,roce,compact,1,4,tp2.dp2.pp1.ep1,rhd,base,0,0.05,10080,2-ary 4-flat; degree 4,32,4,2.13333,0,0,5.41843,0.67906,5.41843,NA,NA,5.41843,0,0,0,0,0,0,OK
+tenancy,16,4,flatbutterfly,roce,compact,2,4,tp2.dp2.pp1.ep1,rhd,base,0,0.08,15348,2-ary 4-flat; degree 4,32,4,2.13333,0,0,5.41843,0.67906,5.41843,NA,NA,5.41843,0,0,0,0,0,0,OK
+tenancy,16,4,flatbutterfly,roce,compact,4,4,tp2.dp2.pp1.ep1,rhd,base,0,0.19,26012,2-ary 4-flat; degree 4,32,4,2.13333,0,0,5.41843,0.67906,5.41843,NA,NA,5.41843,0,0,0,0,0,0,OK
+tenancy,16,4,flatbutterfly,roce,scatter,1,4,tp2.dp2.pp1.ep1,rhd,base,0,0.07,10160,2-ary 4-flat; degree 4,32,4,2.13333,0,8,6.0955,1.51466,6.0955,NA,NA,6.0955,0,16.1862,1.18621,0,16.1862,0,OK
+tenancy,16,4,flatbutterfly,roce,scatter,2,4,tp2.dp2.pp1.ep1,rhd,base,0,0.19,15328,2-ary 4-flat; degree 4,32,4,2.13333,0,393,6.0955,1.51466,6.0955,NA,NA,6.78169,0,16.2247,1.22471,0,29.342,0,OK
+tenancy,16,4,flatbutterfly,roce,scatter,4,4,tp2.dp2.pp1.ep1,rhd,base,0,0.48,26044,2-ary 4-flat; degree 4,32,4,2.13333,0,2247,7.69103,2.52309,7.69103,NA,NA,14.32,0,16.2534,1.25336,0,44.5166,0,OK
+fullmdp,16,4,flatbutterfly,roce,compact,1,16,tp2.dp2.pp2.ep2,rhd,base,0,0.22,29040,2-ary 4-flat; degree 4,32,4,2.13333,0,0,5.41843,0.67906,5.41843,0.678057,0.338042,5.41843,0,0,0,0,0,0,OK
+tenancy,16,4,dragonfly,roce,compact,1,4,tp2.dp2.pp1.ep1,rhd,base,0,0.04,10068,4 groups x 4 nodes; 1 global port(s) per node,32,3,2.1,0,0,5.41843,0.67906,5.41843,NA,NA,5.41843,0,0,0,0,0,0,OK
+tenancy,16,4,dragonfly,roce,compact,2,4,tp2.dp2.pp1.ep1,rhd,base,0,0.08,15484,4 groups x 4 nodes; 1 global port(s) per node,32,3,2.1,0,0,5.41843,0.67906,5.41843,NA,NA,5.41843,0,0,0,0,0,0,OK
+tenancy,16,4,dragonfly,roce,compact,4,4,tp2.dp2.pp1.ep1,rhd,base,0,0.19,25816,4 groups x 4 nodes; 1 global port(s) per node,32,3,2.1,0,0,5.41843,0.67906,5.41843,NA,NA,5.41843,0,0,0,0,0,0,OK
+tenancy,16,4,dragonfly,roce,scatter,1,4,tp2.dp2.pp1.ep1,rhd,base,0,0.12,10136,4 groups x 4 nodes; 1 global port(s) per node,32,3,2.1,0,1202,12.2525,3.38736,12.2525,NA,NA,12.2525,0,16.2265,1.2265,0,30.3536,0,OK
+tenancy,16,4,dragonfly,roce,scatter,2,4,tp2.dp2.pp1.ep1,rhd,base,0,0.27,15416,4 groups x 4 nodes; 1 global port(s) per node,32,3,2.1,0,932,12.3388,3.37937,12.3388,NA,NA,12.3388,0,16.2399,1.23993,0,30.3536,0,OK
+tenancy,16,4,dragonfly,roce,scatter,4,4,tp2.dp2.pp1.ep1,rhd,base,0,0.59,26000,4 groups x 4 nodes; 1 global port(s) per node,32,3,2.1,0,1883,13.0037,3.79279,13.0037,NA,NA,13.0037,0,16.2489,1.24888,0,45.5327,0,OK
+fullmdp,16,4,dragonfly,roce,compact,1,16,tp2.dp2.pp2.ep2,rhd,base,0,0.53,28972,4 groups x 4 nodes; 1 global port(s) per node,32,3,2.1,0,4805,21.744,1.6063,21.744,1.38337,2.02564,21.744,0,16.2247,1.22471,0,48.5586,0,OK
+tenancy,16,4,megafly,roce,compact,1,4,tp2.dp2.pp1.ep1,rhd,base,0,0.05,10164,4 groups x [2 leaf + 2 spine],22,5,2.55,0,80,6.10487,1.55116,6.10487,NA,NA,6.10487,0,16.1862,1.18621,0,16.1862,0,OK
+tenancy,16,4,megafly,roce,compact,2,4,tp2.dp2.pp1.ep1,rhd,base,0,0.10,15412,4 groups x [2 leaf + 2 spine],22,5,2.55,0,200,6.10487,1.55116,6.10487,NA,NA,6.77257,0,16.1862,1.18621,0,16.1862,0,OK
+tenancy,16,4,megafly,roce,compact,4,4,tp2.dp2.pp1.ep1,rhd,base,0,0.20,26088,4 groups x [2 leaf + 2 spine],22,5,2.55,0,400,6.10487,1.55116,6.10487,NA,NA,6.77257,0,16.1862,1.18621,0,16.1862,0,OK
+tenancy,16,4,megafly,roce,scatter,1,4,tp2.dp2.pp1.ep1,rhd,base,0,0.11,10212,4 groups x [2 leaf + 2 spine],22,5,2.55,0,61,6.41863,1.93493,6.41863,NA,NA,6.41863,0,16.1862,1.18621,0,18.2184,0,OK
+tenancy,16,4,megafly,roce,scatter,2,4,tp2.dp2.pp1.ep1,rhd,base,0,0.35,15408,4 groups x [2 leaf + 2 spine],22,5,2.55,0,1441,13.6243,4.32644,13.6243,NA,NA,13.6243,0,16.2713,1.27126,0,40.4655,0,OK
+tenancy,16,4,megafly,roce,scatter,4,4,tp2.dp2.pp1.ep1,rhd,base,0,0.65,25928,4 groups x [2 leaf + 2 spine],22,5,2.55,0,5446,21.8227,8.57401,21.8227,NA,NA,23.7322,0,16.4628,1.46285,0,48.5586,0,OK
+fullmdp,16,4,megafly,roce,compact,1,16,tp2.dp2.pp2.ep2,rhd,base,0,0.55,29088,4 groups x [2 leaf + 2 spine],22,5,2.55,0,4344,34.5,6.06943,34.5,5.47113,5.76243,34.5,0,16.4628,1.46285,0,48.6303,0,OK
+tenancy,16,4,jellyfish,roce,compact,1,4,tp2.dp2.pp1.ep1,rhd,delay,0,0.09,10208,random regular graph; degree budget 4,31,3,1.96667,0,1,6.10239,1.42205,6.10239,NA,NA,6.10239,0,16.1952,1.19517,0,24.2838,0,OK
+tenancy,16,4,jellyfish,roce,compact,2,4,tp2.dp2.pp1.ep1,rhd,delay,0,0.17,15452,random regular graph; degree budget 4,31,3,1.96667,0,534,12.1996,3.19136,12.1996,NA,NA,12.1996,0,17.2829,2.2829,0,33.3841,0,OK
+tenancy,16,4,jellyfish,roce,compact,4,4,tp2.dp2.pp1.ep1,rhd,delay,0,0.39,26024,random regular graph; degree budget 4,31,3,1.96667,0,1511,12.1996,3.19136,12.1996,NA,NA,12.1996,0,17.2829,2.2829,0,33.3841,0,OK
+tenancy,16,4,jellyfish,roce,scatter,1,4,tp2.dp2.pp1.ep1,rhd,delay,0,0.06,10056,random regular graph; degree budget 4,31,3,1.96667,0,114,6.09895,2.05386,6.09895,NA,NA,6.09895,0,16.1907,1.19069,0,27.3232,0,OK
+tenancy,16,4,jellyfish,roce,scatter,2,4,tp2.dp2.pp1.ep1,rhd,delay,0,0.13,15360,random regular graph; degree budget 4,31,3,1.96667,0,135,6.09895,2.05386,6.09895,NA,NA,6.1132,0,17.2292,2.22919,0,27.3232,0,OK
+tenancy,16,4,jellyfish,roce,scatter,4,4,tp2.dp2.pp1.ep1,rhd,delay,0,0.38,25988,random regular graph; degree budget 4,31,3,1.96667,0,804,6.09895,2.05386,6.09895,NA,NA,11.5132,0,17.2292,2.22919,0,27.3232,0,OK
+fullmdp,16,4,jellyfish,roce,compact,1,16,tp2.dp2.pp2.ep2,rhd,delay,0,0.61,28960,random regular graph; degree budget 4,31,3,1.96667,0,4092,19.3906,8.40815,19.3906,7.37593,4.42649,19.3906,0,17.3724,2.37243,0,49.5703,0,OK
+tenancy,16,4,flatbutterfly,roce,compact,1,4,tp2.dp2.pp1.ep1,rhd,delay,0,0.04,10248,2-ary 4-flat; degree 4,32,4,2.13333,0,0,5.41843,0.67906,5.41843,NA,NA,5.41843,0,0,0,0,0,0,OK
+tenancy,16,4,flatbutterfly,roce,compact,2,4,tp2.dp2.pp1.ep1,rhd,delay,0,0.09,15352,2-ary 4-flat; degree 4,32,4,2.13333,0,0,5.41843,0.67906,5.41843,NA,NA,5.41843,0,0,0,0,0,0,OK
+tenancy,16,4,flatbutterfly,roce,compact,4,4,tp2.dp2.pp1.ep1,rhd,delay,0,0.19,25832,2-ary 4-flat; degree 4,32,4,2.13333,0,0,5.41843,0.67906,5.41843,NA,NA,5.41843,0,0,0,0,0,0,OK
+tenancy,16,4,flatbutterfly,roce,scatter,1,4,tp2.dp2.pp1.ep1,rhd,delay,0,0.06,10216,2-ary 4-flat; degree 4,32,4,2.13333,0,8,6.0955,1.51466,6.0955,NA,NA,6.0955,0,16.1862,1.18621,0,16.1862,0,OK
+tenancy,16,4,flatbutterfly,roce,scatter,2,4,tp2.dp2.pp1.ep1,rhd,delay,0,0.21,15408,2-ary 4-flat; degree 4,32,4,2.13333,0,345,6.0955,1.51466,6.0955,NA,NA,6.78169,0,17.2158,2.21576,0,30.3491,0,OK
+tenancy,16,4,flatbutterfly,roce,scatter,4,4,tp2.dp2.pp1.ep1,rhd,delay,0,0.48,26032,2-ary 4-flat; degree 4,32,4,2.13333,0,1715,7.69652,2.55335,7.69652,NA,NA,14.2535,0,17.2695,2.26947,0,47.547,0,OK
+fullmdp,16,4,flatbutterfly,roce,compact,1,16,tp2.dp2.pp2.ep2,rhd,delay,0,0.23,28892,2-ary 4-flat; degree 4,32,4,2.13333,0,0,5.41843,0.67906,5.41843,0.678057,0.338042,5.41843,0,0,0,0,0,0,OK
+tenancy,16,4,dragonfly,roce,compact,1,4,tp2.dp2.pp1.ep1,rhd,delay,0,0.04,10212,4 groups x 4 nodes; 1 global port(s) per node,32,3,2.1,0,0,5.41843,0.67906,5.41843,NA,NA,5.41843,0,0,0,0,0,0,OK
+tenancy,16,4,dragonfly,roce,compact,2,4,tp2.dp2.pp1.ep1,rhd,delay,0,0.08,15384,4 groups x 4 nodes; 1 global port(s) per node,32,3,2.1,0,0,5.41843,0.67906,5.41843,NA,NA,5.41843,0,0,0,0,0,0,OK
+tenancy,16,4,dragonfly,roce,compact,4,4,tp2.dp2.pp1.ep1,rhd,delay,0,0.18,26012,4 groups x 4 nodes; 1 global port(s) per node,32,3,2.1,0,0,5.41843,0.67906,5.41843,NA,NA,5.41843,0,0,0,0,0,0,OK
+tenancy,16,4,dragonfly,roce,scatter,1,4,tp2.dp2.pp1.ep1,rhd,delay,0,0.12,10268,4 groups x 4 nodes; 1 global port(s) per node,32,3,2.1,0,970,12.2647,3.35177,12.2647,NA,NA,12.2647,0,17.2363,2.23635,0,31.3653,0,OK
+tenancy,16,4,dragonfly,roce,scatter,2,4,tp2.dp2.pp1.ep1,rhd,delay,0,0.28,15408,4 groups x 4 nodes; 1 global port(s) per node,32,3,2.1,0,904,12.3781,3.36267,12.3781,NA,NA,12.3781,0,17.2363,2.23635,0,31.3697,0,OK
+tenancy,16,4,dragonfly,roce,scatter,4,4,tp2.dp2.pp1.ep1,rhd,delay,0,0.59,26040,4 groups x 4 nodes; 1 global port(s) per node,32,3,2.1,0,1586,12.93,3.75375,12.93,NA,NA,12.93,0,17.2363,2.23635,0,46.5398,0,OK
+fullmdp,16,4,dragonfly,roce,compact,1,16,tp2.dp2.pp2.ep2,rhd,delay,0,0.53,28972,4 groups x 4 nodes; 1 global port(s) per node,32,3,2.1,0,4602,21.7516,1.51486,21.7516,1.46685,1.99664,21.7516,0,17.2363,2.23635,0,48.5676,0,OK
+tenancy,16,4,megafly,roce,compact,1,4,tp2.dp2.pp1.ep1,rhd,delay,0,0.05,10144,4 groups x [2 leaf + 2 spine],22,5,2.55,0,82,6.10443,1.56234,6.10443,NA,NA,6.10443,0,16.1862,1.18621,0,16.1862,0,OK
+tenancy,16,4,megafly,roce,compact,2,4,tp2.dp2.pp1.ep1,rhd,delay,0,0.10,15424,4 groups x [2 leaf + 2 spine],22,5,2.55,0,202,6.10443,1.56234,6.10443,NA,NA,6.77257,0,16.1907,1.19069,0,16.1907,0,OK
+tenancy,16,4,megafly,roce,compact,4,4,tp2.dp2.pp1.ep1,rhd,delay,0,0.20,26056,4 groups x [2 leaf + 2 spine],22,5,2.55,0,404,6.10443,1.56234,6.10443,NA,NA,6.77257,0,16.1907,1.19069,0,16.1907,0,OK
+tenancy,16,4,megafly,roce,scatter,1,4,tp2.dp2.pp1.ep1,rhd,delay,0,0.11,10160,4 groups x [2 leaf + 2 spine],22,5,2.55,0,56,6.41554,1.93501,6.41554,NA,NA,6.41554,0,17.2363,2.23635,0,17.2068,0,OK
+tenancy,16,4,megafly,roce,scatter,2,4,tp2.dp2.pp1.ep1,rhd,delay,0,0.35,15452,4 groups x [2 leaf + 2 spine],22,5,2.55,0,1292,13.5944,4.38045,13.5944,NA,NA,13.5944,0,17.3187,2.31871,0,41.4772,0,OK
+tenancy,16,4,megafly,roce,scatter,4,4,tp2.dp2.pp1.ep1,rhd,delay,0,0.63,26004,4 groups x [2 leaf + 2 spine],22,5,2.55,0,4775,21.8387,8.63844,21.8387,NA,NA,23.7384,0,17.3769,2.3769,0,50.5819,0,OK
+fullmdp,16,4,megafly,roce,compact,1,16,tp2.dp2.pp2.ep2,rhd,delay,0,0.54,28992,4 groups x [2 leaf + 2 spine],22,5,2.55,0,4328,34.4858,6.04595,34.4858,5.57235,5.74445,34.4858,0,17.4745,2.47449,0,51.6741,0,OK
+tenancy,16,4,jellyfish,roce,compact,1,4,tp2.dp2.pp1.ep1,rhd,xoff8,0,0.10,10056,random regular graph; degree budget 4,31,3,1.96667,0,278,6.10456,1.80849,6.10456,NA,NA,6.10456,0,10.1164,2.11638,0,18.2095,0,OK
+tenancy,16,4,jellyfish,roce,compact,2,4,tp2.dp2.pp1.ep1,rhd,xoff8,0,0.18,15496,random regular graph; degree budget 4,31,3,1.96667,0,1329,12.3291,4.20595,12.3291,NA,NA,12.3291,0,10.197,2.19696,0,20.2328,0,OK
+tenancy,16,4,jellyfish,roce,compact,4,4,tp2.dp2.pp1.ep1,rhd,xoff8,0,0.41,25988,random regular graph; degree budget 4,31,3,1.96667,0,2641,12.3291,4.20595,12.3291,NA,NA,12.3291,0,10.197,2.19696,0,20.2328,0,OK
+tenancy,16,4,jellyfish,roce,scatter,1,4,tp2.dp2.pp1.ep1,rhd,xoff8,0,0.06,10156,random regular graph; degree budget 4,31,3,1.96667,0,224,6.1024,2.13592,6.1024,NA,NA,6.1024,0,10.1164,2.11638,0,17.1979,0,OK
+tenancy,16,4,jellyfish,roce,scatter,2,4,tp2.dp2.pp1.ep1,rhd,xoff8,0,0.14,15476,random regular graph; degree budget 4,31,3,1.96667,0,558,6.1024,2.13592,6.1024,NA,NA,6.99601,0,10.2462,2.2462,0,17.1979,0,OK
+tenancy,16,4,jellyfish,roce,scatter,4,4,tp2.dp2.pp1.ep1,rhd,xoff8,0,0.38,26016,random regular graph; degree budget 4,31,3,1.96667,0,1690,6.1024,2.13592,6.1024,NA,NA,11.5935,0,10.2462,2.2462,0,17.1979,0,OK
+fullmdp,16,4,jellyfish,roce,compact,1,16,tp2.dp2.pp2.ep2,rhd,xoff8,0,0.64,29032,random regular graph; degree budget 4,31,3,1.96667,0,7821,21.4842,11.06,21.4842,8.96493,9.29134,21.4842,0,10.3357,2.33572,0,30.3491,0,OK
+tenancy,16,4,flatbutterfly,roce,compact,1,4,tp2.dp2.pp1.ep1,rhd,xoff8,0,0.04,10100,2-ary 4-flat; degree 4,32,4,2.13333,0,0,5.41843,0.67906,5.41843,NA,NA,5.41843,0,0,0,0,0,0,OK
+tenancy,16,4,flatbutterfly,roce,compact,2,4,tp2.dp2.pp1.ep1,rhd,xoff8,0,0.08,15240,2-ary 4-flat; degree 4,32,4,2.13333,0,0,5.41843,0.67906,5.41843,NA,NA,5.41843,0,0,0,0,0,0,OK
+tenancy,16,4,flatbutterfly,roce,compact,4,4,tp2.dp2.pp1.ep1,rhd,xoff8,0,0.18,25828,2-ary 4-flat; degree 4,32,4,2.13333,0,0,5.41843,0.67906,5.41843,NA,NA,5.41843,0,0,0,0,0,0,OK
+tenancy,16,4,flatbutterfly,roce,scatter,1,4,tp2.dp2.pp1.ep1,rhd,xoff8,0,0.07,10248,2-ary 4-flat; degree 4,32,4,2.13333,0,148,6.0955,1.91781,6.0955,NA,NA,6.0955,0,10.1164,2.11638,0,10.1164,0,OK
+tenancy,16,4,flatbutterfly,roce,scatter,2,4,tp2.dp2.pp1.ep1,rhd,xoff8,0,0.19,15280,2-ary 4-flat; degree 4,32,4,2.13333,0,524,6.0955,1.91781,6.0955,NA,NA,7.47433,0,10.1611,2.16115,0,17.2023,0,OK
+tenancy,16,4,flatbutterfly,roce,scatter,4,4,tp2.dp2.pp1.ep1,rhd,xoff8,0,0.47,26024,2-ary 4-flat; degree 4,32,4,2.13333,0,3350,6.99893,3.08187,6.99893,NA,NA,15.8587,0,10.188,2.188,0,29.3375,0,OK
+fullmdp,16,4,flatbutterfly,roce,compact,1,16,tp2.dp2.pp2.ep2,rhd,xoff8,0,0.22,28888,2-ary 4-flat; degree 4,32,4,2.13333,0,0,5.41843,0.67906,5.41843,0.678057,0.338042,5.41843,0,0,0,0,0,0,OK
+tenancy,16,4,dragonfly,roce,compact,1,4,tp2.dp2.pp1.ep1,rhd,xoff8,0,0.04,10116,4 groups x 4 nodes; 1 global port(s) per node,32,3,2.1,0,0,5.41843,0.67906,5.41843,NA,NA,5.41843,0,0,0,0,0,0,OK
+tenancy,16,4,dragonfly,roce,compact,2,4,tp2.dp2.pp1.ep1,rhd,xoff8,0,0.11,15408,4 groups x 4 nodes; 1 global port(s) per node,32,3,2.1,0,0,5.41843,0.67906,5.41843,NA,NA,5.41843,0,0,0,0,0,0,OK
+tenancy,16,4,dragonfly,roce,compact,4,4,tp2.dp2.pp1.ep1,rhd,xoff8,0,0.19,25932,4 groups x 4 nodes; 1 global port(s) per node,32,3,2.1,0,0,5.41843,0.67906,5.41843,NA,NA,5.41843,0,0,0,0,0,0,OK
+tenancy,16,4,dragonfly,roce,scatter,1,4,tp2.dp2.pp1.ep1,rhd,xoff8,0,0.13,10108,4 groups x 4 nodes; 1 global port(s) per node,32,3,2.1,0,2445,12.4166,4.08833,12.4166,NA,NA,12.4166,0,10.1773,2.17726,0,17.2023,0,OK
+tenancy,16,4,dragonfly,roce,scatter,2,4,tp2.dp2.pp1.ep1,rhd,xoff8,0,0.29,15348,4 groups x 4 nodes; 1 global port(s) per node,32,3,2.1,0,3526,13.3238,4.21401,13.3238,NA,NA,14.159,0,10.188,2.188,0,18.2095,0,OK
+tenancy,16,4,dragonfly,roce,scatter,4,4,tp2.dp2.pp1.ep1,rhd,xoff8,0,0.63,26036,4 groups x 4 nodes; 1 global port(s) per node,32,3,2.1,0,9842,13.8593,4.47332,13.8593,NA,NA,16.8627,0,10.402,2.40197,0,26.3071,0,OK
+fullmdp,16,4,dragonfly,roce,compact,1,16,tp2.dp2.pp2.ep2,rhd,xoff8,0,0.53,28948,4 groups x 4 nodes; 1 global port(s) per node,32,3,2.1,0,5731,22.6173,2.91419,22.6173,4.22021,3.26247,22.6173,0,10.1925,2.19248,0,30.3491,0,OK
+tenancy,16,4,megafly,roce,compact,1,4,tp2.dp2.pp1.ep1,rhd,xoff8,0,0.05,10096,4 groups x [2 leaf + 2 spine],22,5,2.55,0,232,6.89149,2.37749,6.89149,NA,NA,6.89149,0,10.1298,2.12981,0,10.1298,0,OK
+tenancy,16,4,megafly,roce,compact,2,4,tp2.dp2.pp1.ep1,rhd,xoff8,0,0.10,15280,4 groups x [2 leaf + 2 spine],22,5,2.55,0,416,6.89149,2.37749,6.89149,NA,NA,6.89149,0,10.1298,2.12981,0,10.1298,0,OK
+tenancy,16,4,megafly,roce,compact,4,4,tp2.dp2.pp1.ep1,rhd,xoff8,0,0.21,25988,4 groups x [2 leaf + 2 spine],22,5,2.55,0,832,6.89149,2.37749,6.89149,NA,NA,6.89149,0,10.1298,2.12981,0,10.1298,0,OK
+tenancy,16,4,megafly,roce,scatter,1,4,tp2.dp2.pp1.ep1,rhd,xoff8,0,0.11,10092,4 groups x [2 leaf + 2 spine],22,5,2.55,0,181,6.99843,2.4166,6.99843,NA,NA,6.99843,0,10.1656,2.16562,0,17.1979,0,OK
+tenancy,16,4,megafly,roce,scatter,2,4,tp2.dp2.pp1.ep1,rhd,xoff8,0,0.36,15364,4 groups x [2 leaf + 2 spine],22,5,2.55,0,4960,13.7284,5.03365,13.7284,NA,NA,16.6368,0,10.2954,2.29543,0,29.3375,0,OK
+tenancy,16,4,megafly,roce,scatter,4,4,tp2.dp2.pp1.ep1,rhd,xoff8,0,0.67,25928,4 groups x [2 leaf + 2 spine],22,5,2.55,0,9323,23.6358,12.1625,23.6358,NA,NA,25.5606,0,10.291,2.29096,0,30.3491,0,OK
+fullmdp,16,4,megafly,roce,compact,1,16,tp2.dp2.pp2.ep2,rhd,xoff8,0,0.56,28920,4 groups x [2 leaf + 2 spine],22,5,2.55,0,8442,34.9927,9.44058,34.9927,8.6589,7.98507,34.9927,0,10.393,2.39302,0,30.4611,0,OK
+tenancy,16,4,jellyfish,roce,compact,1,4,tp2.dp2.pp1.ep1,rhd,xoff32,0,0.09,10056,random regular graph; degree budget 4,31,3,1.96667,0,0,6.10239,1.42205,6.10239,NA,NA,6.10239,0,16.1952,0,0,24.2838,0,OK
+tenancy,16,4,jellyfish,roce,compact,2,4,tp2.dp2.pp1.ep1,rhd,xoff32,0,0.16,15452,random regular graph; degree budget 4,31,3,1.96667,0,4,12.1902,2.5079,12.1902,NA,NA,12.1902,0,32.3769,0.376902,0,44.5121,0,OK
+tenancy,16,4,jellyfish,roce,compact,4,4,tp2.dp2.pp1.ep1,rhd,xoff32,0,0.39,26016,random regular graph; degree budget 4,31,3,1.96667,0,4,12.1902,2.5079,12.1902,NA,NA,12.1902,0,32.3769,0.376902,0,44.5121,0,OK
+tenancy,16,4,jellyfish,roce,scatter,1,4,tp2.dp2.pp1.ep1,rhd,xoff32,0,0.06,10268,random regular graph; degree budget 4,31,3,1.96667,0,0,6.09895,2.05458,6.09895,NA,NA,6.09895,0,15.1791,0,0,27.3232,0,OK
+tenancy,16,4,jellyfish,roce,scatter,2,4,tp2.dp2.pp1.ep1,rhd,xoff32,0,0.13,15460,random regular graph; degree budget 4,31,3,1.96667,0,0,6.09895,2.05458,6.09895,NA,NA,6.09895,0,16.1862,0,0,27.3232,0,OK
+tenancy,16,4,jellyfish,roce,scatter,4,4,tp2.dp2.pp1.ep1,rhd,xoff32,0,0.37,26088,random regular graph; degree budget 4,31,3,1.96667,0,0,6.09895,2.05458,6.09895,NA,NA,11.5132,0,30.3536,0,0,30.3536,0,OK
+fullmdp,16,4,jellyfish,roce,compact,1,16,tp2.dp2.pp2.ep2,rhd,xoff32,0,0.60,28996,random regular graph; degree budget 4,31,3,1.96667,0,648,19.3023,6.39744,19.3023,5.78843,3.47106,19.3023,0,34.4727,2.47269,0,66.7726,0,OK
+tenancy,16,4,flatbutterfly,roce,compact,1,4,tp2.dp2.pp1.ep1,rhd,xoff32,0,0.04,10208,2-ary 4-flat; degree 4,32,4,2.13333,0,0,5.41843,0.67906,5.41843,NA,NA,5.41843,0,0,0,0,0,0,OK
+tenancy,16,4,flatbutterfly,roce,compact,2,4,tp2.dp2.pp1.ep1,rhd,xoff32,0,0.08,15492,2-ary 4-flat; degree 4,32,4,2.13333,0,0,5.41843,0.67906,5.41843,NA,NA,5.41843,0,0,0,0,0,0,OK
+tenancy,16,4,flatbutterfly,roce,compact,4,4,tp2.dp2.pp1.ep1,rhd,xoff32,0,0.19,25856,2-ary 4-flat; degree 4,32,4,2.13333,0,0,5.41843,0.67906,5.41843,NA,NA,5.41843,0,0,0,0,0,0,OK
+tenancy,16,4,flatbutterfly,roce,scatter,1,4,tp2.dp2.pp1.ep1,rhd,xoff32,0,0.06,10100,2-ary 4-flat; degree 4,32,4,2.13333,0,0,6.0955,1.51393,6.0955,NA,NA,6.0955,0,15.188,0,0,15.188,0,OK
+tenancy,16,4,flatbutterfly,roce,scatter,2,4,tp2.dp2.pp1.ep1,rhd,xoff32,0,0.19,15452,2-ary 4-flat; degree 4,32,4,2.13333,0,2,6.0955,1.89916,6.0955,NA,NA,6.78169,0,32.3769,0.376902,0,43.5094,0,OK
+tenancy,16,4,flatbutterfly,roce,scatter,4,4,tp2.dp2.pp1.ep1,rhd,xoff32,0,0.46,26152,2-ary 4-flat; degree 4,32,4,2.13333,0,194,7.50807,3.17767,7.50807,NA,NA,13.3016,0,34.3957,2.3957,0,61.7144,0,OK
+fullmdp,16,4,flatbutterfly,roce,compact,1,16,tp2.dp2.pp2.ep2,rhd,xoff32,0,0.22,29000,2-ary 4-flat; degree 4,32,4,2.13333,0,0,5.41843,0.67906,5.41843,0.678057,0.338042,5.41843,0,0,0,0,0,0,OK
+tenancy,16,4,dragonfly,roce,compact,1,4,tp2.dp2.pp1.ep1,rhd,xoff32,0,0.04,10116,4 groups x 4 nodes; 1 global port(s) per node,32,3,2.1,0,0,5.41843,0.67906,5.41843,NA,NA,5.41843,0,0,0,0,0,0,OK
+tenancy,16,4,dragonfly,roce,compact,2,4,tp2.dp2.pp1.ep1,rhd,xoff32,0,0.08,15492,4 groups x 4 nodes; 1 global port(s) per node,32,3,2.1,0,0,5.41843,0.67906,5.41843,NA,NA,5.41843,0,0,0,0,0,0,OK
+tenancy,16,4,dragonfly,roce,compact,4,4,tp2.dp2.pp1.ep1,rhd,xoff32,0,0.19,25960,4 groups x 4 nodes; 1 global port(s) per node,32,3,2.1,0,0,5.41843,0.67906,5.41843,NA,NA,5.41843,0,0,0,0,0,0,OK
+tenancy,16,4,dragonfly,roce,scatter,1,4,tp2.dp2.pp1.ep1,rhd,xoff32,0,0.13,10132,4 groups x 4 nodes; 1 global port(s) per node,32,3,2.1,0,73,12.1935,2.78081,12.1935,NA,NA,12.1935,0,32.3769,0.376902,0,60.7028,0,OK
+tenancy,16,4,dragonfly,roce,scatter,2,4,tp2.dp2.pp1.ep1,rhd,xoff32,0,0.26,15400,4 groups x 4 nodes; 1 global port(s) per node,32,3,2.1,0,40,12.594,2.90381,12.594,NA,NA,12.594,0,32.3814,0.381379,0,53.6213,0,OK
+tenancy,16,4,dragonfly,roce,scatter,4,4,tp2.dp2.pp1.ep1,rhd,xoff32,0,0.57,25988,4 groups x 4 nodes; 1 global port(s) per node,32,3,2.1,0,41,12.8673,3.70735,12.8673,NA,NA,12.8673,0,32.3769,0.376902,0,73.8585,0,OK
+fullmdp,16,4,dragonfly,roce,compact,1,16,tp2.dp2.pp2.ep2,rhd,xoff32,0,0.51,29084,4 groups x 4 nodes; 1 global port(s) per node,32,3,2.1,0,0,21.6705,1.25795,21.6705,1.3428,1.6727,21.6705,0,31.3653,0,0,48.5676,0,OK
+tenancy,16,4,megafly,roce,compact,1,4,tp2.dp2.pp1.ep1,rhd,xoff32,0,0.05,10280,4 groups x [2 leaf + 2 spine],22,5,2.55,0,0,6.0955,1.46185,6.0955,NA,NA,6.0955,0,16.1907,0,0,16.1907,0,OK
+tenancy,16,4,megafly,roce,compact,2,4,tp2.dp2.pp1.ep1,rhd,xoff32,0,0.10,15516,4 groups x [2 leaf + 2 spine],22,5,2.55,0,0,6.0955,1.46185,6.0955,NA,NA,6.77257,0,16.1907,0,0,16.1907,0,OK
+tenancy,16,4,megafly,roce,compact,4,4,tp2.dp2.pp1.ep1,rhd,xoff32,0,0.20,25896,4 groups x [2 leaf + 2 spine],22,5,2.55,0,0,6.0955,1.46185,6.0955,NA,NA,6.77257,0,16.1907,0,0,16.1907,0,OK
+tenancy,16,4,megafly,roce,scatter,1,4,tp2.dp2.pp1.ep1,rhd,xoff32,0,0.11,10144,4 groups x [2 leaf + 2 spine],22,5,2.55,0,0,6.17874,1.51544,6.17874,NA,NA,6.17874,0,24.2883,0,0,18.214,0,OK
+tenancy,16,4,megafly,roce,scatter,2,4,tp2.dp2.pp1.ep1,rhd,xoff32,0,0.34,15516,4 groups x [2 leaf + 2 spine],22,5,2.55,0,16,11.7728,3.79175,11.7728,NA,NA,12.2807,0,32.3814,0.381379,0,54.6329,0,OK
+tenancy,16,4,megafly,roce,scatter,4,4,tp2.dp2.pp1.ep1,rhd,xoff32,0,0.62,25984,4 groups x [2 leaf + 2 spine],22,5,2.55,0,661,23.3222,5.97384,23.3222,NA,NA,23.7192,0,34.4808,2.48075,0,78.9078,0,OK
+fullmdp,16,4,megafly,roce,compact,1,16,tp2.dp2.pp2.ep2,rhd,xoff32,0,0.55,29060,4 groups x [2 leaf + 2 spine],22,5,2.55,0,2968,33.8539,2.97815,33.8539,2.91829,3.95986,33.8539,0,34.6723,2.67234,0,98.1289,0,OK

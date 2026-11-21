@@ -75,6 +75,12 @@ void print_path(std::ofstream &paths, const Route *rt)
     paths << endl;
 }
 
+#ifdef USE_DCTCP
+#define FABRIC_QUEUE ECN
+#else
+#define FABRIC_QUEUE LOSSLESS_INPUT
+#endif
+
 int main(int argc, char **argv)
 {
 
@@ -232,7 +238,15 @@ int main(int argc, char **argv)
 
     TcpRtxTimerScanner tcpRtxScanner(timeFromMs(1), eventlist);
 
-    FlatTopology *top = new FlatTopology(no_of_nodes, flowfile, queuesize, nullptr /* &logfile */, &eventlist, ff, ECN);
+
+    {
+        uint64_t rtt_ps = 12ULL * RTT * 1000ULL;
+        uint64_t bdp_bytes = (uint64_t)SPEED * 1000000ULL / 8ULL * rtt_ps / 1000000000000ULL;
+        uint32_t credits = (uint32_t)(2 * bdp_bytes / 9000);
+        FFApplication::roce_initial_credits = credits < 8 ? 8 : credits;
+    }
+
+    FlatTopology *top = new FlatTopology(no_of_nodes, flowfile, queuesize, nullptr /* &logfile */, &eventlist, ff, FABRIC_QUEUE);
 
     // FFApplication app = FFApplication(top, ssthresh, sinkLogger, traffic_logger, tcpRtxScanner, eventlist);
     FFApplication app = FFApplication(top, ssthresh, &fct_util_out, tcpRtxScanner, eventlist, ar_strategy);

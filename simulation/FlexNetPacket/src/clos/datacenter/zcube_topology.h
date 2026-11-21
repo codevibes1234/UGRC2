@@ -30,10 +30,9 @@
 typedef enum {RANDOM, ECN, COMPOSITE, CTRL_PRIO, LOSSLESS, LOSSLESS_INPUT, LOSSLESS_INPUT_ECN} queue_type;
 #endif
 
-// ZCUBE_FC_PATCH — ForestColl transmission record
-struct ZCubeFCTransmission { int sender, receiver, chunks; };
+#include "fc_schedule.h"
 
-class ZCubeTopology: public Topology{
+class ZCubeTopology: public Topology, public FCScheduleSource, public ExplicitRouteTopology{
  public:
 
   vector <Switch*> switches_l0; // lower pod
@@ -67,6 +66,7 @@ class ZCubeTopology: public Topology{
 
   void init_network();
   virtual vector<const Route*>* get_paths(int src, int dest);
+  Route* route_for_switch_path(int src, int dst, const std::vector<int> &sw) override;
 
   Queue* alloc_src_queue(QueueLogger* q);
   Queue* alloc_src_queue(QueueLogger* q, uint64_t speed); 

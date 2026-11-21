@@ -39,7 +39,7 @@ class PacketFlow : public Logged {
 };
 
 
-typedef enum {IP, TCP, TCPACK, TCPNACK, NDP, NDPACK, NDPNACK, NDPPULL, NDPLITE, NDPLITEACK, NDPLITEPULL, NDPLITERTS, ETH_PAUSE} packet_type;
+typedef enum {IP, TCP, TCPACK, TCPNACK, NDP, NDPACK, NDPNACK, NDPPULL, NDPLITE, NDPLITEACK, NDPLITEPULL, NDPLITERTS, ETH_PAUSE, ROCECREDIT} packet_type;
 
 class VirtualQueue {
  public:

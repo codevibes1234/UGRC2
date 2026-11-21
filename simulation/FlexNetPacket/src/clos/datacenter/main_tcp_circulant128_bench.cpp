@@ -98,7 +98,7 @@ int main(int argc, char **argv)
 
     // Build Circulant128 topology
     Circulant128Topology *top = new Circulant128Topology(
-        CIRCULANT_NODES, queuesize, nullptr, &eventlist, ff, ECN
+        CIRCULANT_NODES, queuesize, nullptr, &eventlist, ff, LOSSLESS
     );
     //top->init_network(); // speed is now internal to the topology based on your cpp file
 

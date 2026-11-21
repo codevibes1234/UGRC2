@@ -20,11 +20,13 @@ class ECNQueue : public Queue {
 		  QueueLogger* logger, mem_b drop);
     void receivePacket(Packet & pkt);
     void completeService();
-    void set_dyn_sch(DynFlatScheduler * ds);
+
+    virtual bool pfc_ready();
+    virtual bool honours_circuit_gate() { return true; }
+
 //  private:
     mem_b _K;
     int _state_send;
-    DynFlatScheduler * dyn_sch = nullptr;
 };
 
 #endif

@@ -12,6 +12,8 @@
 #include "network.h"
 #include "loggertypes.h"
 
+class DynFlatScheduler;
+
 class Queue : public EventSource, public PacketSink
 {
 public:
@@ -53,6 +55,19 @@ public:
         _logger = logger;
     }
     virtual const string &nodename() { return _nodename; }
+
+    void set_dyn_sch(DynFlatScheduler *ds) { dyn_sch = ds; }
+    void set_circuit_up(bool up);
+    bool circuit_up() const { return _circuit_up; }
+
+    virtual bool pfc_ready() { return true; }
+
+    virtual bool honours_circuit_gate() { return false; }
+
+    void notify_dyn_sch_drained();
+
+    DynFlatScheduler *dyn_sch = nullptr;
+    bool _circuit_up = true;
 
     //  protected:
     // Housekeeping
@@ -98,6 +113,7 @@ class PriorityQueue : public Queue {
     list <Packet*> _queue[Q_NONE];
     mem_b _queuesize[Q_NONE];
     queue_priority_t _servicing;
+    bool _sending;
     int _state_send;
 };
 

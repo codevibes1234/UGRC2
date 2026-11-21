@@ -8,9 +8,15 @@
 #include "randomqueue.h"
 #include "compositequeue.h"
 #include "compositeprioqueue.h"
+#include "prioqueue.h"
+#include "ecnqueue.h"
+#include "queue_lossless.h"
+#include "queue_lossless_input.h"
+#include "queue_lossless_output.h"
 #include "main.h"
 
 extern uint32_t RTT;
+extern uint32_t SPEED;
 
 string ntoa(double n);
 string itoa(uint64_t n);
@@ -24,6 +30,18 @@ void push_front(Route* rt, Queue* q){
 BCubeTopology::BCubeTopology(int no_of_nodes, int ports_per_switch, int no_of_levels, 
 			     Logfile* lg, EventList* ev,FirstFit * fit, queue_type qt){
     set_params(no_of_nodes, ports_per_switch, no_of_levels);
+    _queuesize = memFromPkt(SWITCH_BUFFER);
+    logfile = lg;
+    eventlist = ev;
+    ff = fit;
+    this->qt = qt;
+    init_network();
+}
+
+BCubeTopology::BCubeTopology(int no_of_nodes, int ports_per_switch, int no_of_levels, mem_b queuesize,
+			     Logfile* lg, EventList* ev,FirstFit * fit, queue_type qt){
+    set_params(no_of_nodes, ports_per_switch, no_of_levels);
+    _queuesize = queuesize;
     logfile = lg;
     eventlist = ev;
     ff = fit;
@@ -41,6 +59,10 @@ BCubeTopology::set_params(int no_of_nodes, int ports_per_switch, int no_of_level
     _NUM_PORTS = ports_per_switch;
     _NUM_SRV = no_of_nodes;
     _NUM_SW =(_K + 1) * _NUM_SRV / _NUM_PORTS;
+    _linkspeed = (uint64_t)SPEED / (uint64_t)(_K + 1);
+    cout << "Building BCube(" << _NUM_PORTS << "," << _K << ") with " << _NUM_SRV
+	 << " servers, " << _NUM_SW << " switches, " << (_K+1)
+	 << " NIC ports per server at " << _linkspeed << " Mbps each" << endl;
 
     //Pipe * pipes_srv_switch[NUM_SRV][NUM_SW][K+1];
     //Pipe * pipes_switch_srv[NUM_SW][NUM_SRV][K+1];
@@ -61,11 +83,11 @@ BCubeTopology::set_params(int no_of_nodes, int ports_per_switch, int no_of_level
 #define ADDRESS(srv,level) (level==0?srv%_NUM_PORTS:srv/(int)pow(_NUM_PORTS,level))
 
 Queue* BCubeTopology::alloc_src_queue(QueueLogger* queueLogger){
-    return  new PriorityQueue(speedFromMbps((uint64_t)HOST_NIC), memFromPkt(FEEDER_BUFFER), *eventlist, queueLogger);
+    return  new PriorityQueue(speedFromMbps(_linkspeed), memFromPkt(FEEDER_BUFFER), *eventlist, queueLogger);
 }
 
 Queue* BCubeTopology::alloc_queue(QueueLogger* queueLogger){
-    return alloc_queue(queueLogger, HOST_NIC);
+    return alloc_queue(queueLogger, _linkspeed);
 }
 
 Queue* BCubeTopology::alloc_queue(QueueLogger* queueLogger, uint64_t speed){
@@ -76,12 +98,22 @@ Queue* BCubeTopology::alloc_queue(QueueLogger* queueLogger, uint64_t speed){
     } else if (qt==COMPOSITE) {
 	return new CompositeQueue(speedFromMbps(speed), memFromPkt(8), 
 				  *eventlist, queueLogger);
-    } else if (qt==COMPOSITE_PRIO) {
-	return new CompositePrioQueue(speedFromMbps(speed), memFromPkt(8), 
-				      *eventlist, queueLogger);
-    } 
+    } else if (qt==CTRL_PRIO) {
+	return new CtrlPrioQueue(speedFromMbps(speed), _queuesize, *eventlist, queueLogger);
+    } else if (qt==ECN) {
+	return new ECNQueue(speedFromMbps(speed), _queuesize, *eventlist, queueLogger, memFromPkt(50));
+    } else if (qt==LOSSLESS_INPUT) {
+	return new LosslessOutputQueue(speedFromMbps(speed), memFromPkt(200), *eventlist, queueLogger);
+    } else if (qt==LOSSLESS_INPUT_ECN) {
+	return new LosslessOutputQueue(speedFromMbps(speed), memFromPkt(10000), *eventlist, queueLogger, 1, memFromPkt(16));
+    }
     
     assert(0);
+}
+
+void BCubeTopology::add_lossless_hop(Route* rt, Queue* q){
+    if (qt == LOSSLESS_INPUT || qt == LOSSLESS_INPUT_ECN)
+	rt->push_back(q->getRemoteEndpoint());
 }
 
 int BCubeTopology::switch_from_srv(int srv, int level){
@@ -177,8 +209,7 @@ void BCubeTopology::init_network(){
 		queues_switch_srv(j,i,k) = NULL;
 	    }
 
-	    queueLogger = new QueueLoggerSampling(timeFromMs(1000), *eventlist);
-	    logfile->addLogger(*queueLogger);
+	    queueLogger = NULL;
 	    prio_queues_srv(i,k) = alloc_src_queue(queueLogger);
 	    prio_queues_srv(i,k)->setName("PRIO_SRV_" + ntoa(i) + "(" + ntoa(k) + ")");
 	}
@@ -197,29 +228,23 @@ void BCubeTopology::init_network(){
 
 	    //index k of the address
       
-	    queueLogger = new QueueLoggerSampling(timeFromMs(1000), *eventlist);
-	    //queueLogger = NULL;
-	    logfile->addLogger(*queueLogger);
+	    queueLogger = NULL;
       
-	    queues_srv_switch(i,j,k) = alloc_queue(queueLogger);
+	    queues_srv_switch(i,j,k) = alloc_src_queue(queueLogger);
 	    queues_srv_switch(i,j,k)->setName("SRV_" + ntoa(i) + "(level_" + ntoa(k)+"))_SW_" +ntoa(j));
-	    logfile->writeName(*(queues_srv_switch(i,j,k)));
       
-	    pipes_srv_switch(i,j,k) = new Pipe(timeFromUs(RTT), *eventlist);
+	    pipes_srv_switch(i,j,k) = new Pipe(timeFromNs(RTT), *eventlist);
 	    pipes_srv_switch(i,j,k)->setName("Pipe-SRV_" + ntoa(i) + "(level_" + ntoa(k)+")-SW_" +ntoa(j));
-	    logfile->writeName(*(pipes_srv_switch(i,j,k)));
 
-	    queueLogger = new QueueLoggerSampling(timeFromMs(1000), *eventlist);
-	    //queueLogger = NULL;
-	    logfile->addLogger(*queueLogger);
-      
 	    queues_switch_srv(j,i,k) = alloc_queue(queueLogger);
 	    queues_switch_srv(j,i,k)->setName("SW_" + ntoa(j) + "(level_" + ntoa(k)+")-SRV_" +ntoa(i));
-	    logfile->writeName(*(queues_switch_srv(j,i,k)));
       
-	    pipes_switch_srv(j,i,k) = new Pipe(timeFromUs(RTT), *eventlist);
+	    pipes_switch_srv(j,i,k) = new Pipe(timeFromNs(RTT), *eventlist);
 	    pipes_switch_srv(j,i,k)->setName("Pipe-SW_" + ntoa(j) + "(level_" + ntoa(k)+")-SRV_" +ntoa(i));
-	    logfile->writeName(*(pipes_switch_srv(j,i,k)));
+
+	    if (qt == LOSSLESS_INPUT || qt == LOSSLESS_INPUT_ECN){
+		new LosslessInputQueue(*eventlist, queues_srv_switch(i,j,k));
+	    }
 	}
     }
 }
@@ -276,6 +301,7 @@ Route* BCubeTopology::bcube_routing(int src,int dest, int* permutation, int* nic
 
 	    routeout->push_back(queues_srv_switch(crt,SWITCH_ID(crt,level),level));
 	    routeout->push_back(pipes_srv_switch(crt,SWITCH_ID(crt,level),level));
+	    add_lossless_hop(routeout, queues_srv_switch(crt,SWITCH_ID(crt,level),level));
 
 	    //now correct digit
 	    crt_addr[level] = addresses(dest,level);

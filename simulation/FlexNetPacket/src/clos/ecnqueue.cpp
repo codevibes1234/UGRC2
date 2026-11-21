@@ -14,6 +14,11 @@ ECNQueue::ECNQueue(linkspeed_bps bitrate, mem_b maxsize,
 	_state_send = LosslessQueue::READY;
 }
 
+bool ECNQueue::pfc_ready()
+{
+	return _state_send == LosslessQueue::READY;
+}
+
 void ECNQueue::receivePacket(Packet &pkt)
 {
 	//is this a PAUSE packet?
@@ -40,7 +45,7 @@ void ECNQueue::receivePacket(Packet &pkt)
 			//cout << timeAsMs(eventlist().now()) << " " << _name << " GO "<<endl;
 
 			//start transmission if we have packets to send!
-			if (queuesize() > 0)
+			if (queuesize() > 0 && _circuit_up)
 				beginService();
 		}
 
@@ -71,16 +76,12 @@ void ECNQueue::receivePacket(Packet &pkt)
 	if (_logger)
 		_logger->logQueue(*this, QueueLogger::PKT_ENQUEUE, pkt);
 
-	if (queueWasEmpty && _state_send == LosslessQueue::READY)
+	if (queueWasEmpty && _state_send == LosslessQueue::READY && _circuit_up)
 	{
 		/* schedule the dequeue event */
 		assert(_enqueued.size() == 1);
 		beginService();
 	}
-}
-void ECNQueue::set_dyn_sch(DynFlatScheduler * ds)
-{
-	dyn_sch = ds;
 }
 
 void ECNQueue::completeService()
@@ -105,16 +106,9 @@ void ECNQueue::completeService()
 	/* tell the packet to move on to the next pipe */
 	pkt->sendOn();
 
-	if (dyn_sch && dyn_sch->status == DynFlatScheduler::DynNetworkStatus::DYN_NET_RECONF) {
-		// std::cerr << this << std::endl;
-	 	// pkt->_nexthop = pkt->_route->size() - 1;
-	  // pkt->sendOn();
-		dyn_sch->do_reconf();
-	}
-	else {
-	}
+	notify_dyn_sch_drained();
 
-	if (!_enqueued.empty() && _state_send != LosslessQueue::PAUSED)
+	if (!_enqueued.empty() && _state_send != LosslessQueue::PAUSED && _circuit_up)
 	{
 		/* schedule the next dequeue event */
 		beginService();

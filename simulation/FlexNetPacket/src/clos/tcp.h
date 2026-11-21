@@ -99,6 +99,7 @@ class TcpSrc : public PacketSink, public EventSource {
 
     //round trip time estimate, needed for coupled congestion control
     simtime_picosec _rtt, _rto, _mdev,_base_rtt;
+    static simtime_picosec min_rto;
     int _cap;
     simtime_picosec _rtt_avg, _rtt_cum;
     //simtime_picosec when[MAX_SENT];

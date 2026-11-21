@@ -15,12 +15,12 @@
 
 class EthPausePacket : public Packet {
  public:
-    //do not implement PFC; one priority class alone
 
-    inline static EthPausePacket* newpkt(unsigned int sleep){
+    inline static EthPausePacket* newpkt(unsigned int sleep, unsigned int pfc_class = 0){
 	EthPausePacket* p = _packetdb.allocPacket();
 	p->_type = ETH_PAUSE;
 	p->_sleepTime = sleep;
+	p->_pfcClass = pfc_class;
 	p->_size = PAUSESIZE;
 	return p;
     }
@@ -29,9 +29,11 @@ class EthPausePacket : public Packet {
     virtual ~EthPausePacket(){}
 
     inline unsigned int sleepTime() const {return _sleepTime;}
+    inline unsigned int pfcClass() const {return _pfcClass;}
 
  protected:
     unsigned int _sleepTime;
+    unsigned int _pfcClass;
     static PacketDB<EthPausePacket> _packetdb;
 };
 

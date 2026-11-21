@@ -13,6 +13,8 @@
 DemandRecorder *TcpSrc::demand_recorder = nullptr;
 bool TcpSrc::tcp_flow_paused = false;
 
+simtime_picosec TcpSrc::min_rto = 10000000000ULL;
+
 TcpSrc::TcpSrc(TcpLogger *logger, TrafficLogger *pktlogger, ofstream *_fstream_out,
 							 EventList &eventlist, int flow_src, int flow_dst,
 							 void (*acf)(void *), void *acd)
@@ -271,8 +273,8 @@ void TcpSrc::receivePacket(Packet &pkt)
 	}
 	//  cout << "Base "<<timeAsMs(_base_rtt)<< " RTT " << timeAsMs(_rtt)<< " Queued " << queued_packets << endl;
 
-	if (_rto < timeFromMs(10))
-    _rto = timeFromMs(10);
+	if (_rto < min_rto)
+    _rto = min_rto;
 
 	// debug:
 	// cerr << this << " hss " << _highest_sent << " seqno = " << seqno << ", _flow_size = " <<  _flow_size << ", _mss = " << _mss << ", packet size = " << pkt.size() << " cwnd " << _cwnd << " ssthresh " << _ssthresh << " time " << eventlist().now() << endl;
